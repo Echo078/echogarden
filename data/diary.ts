@@ -1,3 +1,5 @@
+import type { SpecimenType } from "@/components/specimen-illustrations";
+
 export interface DiaryEntry {
   id: string;
   date: string;
@@ -5,6 +7,7 @@ export interface DiaryEntry {
   note: string;
   mood: string[];
   audioFile: string;
+  specimen: SpecimenType;
 }
 
 export const diaryEntries: DiaryEntry[] = [
@@ -15,6 +18,7 @@ export const diaryEntries: DiaryEntry[] = [
     note: "A gentle improvisation captured while watching the sunrise through the kitchen window. The birds were singing outside.",
     mood: ["peaceful", "hopeful"],
     audioFile: "/audio/morning-light.mp3",
+    specimen: "leaf",
   },
   {
     id: "2",
@@ -23,6 +27,7 @@ export const diaryEntries: DiaryEntry[] = [
     note: "Soft piano notes inspired by the quiet that comes after a spring shower. Everything felt fresh and clean.",
     mood: ["reflective", "calm"],
     audioFile: "/audio/after-rain.mp3",
+    specimen: "petal",
   },
   {
     id: "3",
@@ -31,6 +36,7 @@ export const diaryEntries: DiaryEntry[] = [
     note: "A slow, meandering piece recorded as the day came to a close. Letting thoughts wander freely.",
     mood: ["dreamy", "nostalgic"],
     audioFile: "/audio/evening-drift.mp3",
+    specimen: "wind",
   },
   {
     id: "4",
@@ -39,6 +45,7 @@ export const diaryEntries: DiaryEntry[] = [
     note: "Inspired by a walk through the botanical garden. Trying to capture the feeling of being surrounded by growing things.",
     mood: ["grateful", "gentle"],
     audioFile: "/audio/garden-whispers.mp3",
+    specimen: "fern",
   },
   {
     id: "5",
@@ -47,6 +54,7 @@ export const diaryEntries: DiaryEntry[] = [
     note: "A simple morning melody, nothing complicated. Just the quiet joy of a warm cup and a clear mind.",
     mood: ["content", "simple"],
     audioFile: "/audio/first-coffee.mp3",
+    specimen: "seed",
   },
 ];
 
