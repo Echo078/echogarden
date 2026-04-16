@@ -2,45 +2,12 @@
 
 import { useState, useRef } from "react";
 import type { DiaryEntry } from "@/data/diary";
+import { SpecimenIllustration } from "./specimen-illustrations";
 
 interface SpecimenCardProps {
   entry: DiaryEntry;
   specimenNumber: number;
 }
-
-// Organic silhouette shapes as SVG clip paths - softly irregular, natural forms
-const specimenShapes: Record<string, { clipPath: string; aspectRatio: string; viewBox: string; path: string }> = {
-  leaf: {
-    clipPath: "url(#leaf-clip)",
-    aspectRatio: "3/4",
-    viewBox: "0 0 120 160",
-    path: "M60 4 C25 20, 8 60, 10 100 C12 130, 35 156, 60 156 C85 156, 108 130, 110 100 C112 60, 95 20, 60 4 Z",
-  },
-  petal: {
-    clipPath: "url(#petal-clip)",
-    aspectRatio: "4/5",
-    viewBox: "0 0 128 160",
-    path: "M64 6 C30 6, 6 45, 6 85 C6 125, 28 154, 64 154 C100 154, 122 125, 122 85 C122 45, 98 6, 64 6 Z",
-  },
-  wind: {
-    clipPath: "url(#wind-clip)",
-    aspectRatio: "5/4",
-    viewBox: "0 0 160 128",
-    path: "M12 64 C12 35, 40 8, 80 8 C120 8, 148 35, 148 64 C148 93, 120 120, 80 120 C40 120, 12 93, 12 64 Z",
-  },
-  fern: {
-    clipPath: "url(#fern-clip)",
-    aspectRatio: "2/3",
-    viewBox: "0 0 106 160",
-    path: "M53 4 C30 4, 10 40, 8 80 C6 120, 25 156, 53 156 C81 156, 100 120, 98 80 C96 40, 76 4, 53 4 Z",
-  },
-  seed: {
-    clipPath: "url(#seed-clip)",
-    aspectRatio: "3/4",
-    viewBox: "0 0 120 160",
-    path: "M60 8 C35 8, 16 50, 14 90 C12 130, 32 152, 60 152 C88 152, 108 130, 106 90 C104 50, 85 8, 60 8 Z",
-  },
-};
 
 // Background colors for each specimen type - muted botanical tones
 const specimenColors: Record<string, { bg: string; accent: string }> = {
@@ -82,68 +49,104 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
 
   const formattedNumber = String(specimenNumber).padStart(3, "0");
   const day = new Date(entry.date).getDate();
-  const shape = specimenShapes[entry.specimen] || specimenShapes.leaf;
   const colors = specimenColors[entry.specimen] || specimenColors.leaf;
-  const clipId = `${entry.specimen}-clip-${entry.id}`;
 
   return (
-    <article 
-      className="group relative"
-      style={{ aspectRatio: shape.aspectRatio }}
-    >
-      {/* SVG clip path definition */}
-      <svg className="absolute h-0 w-0" aria-hidden="true">
-        <defs>
-          <clipPath id={clipId} clipPathUnits="objectBoundingBox">
-            <path 
-              d={shape.path} 
-              transform={`scale(${1/parseFloat(shape.viewBox.split(' ')[2])}, ${1/parseFloat(shape.viewBox.split(' ')[3])})`}
-            />
-          </clipPath>
-        </defs>
-      </svg>
-
-      {/* Main specimen container with organic shape */}
+    <article className="group relative h-full">
+      {/* Clean rectangular card with soft rounded corners */}
       <div 
-        className={`relative flex h-full flex-col overflow-hidden ${colors.bg} transition-all duration-300 group-hover:shadow-lg`}
-        style={{ clipPath: `url(#${clipId})` }}
+        className={`relative flex h-full flex-col overflow-hidden rounded-lg border border-foreground/[0.08] ${colors.bg} transition-all duration-500 hover:border-foreground/[0.12] hover:shadow-sm`}
       >
-        {/* Subtle inner border effect */}
-        <div 
-          className="pointer-events-none absolute inset-0 border border-foreground/[0.06]"
-          style={{ clipPath: `url(#${clipId})` }}
-        />
+        {/* Illustration area with breathing animation when playing */}
+        <div className="relative flex aspect-square shrink-0 items-center justify-center overflow-hidden">
+          {/* Soft breathing glow behind illustration - only when playing */}
+          <div 
+            className={`absolute inset-0 transition-opacity duration-700 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <div 
+              className={`absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full ${colors.accent.replace('text-', 'bg-')} blur-3xl`}
+              style={{
+                animation: isPlaying ? 'breathe 4s ease-in-out infinite' : 'none',
+              }}
+            />
+          </div>
 
-        {/* Header area with specimen number and day */}
-        <div className="relative flex shrink-0 items-start justify-between px-4 pt-4 md:px-5 md:pt-5">
-          <span className={`font-mono text-[9px] uppercase tracking-wider ${colors.accent} opacity-70`}>
+          {/* Wind flow lines - animate when playing */}
+          <svg 
+            className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
+            viewBox="0 0 100 100" 
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M-10 30 Q 30 25, 50 30 T 110 28"
+              stroke="currentColor"
+              strokeWidth="0.3"
+              fill="none"
+              className={`${colors.accent}`}
+              style={{
+                animation: isPlaying ? 'windFlow1 6s ease-in-out infinite' : 'none',
+                opacity: 0.2,
+              }}
+            />
+            <path
+              d="M-10 50 Q 35 45, 55 50 T 110 48"
+              stroke="currentColor"
+              strokeWidth="0.25"
+              fill="none"
+              className={`${colors.accent}`}
+              style={{
+                animation: isPlaying ? 'windFlow2 7s ease-in-out infinite' : 'none',
+                opacity: 0.15,
+              }}
+            />
+            <path
+              d="M-10 70 Q 25 68, 50 72 T 110 70"
+              stroke="currentColor"
+              strokeWidth="0.2"
+              fill="none"
+              className={`${colors.accent}`}
+              style={{
+                animation: isPlaying ? 'windFlow3 8s ease-in-out infinite' : 'none',
+                opacity: 0.12,
+              }}
+            />
+          </svg>
+
+          {/* Specimen illustration */}
+          <SpecimenIllustration 
+            type={entry.specimen} 
+            className={`relative z-10 h-16 w-16 ${colors.accent} transition-transform duration-700 ${isPlaying ? 'scale-105' : 'scale-100'}`}
+          />
+
+          {/* Specimen number - top left */}
+          <span className={`absolute left-3 top-3 font-mono text-[9px] uppercase tracking-wider ${colors.accent} opacity-50`}>
             No. {formattedNumber}
           </span>
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-background/60 text-[9px] font-medium text-muted-foreground">
+
+          {/* Day badge - top right */}
+          <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-background/50 text-[9px] font-medium text-muted-foreground backdrop-blur-sm">
             {day}
           </span>
         </div>
 
-        {/* Content area - centered in the shape */}
-        <div className="flex flex-1 flex-col items-center justify-center px-5 py-3 text-center md:px-6">
+        {/* Content area */}
+        <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
           {/* Title */}
-          <h3 className="mb-1.5 font-serif text-sm font-normal leading-snug tracking-tight text-foreground md:text-base">
+          <h3 className="mb-1 font-serif text-sm font-normal leading-snug tracking-tight text-foreground">
             {entry.title}
           </h3>
 
-          {/* Compact note */}
-          <p className="mb-2 line-clamp-2 text-[10px] leading-relaxed text-muted-foreground md:text-xs">
+          {/* Note - clamped */}
+          <p className="mb-2 line-clamp-2 flex-1 text-[10px] leading-relaxed text-muted-foreground">
             {entry.note}
           </p>
 
-          {/* Single mood tag */}
-          <span className={`text-[9px] italic ${colors.accent} opacity-60`}>
+          {/* Mood tag */}
+          <span className={`mb-3 text-[9px] italic ${colors.accent} opacity-60`}>
             {entry.mood[0]}
           </span>
-        </div>
 
-        {/* Play control at bottom */}
-        <div className="shrink-0 px-5 pb-4 md:px-6 md:pb-5">
+          {/* Audio control */}
           <audio
             ref={audioRef}
             src={entry.audioFile}
@@ -154,33 +157,114 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
 
           <button
             onClick={togglePlay}
-            className="mx-auto flex w-full max-w-[80%] items-center justify-center gap-2"
+            className="flex w-full items-center gap-2.5"
             aria-label={isPlaying ? `Pause ${entry.title}` : `Play ${entry.title}`}
           >
-            {/* Play/Pause indicator */}
-            <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-background/80 transition-colors ${colors.accent}`}>
-              {isPlaying ? (
-                <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="4" width="4" height="16" />
-                  <rect x="14" y="4" width="4" height="16" />
-                </svg>
-              ) : (
-                <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
-                  <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-              )}
+            {/* Play button with breathing ring */}
+            <div className="relative flex shrink-0 items-center justify-center">
+              {/* Breathing ring - only when playing */}
+              <div 
+                className={`absolute h-8 w-8 rounded-full border ${colors.accent.replace('text-', 'border-')} transition-opacity duration-500 ${isPlaying ? 'opacity-40' : 'opacity-0'}`}
+                style={{
+                  animation: isPlaying ? 'breatheRing 3s ease-in-out infinite' : 'none',
+                }}
+              />
+              <div 
+                className={`flex h-6 w-6 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm transition-all duration-300 ${colors.accent}`}
+              >
+                {isPlaying ? (
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                  </svg>
+                ) : (
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                )}
+              </div>
             </div>
 
-            {/* Progress arc - simplified to line for clarity */}
-            <div className="relative h-px flex-1 bg-foreground/10">
+            {/* Progress bar */}
+            <div className="relative h-px flex-1 bg-foreground/10 overflow-hidden">
               <div
                 className={`absolute left-0 top-0 h-full transition-all duration-100 ${colors.accent.replace('text-', 'bg-')}`}
                 style={{ width: `${progress}%` }}
               />
+              {/* Subtle shimmer when playing */}
+              {isPlaying && (
+                <div 
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  style={{
+                    animation: 'shimmer 3s ease-in-out infinite',
+                  }}
+                />
+              )}
             </div>
           </button>
         </div>
       </div>
+
+      {/* CSS Keyframes for animations */}
+      <style jsx>{`
+        @keyframes breathe {
+          0%, 100% {
+            opacity: 0.15;
+            transform: translate(-50%, -50%) scale(1);
+          }
+          50% {
+            opacity: 0.25;
+            transform: translate(-50%, -50%) scale(1.15);
+          }
+        }
+
+        @keyframes breatheRing {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.3;
+          }
+          50% {
+            transform: scale(1.25);
+            opacity: 0.15;
+          }
+        }
+
+        @keyframes windFlow1 {
+          0%, 100% {
+            d: path("M-10 30 Q 30 25, 50 30 T 110 28");
+          }
+          50% {
+            d: path("M-10 32 Q 35 28, 55 32 T 110 30");
+          }
+        }
+
+        @keyframes windFlow2 {
+          0%, 100% {
+            d: path("M-10 50 Q 35 45, 55 50 T 110 48");
+          }
+          50% {
+            d: path("M-10 48 Q 30 52, 50 48 T 110 50");
+          }
+        }
+
+        @keyframes windFlow3 {
+          0%, 100% {
+            d: path("M-10 70 Q 25 68, 50 72 T 110 70");
+          }
+          50% {
+            d: path("M-10 72 Q 30 70, 55 68 T 110 72");
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(200%);
+          }
+        }
+      `}</style>
     </article>
   );
 }
