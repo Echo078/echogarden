@@ -1,24 +1,52 @@
 import Link from "next/link";
-import { diaryEntries, formatDate } from "@/data/diary";
+import { diaryEntries, type DiaryEntry } from "@/data/diary";
 import { SpecimenCard } from "@/components/specimen-card";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Audio Diary — Echo's Garden",
-  description: "Browse all audio diary entries. A collection of daily improvisations and sound notes.",
+  description:
+    "Browse all audio diary entries. A collection of daily improvisations and sound notes.",
 };
+
+// Group entries by month
+function groupByMonth(entries: DiaryEntry[]): Map<string, DiaryEntry[]> {
+  const groups = new Map<string, DiaryEntry[]>();
+
+  entries.forEach((entry) => {
+    const date = new Date(entry.date);
+    const monthKey = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+    });
+
+    if (!groups.has(monthKey)) {
+      groups.set(monthKey, []);
+    }
+    groups.get(monthKey)!.push(entry);
+  });
+
+  return groups;
+}
 
 export default function DiaryPage() {
   const totalEntries = diaryEntries.length;
+  const groupedEntries = groupByMonth(diaryEntries);
+
+  // Create specimen numbers (descending from total)
+  const specimenNumbers = new Map<string, number>();
+  diaryEntries.forEach((entry, index) => {
+    specimenNumbers.set(entry.id, totalEntries - index);
+  });
 
   return (
     <main className="min-h-screen">
       {/* Header */}
-      <header className="border-b border-border px-6 py-8 md:px-12 md:py-12">
-        <div className="mx-auto max-w-6xl">
+      <header className="px-6 py-10 md:px-12 md:py-14">
+        <div className="mx-auto max-w-7xl">
           <Link
             href="/"
-            className="mb-10 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+            className="mb-12 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +68,7 @@ export default function DiaryPage() {
 
           <div className="flex items-end justify-between">
             <div>
-              <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+              <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
                 Collection
               </p>
               <h1 className="font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
@@ -48,7 +76,9 @@ export default function DiaryPage() {
               </h1>
             </div>
             <p className="hidden text-right text-sm text-muted-foreground md:block">
-              <span className="font-serif text-2xl text-foreground">{totalEntries}</span>
+              <span className="font-serif text-3xl font-light text-foreground">
+                {totalEntries}
+              </span>
               <br />
               specimens
             </p>
@@ -56,25 +86,36 @@ export default function DiaryPage() {
         </div>
       </header>
 
-      {/* Archive Grid */}
-      <section className="px-6 py-12 md:px-12 md:py-16">
-        <div className="mx-auto max-w-6xl">
-          {/* Grid of specimens */}
-          <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-            {diaryEntries.map((entry, index) => (
-              <SpecimenCard
-                key={entry.id}
-                entry={entry}
-                formattedDate={formatDate(entry.date)}
-                specimenNumber={totalEntries - index}
-              />
-            ))}
-          </div>
+      {/* Archive Grid - Grouped by Month */}
+      <section className="px-6 pb-16 md:px-12 md:pb-24">
+        <div className="mx-auto max-w-7xl">
+          {Array.from(groupedEntries.entries()).map(([month, entries]) => (
+            <div key={month} className="mb-14 last:mb-0">
+              {/* Month heading */}
+              <div className="mb-6 flex items-center gap-4">
+                <h2 className="font-serif text-lg font-normal italic text-muted-foreground">
+                  {month}
+                </h2>
+                <div className="h-px flex-1 bg-border" aria-hidden="true" />
+              </div>
+
+              {/* Grid of specimens - 2/3/4 columns */}
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-6">
+                {entries.map((entry) => (
+                  <SpecimenCard
+                    key={entry.id}
+                    entry={entry}
+                    specimenNumber={specimenNumbers.get(entry.id)!}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
 
           {/* Archive footer */}
-          <div className="mt-16 flex items-center justify-center gap-8 text-xs uppercase tracking-widest text-muted-foreground">
+          <div className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground">
             <span>Ongoing collection</span>
-            <span className="h-px w-12 bg-border" aria-hidden="true" />
+            <span className="h-px w-10 bg-border" aria-hidden="true" />
             <span>Est. 2026</span>
           </div>
         </div>

@@ -5,11 +5,10 @@ import type { DiaryEntry } from "@/data/diary";
 
 interface SpecimenCardProps {
   entry: DiaryEntry;
-  formattedDate: string;
   specimenNumber: number;
 }
 
-export function SpecimenCard({ entry, formattedDate, specimenNumber }: SpecimenCardProps) {
+export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -42,46 +41,45 @@ export function SpecimenCard({ entry, formattedDate, specimenNumber }: SpecimenC
   // Format specimen number with leading zeros
   const formattedNumber = String(specimenNumber).padStart(3, "0");
 
-  // Extract just month and day for compact date display
-  const compactDate = new Date(entry.date).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
+  // Extract just day for compact display
+  const day = new Date(entry.date).getDate();
 
   return (
-    <article className="group relative flex flex-col bg-card p-6 transition-colors hover:bg-secondary/30 md:p-8">
-      {/* Specimen number */}
-      <div className="mb-6 flex items-start justify-between">
-        <span className="font-mono text-xs text-muted-foreground">
+    <article className="group flex h-full flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/30 hover:bg-secondary/20 md:p-5">
+      {/* Specimen marker area */}
+      <div className="mb-4 flex items-center justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
           No. {formattedNumber}
         </span>
-        <time className="text-xs text-muted-foreground">{compactDate}</time>
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-[10px] font-medium text-muted-foreground">
+          {day}
+        </span>
       </div>
 
       {/* Title */}
-      <h2 className="mb-3 font-serif text-xl font-normal tracking-tight text-foreground md:text-2xl">
+      <h3 className="mb-2 font-serif text-base font-normal leading-snug tracking-tight text-foreground md:text-lg">
         {entry.title}
-      </h2>
+      </h3>
 
-      {/* Note */}
-      <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+      {/* One-line note - clamped */}
+      <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-muted-foreground md:text-sm">
         {entry.note}
       </p>
 
       {/* Mood tags */}
-      <div className="mb-6 flex flex-wrap gap-2">
-        {entry.mood.map((tag) => (
+      <div className="mb-4 flex flex-wrap gap-x-2 gap-y-1">
+        {entry.mood.slice(0, 2).map((tag) => (
           <span
             key={tag}
-            className="text-xs italic text-muted-foreground before:mr-1 before:content-['·']"
+            className="text-[10px] italic text-muted-foreground/70"
           >
             {tag}
           </span>
         ))}
       </div>
 
-      {/* Audio player - minimal line style */}
-      <div className="mt-auto">
+      {/* Play control area - pushed to bottom */}
+      <div className="mt-auto pt-3">
         <audio
           ref={audioRef}
           src={entry.audioFile}
@@ -89,19 +87,19 @@ export function SpecimenCard({ entry, formattedDate, specimenNumber }: SpecimenC
           onEnded={handleEnded}
           preload="metadata"
         />
-        
+
         <button
           onClick={togglePlay}
-          className="flex w-full items-center gap-3 text-left"
+          className="flex w-full items-center gap-2"
           aria-label={isPlaying ? `Pause ${entry.title}` : `Play ${entry.title}`}
         >
-          {/* Play/Pause indicator */}
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border transition-colors group-hover:border-primary group-hover:bg-primary/5">
+          {/* Play/Pause button */}
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-background transition-colors group-hover:border-primary/50">
             {isPlaying ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
+                width="10"
+                height="10"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 className="text-foreground"
@@ -112,8 +110,8 @@ export function SpecimenCard({ entry, formattedDate, specimenNumber }: SpecimenC
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
+                width="10"
+                height="10"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 className="ml-0.5 text-foreground"
@@ -123,10 +121,10 @@ export function SpecimenCard({ entry, formattedDate, specimenNumber }: SpecimenC
             )}
           </div>
 
-          {/* Progress bar */}
+          {/* Progress line */}
           <div className="relative h-px flex-1 bg-border">
             <div
-              className="absolute left-0 top-0 h-full bg-primary transition-all duration-100"
+              className="absolute left-0 top-0 h-full bg-primary/60 transition-all duration-100"
               style={{ width: `${progress}%` }}
             />
           </div>
