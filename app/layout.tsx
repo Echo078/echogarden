@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Echo Garden — A Quiet Place for Sound Notes',
+  title: "Echo's Garden — A Quiet Place for Sound Notes",
   description: 'A personal audio diary for daily improvisations and sound notes. A calm, quiet space to capture fleeting musical moments.',
   generator: 'v0.app',
   icons: {

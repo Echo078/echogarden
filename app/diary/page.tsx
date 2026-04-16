@@ -4,7 +4,7 @@ import { DiaryEntryCard } from "@/components/diary-entry-card";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Audio Diary — Echo Garden",
+  title: "Audio Diary — Echo's Garden",
   description: "Browse all audio diary entries. A collection of daily improvisations and sound notes.",
 };
 

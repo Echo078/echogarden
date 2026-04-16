@@ -11,7 +11,7 @@ export default function HomePage() {
         {/* Header */}
         <header className="mb-20 text-center md:mb-28">
           <h1 className="mb-4 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-            Echo Garden
+            Echo&apos;s Garden
           </h1>
           <p className="text-lg text-muted-foreground">
             A quiet place for daily improvisations and sound notes.
