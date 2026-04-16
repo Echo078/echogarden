@@ -40,10 +40,10 @@ export default function DiaryPage() {
   });
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-[#f8f6f2]">
       {/* Header */}
       <header className="px-6 py-10 md:px-12 md:py-14">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-6xl">
           <Link
             href="/"
             className="mb-12 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
@@ -69,10 +69,10 @@ export default function DiaryPage() {
           <div className="flex items-end justify-between">
             <div>
               <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
-                Collection
+                Specimen Cabinet
               </p>
               <h1 className="font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-                Audio Diary
+                Sound Specimens
               </h1>
             </div>
             <p className="hidden text-right text-sm text-muted-foreground md:block">
@@ -80,7 +80,7 @@ export default function DiaryPage() {
                 {totalEntries}
               </span>
               <br />
-              specimens
+              preserved
             </p>
           </div>
         </div>
@@ -88,19 +88,19 @@ export default function DiaryPage() {
 
       {/* Archive Grid - Grouped by Month */}
       <section className="px-6 pb-16 md:px-12 md:pb-24">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-6xl">
           {Array.from(groupedEntries.entries()).map(([month, entries]) => (
-            <div key={month} className="mb-14 last:mb-0">
+            <div key={month} className="mb-16 last:mb-0">
               {/* Month heading */}
-              <div className="mb-6 flex items-center gap-4">
+              <div className="mb-8 flex items-center gap-4">
                 <h2 className="font-serif text-lg font-normal italic text-muted-foreground">
                   {month}
                 </h2>
-                <div className="h-px flex-1 bg-border" aria-hidden="true" />
+                <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
               </div>
 
-              {/* Grid of specimens - 2/3/4 columns */}
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-6">
+              {/* Specimen cabinet grid - varied heights create organic rhythm */}
+              <div className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-10">
                 {entries.map((entry) => (
                   <SpecimenCard
                     key={entry.id}
@@ -113,9 +113,9 @@ export default function DiaryPage() {
           ))}
 
           {/* Archive footer */}
-          <div className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground">
+          <div className="mt-24 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground">
             <span>Ongoing collection</span>
-            <span className="h-px w-10 bg-border" aria-hidden="true" />
+            <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
             <span>Est. 2026</span>
           </div>
         </div>
