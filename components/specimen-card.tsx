@@ -58,13 +58,13 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
         className={`relative flex h-full flex-col overflow-hidden rounded-lg border border-foreground/[0.08] ${colors.bg} transition-all duration-500 hover:border-foreground/[0.12] hover:shadow-sm`}
       >
         {/* Illustration area with breathing animation when playing */}
-        <div className="relative flex aspect-square shrink-0 items-center justify-center overflow-hidden">
+        <div className="relative flex aspect-[4/3] shrink-0 items-center justify-center overflow-hidden">
           {/* Soft breathing glow behind illustration - only when playing */}
           <div 
             className={`absolute inset-0 transition-opacity duration-700 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
           >
             <div 
-              className={`absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full ${colors.accent.replace('text-', 'bg-')} blur-3xl`}
+              className={`absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full ${colors.accent.replace('text-', 'bg-')} blur-2xl`}
               style={{
                 animation: isPlaying ? 'breathe 4s ease-in-out infinite' : 'none',
               }}
@@ -115,7 +115,7 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
           {/* Specimen illustration */}
           <SpecimenIllustration 
             type={entry.specimen} 
-            className={`relative z-10 h-16 w-16 ${colors.accent} transition-transform duration-700 ${isPlaying ? 'scale-105' : 'scale-100'}`}
+            className={`relative z-10 h-10 w-10 ${colors.accent} transition-transform duration-700 ${isPlaying ? 'scale-105' : 'scale-100'}`}
           />
 
           {/* Specimen number - top left */}
