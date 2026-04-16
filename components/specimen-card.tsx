@@ -9,13 +9,13 @@ interface SpecimenCardProps {
   specimenNumber: number;
 }
 
-// Background colors for each specimen type - muted botanical tones
+// Background colors for each specimen type - deeper botanical tones
 const specimenColors: Record<string, { bg: string; accent: string }> = {
-  leaf: { bg: "bg-[#e8ede6]", accent: "text-[#7a8b72]" },
-  petal: { bg: "bg-[#f0ebe6]", accent: "text-[#a89080]" },
-  wind: { bg: "bg-[#e6eaed]", accent: "text-[#7a8590]" },
-  fern: { bg: "bg-[#e4ebe4]", accent: "text-[#6b7b68]" },
-  seed: { bg: "bg-[#ede9e4]", accent: "text-[#8a7a68]" },
+  leaf: { bg: "bg-[#e2e8df]", accent: "text-[#4a5c42]" },
+  petal: { bg: "bg-[#ebe5df]", accent: "text-[#7a5c4a]" },
+  wind: { bg: "bg-[#dfe4e8]", accent: "text-[#4a5566]" },
+  fern: { bg: "bg-[#dce5dc]", accent: "text-[#3a4d38]" },
+  seed: { bg: "bg-[#e8e3dc]", accent: "text-[#5c4a38]" },
 };
 
 export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
