@@ -1,87 +1,73 @@
 import Link from "next/link";
-import { getLatestEntry, formatDate } from "@/data/diary";
-import { AudioPlayer } from "@/components/audio-player";
+import { diaryEntries } from "@/data/diary";
+import { SpecimenCard } from "@/components/specimen-card";
 
 export default function HomePage() {
-  const latestEntry = getLatestEntry();
+  const latestEntry = diaryEntries[0];
+  const totalEntries = diaryEntries.length;
 
   return (
-    <main className="min-h-screen px-6 py-16 md:py-24">
-      <div className="mx-auto max-w-2xl">
-        {/* Header */}
-        <header className="mb-20 text-center md:mb-28">
-          <h1 className="mb-4 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-            Echo&apos;s Garden
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            A quiet place for daily improvisations and sound notes.
-          </p>
-        </header>
-
-        {/* Latest Sound Preview */}
-        <section className="mb-16">
-          <p className="mb-6 text-sm uppercase tracking-widest text-muted-foreground">
-            Latest Sound
-          </p>
+    <main className="min-h-screen bg-background">
+      {/* Entrance Hall */}
+      <div className="flex min-h-screen flex-col px-6 py-16 md:px-12 md:py-24">
+        <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col">
           
-          <article className="rounded-xl border border-border bg-card p-6 shadow-sm">
-            <div className="mb-4">
-              <time className="text-sm text-muted-foreground">
-                {formatDate(latestEntry.date)}
-              </time>
-              <h2 className="mt-1 font-serif text-2xl font-medium text-card-foreground">
-                {latestEntry.title}
-              </h2>
-            </div>
-            
-            <p className="mb-5 leading-relaxed text-muted-foreground">
-              {latestEntry.note}
+          {/* Header - quiet threshold */}
+          <header className="mb-20 md:mb-28">
+            <p className="mb-4 text-xs uppercase tracking-widest text-muted-foreground">
+              Sound Specimen Museum
             </p>
+            <h1 className="mb-6 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl lg:text-6xl">
+              Echo&apos;s Garden
+            </h1>
+            <p className="max-w-md text-base leading-relaxed text-muted-foreground">
+              A quiet place for daily improvisations and sound notes. 
+              Each specimen preserved as it was heard.
+            </p>
+          </header>
 
-            <div className="mb-4 flex flex-wrap gap-2">
-              {latestEntry.mood.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
+          {/* Latest Specimen Preview */}
+          <section className="mb-16 md:mb-24">
+            <div className="mb-8 flex items-center gap-4">
+              <h2 className="font-serif text-lg font-normal italic text-muted-foreground">
+                Latest Specimen
+              </h2>
+              <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
             </div>
 
-            <AudioPlayer src={latestEntry.audioFile} title={latestEntry.title} />
-          </article>
-        </section>
+            {/* Single specimen card - same as archive */}
+            <div className="max-w-[220px]">
+              <SpecimenCard 
+                entry={latestEntry} 
+                specimenNumber={totalEntries} 
+              />
+            </div>
+          </section>
 
-        {/* Navigation */}
-        <nav className="text-center">
-          <Link
-            href="/diary"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            <span>Browse All Entries</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* Entry to Archive */}
+          <nav className="mb-16">
+            <Link
+              href="/diary"
+              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </Link>
-        </nav>
+              <span className="font-serif text-lg italic">Enter the Cabinet</span>
+              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
+              <span className="font-mono text-xs uppercase tracking-widest">
+                {totalEntries} specimens
+              </span>
+            </Link>
+          </nav>
 
-        {/* Footer */}
-        <footer className="mt-24 text-center text-sm text-muted-foreground">
-          <p>A personal space for capturing fleeting sounds.</p>
-        </footer>
+          {/* Footer */}
+          <footer className="flex items-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/60">
+            <span>Ongoing collection</span>
+            <span className="h-px w-6 bg-foreground/10" aria-hidden="true" />
+            <span>Est. 2026</span>
+          </footer>
+        </div>
       </div>
     </main>
   );
