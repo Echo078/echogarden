@@ -58,28 +58,28 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
       <div 
         className={`relative flex h-full flex-col overflow-hidden rounded-lg border border-foreground/[0.08] ${colors.bg} transition-all duration-500 hover:border-foreground/[0.12] hover:shadow-sm`}
       >
-        {/* Upper area: Illustration with breathing animation (2 parts) */}
-        <div className="relative flex shrink-0 basis-[40%] items-center justify-center overflow-hidden">
+        {/* Upper area: Illustration with breathing animation - fixed height */}
+        <div className="relative flex h-24 shrink-0 items-center justify-center overflow-hidden">
           {/* Strong breathing glow behind illustration - only when playing */}
           <div 
             className={`absolute inset-0 transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
           >
-            {/* Primary breathing pulse - larger and more visible */}
+            {/* Primary breathing pulse */}
             <div 
-              className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full"
               style={{
                 backgroundColor: colors.active,
-                opacity: isPlaying ? 0.35 : 0,
-                filter: 'blur(24px)',
+                opacity: isPlaying ? 0.3 : 0,
+                filter: 'blur(16px)',
                 animation: isPlaying ? 'breathe 3.5s ease-in-out infinite' : 'none',
               }}
             />
-            {/* Secondary pulse ring for depth */}
+            {/* Secondary pulse ring */}
             <div 
-              className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
+              className="absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border"
               style={{
                 borderColor: colors.active,
-                opacity: isPlaying ? 0.4 : 0,
+                opacity: isPlaying ? 0.35 : 0,
                 animation: isPlaying ? 'breatheRingOuter 3.5s ease-in-out infinite' : 'none',
               }}
             />
@@ -123,10 +123,10 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
             />
           </svg>
 
-          {/* Specimen illustration - larger presence */}
+          {/* Specimen illustration */}
           <SpecimenIllustration 
             type={entry.specimen} 
-            className={`relative z-10 h-12 w-12 transition-all duration-700 ${isPlaying ? 'scale-110' : 'scale-100'}`}
+            className={`relative z-10 h-9 w-9 transition-all duration-700 ${isPlaying ? 'scale-110' : 'scale-100'}`}
             style={{
               color: isPlaying ? colors.active : undefined,
             }}
@@ -143,21 +143,21 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
           </span>
         </div>
 
-        {/* Lower area: Content and playback controls (3 parts) */}
-        <div className="flex flex-1 basis-[60%] flex-col px-4 pb-4 pt-3">
+        {/* Lower area: Content and playback controls */}
+        <div className="flex flex-1 flex-col px-3 pb-3 pt-2">
           {/* Title */}
-          <h3 className="mb-1.5 font-serif text-sm font-normal leading-snug tracking-tight text-foreground">
+          <h3 className="mb-1 font-serif text-[13px] font-normal leading-snug tracking-tight text-foreground">
             {entry.title}
           </h3>
 
           {/* Note - clamped */}
-          <p className="mb-2 line-clamp-2 flex-1 text-[11px] leading-relaxed text-muted-foreground">
+          <p className="mb-1.5 line-clamp-2 text-[10px] leading-relaxed text-muted-foreground">
             {entry.note}
           </p>
 
           {/* Mood tag */}
           <span 
-            className="mb-3 text-[10px] italic transition-colors duration-300"
+            className="mb-2 text-[9px] italic transition-colors duration-300"
             style={{ color: isPlaying ? colors.active : undefined }}
           >
             {entry.mood[0]}
@@ -177,29 +177,29 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
             className="flex w-full items-center gap-3"
             aria-label={isPlaying ? `Pause ${entry.title}` : `Play ${entry.title}`}
           >
-            {/* Play button with strong breathing ring */}
+            {/* Play button with breathing ring */}
             <div className="relative flex shrink-0 items-center justify-center">
-              {/* Outer breathing ring - more visible when playing */}
-              <div 
-                className="absolute h-10 w-10 rounded-full transition-opacity duration-300"
-                style={{
-                  border: `2px solid ${colors.active}`,
-                  opacity: isPlaying ? 0.6 : 0,
-                  animation: isPlaying ? 'breatheRing 3s ease-in-out infinite' : 'none',
-                }}
-              />
-              {/* Inner pulse ring */}
+              {/* Outer breathing ring */}
               <div 
                 className="absolute h-8 w-8 rounded-full transition-opacity duration-300"
                 style={{
+                  border: `1.5px solid ${colors.active}`,
+                  opacity: isPlaying ? 0.5 : 0,
+                  animation: isPlaying ? 'breatheRing 3s ease-in-out infinite' : 'none',
+                }}
+              />
+              {/* Inner pulse */}
+              <div 
+                className="absolute h-6 w-6 rounded-full transition-opacity duration-300"
+                style={{
                   backgroundColor: colors.active,
-                  opacity: isPlaying ? 0.2 : 0,
+                  opacity: isPlaying ? 0.15 : 0,
                   animation: isPlaying ? 'breatheRingInner 3s ease-in-out infinite' : 'none',
                 }}
               />
               {/* Play button */}
               <div 
-                className="relative flex h-7 w-7 items-center justify-center rounded-full transition-all duration-300"
+                className="relative flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300"
                 style={{
                   backgroundColor: isPlaying ? colors.active : 'rgba(255,255,255,0.8)',
                   color: isPlaying ? '#fff' : colors.active,
@@ -207,12 +207,12 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
                 }}
               >
                 {isPlaying ? (
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
                     <rect x="6" y="4" width="4" height="16" />
                     <rect x="14" y="4" width="4" height="16" />
                   </svg>
                 ) : (
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
                     <polygon points="5 3 19 12 5 21 5 3" />
                   </svg>
                 )}
