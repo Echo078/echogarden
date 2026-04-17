@@ -126,7 +126,7 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
           {/* Specimen illustration */}
           <SpecimenIllustration 
             type={entry.specimen} 
-            className={`relative z-10 h-9 w-9 transition-all duration-700 ${isPlaying ? 'scale-110' : 'scale-100'}`}
+            className={`relative z-10 h-14 w-14 transition-all duration-700 ${isPlaying ? 'scale-110' : 'scale-100'}`}
             style={{
               color: isPlaying ? colors.active : undefined,
             }}
