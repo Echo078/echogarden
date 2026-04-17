@@ -67,8 +67,8 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
       <div 
         className={`relative flex h-full flex-col overflow-hidden rounded-lg border border-foreground/[0.06] ${colors.bg} transition-all duration-500 hover:border-foreground/[0.12]`}
       >
-        {/* Upper area: Illustration with play button and animations (40%) */}
-        <div className="relative flex basis-[40%] items-center justify-center overflow-hidden">
+        {/* Upper area: Illustration with animations - fixed height */}
+        <div className="relative flex h-24 shrink-0 items-center justify-center overflow-hidden">
           {/* Wandering glow orbs when playing */}
           <div className={`absolute inset-0 transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}>
             <div 
@@ -113,48 +113,12 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
             />
           </svg>
 
-          {/* Central play button with specimen illustration */}
-          <button
-            onClick={togglePlay}
-            className="relative z-10 flex items-center justify-center"
-            aria-label={isPlaying ? `Pause ${entry.title}` : `Play ${entry.title}`}
-          >
-            {/* Breathing ring when playing */}
-            <div 
-              className="absolute h-16 w-16 rounded-full transition-opacity duration-300"
-              style={{
-                border: `1.5px solid ${colors.active}`,
-                opacity: isPlaying ? 0.4 : 0,
-                animation: isPlaying ? 'breatheRing 3s ease-in-out infinite' : 'none',
-              }}
-            />
-            
-            {/* Specimen illustration as the play button */}
-            <div className="relative flex h-12 w-12 items-center justify-center">
-              <SpecimenIllustration 
-                type={entry.specimen} 
-                className={`h-10 w-10 transition-all duration-500 ${isPlaying ? 'scale-110 opacity-30' : 'scale-100 opacity-100'}`}
-                style={{ color: isPlaying ? colors.active : undefined }}
-              />
-              
-              {/* Play/Pause icon overlay */}
-              <div 
-                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isPlaying ? 'opacity-100' : 'opacity-0 group-hover:opacity-70'}`}
-                style={{ color: colors.active }}
-              >
-                {isPlaying ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="6" y="4" width="4" height="16" />
-                    <rect x="14" y="4" width="4" height="16" />
-                  </svg>
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg>
-                )}
-              </div>
-            </div>
-          </button>
+          {/* Specimen illustration */}
+          <SpecimenIllustration 
+            type={entry.specimen} 
+            className={`relative z-10 h-14 w-14 transition-all duration-500 ${isPlaying ? 'scale-110' : 'scale-100'}`}
+            style={{ color: isPlaying ? colors.active : undefined }}
+          />
 
           {/* Specimen number - top left corner */}
           <span className={`absolute left-3 top-3 font-mono text-[8px] uppercase tracking-widest ${colors.accent} opacity-40`}>
@@ -162,10 +126,10 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
           </span>
         </div>
 
-        {/* Lower area: Museum specimen label (60%) */}
-        <div className="flex basis-[60%] flex-col border-t border-foreground/[0.06] bg-card/50 px-4 py-3">
+        {/* Lower area: Museum specimen label */}
+        <div className="flex flex-1 flex-col border-t border-foreground/[0.06] bg-card/50 px-3 py-2.5">
           {/* Date line - quiet and small */}
-          <div className="mb-2 flex items-baseline gap-1.5">
+          <div className="mb-1.5 flex items-baseline gap-1.5">
             <span className="font-mono text-[9px] tracking-wider text-muted-foreground/70">
               {month} {day}
             </span>
@@ -173,42 +137,79 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
           </div>
 
           {/* Divider line */}
-          <div className="mb-2 h-px w-8 bg-foreground/10" />
+          <div className="mb-1.5 h-px w-8 bg-foreground/10" />
 
           {/* Title - strongest element */}
-          <h3 className="mb-1.5 font-serif text-[15px] font-medium leading-tight tracking-tight text-foreground">
+          <h3 className="mb-1 font-serif text-[13px] font-medium leading-tight tracking-tight text-foreground">
             {entry.title}
           </h3>
 
           {/* Note - single line, quieter */}
-          <p className="mb-3 line-clamp-1 text-[10px] leading-relaxed text-muted-foreground/80">
+          <p className="mb-2 line-clamp-1 text-[10px] leading-relaxed text-muted-foreground/80">
             {entry.note}
           </p>
 
-          {/* Bottom row: mood tag and progress */}
-          <div className="mt-auto flex items-center justify-between">
-            {/* Mood tag - small label style */}
-            <span 
-              className="rounded-sm bg-foreground/[0.04] px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-wider transition-colors duration-300"
-              style={{ color: isPlaying ? colors.active : undefined }}
-            >
-              {entry.mood[0]}
-            </span>
+          {/* Mood tag */}
+          <span 
+            className="mb-2 self-start rounded-sm bg-foreground/[0.04] px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-wider transition-colors duration-300"
+            style={{ color: isPlaying ? colors.active : undefined }}
+          >
+            {entry.mood[0]}
+          </span>
 
-            {/* Duration / progress indicator */}
-            <div className="flex items-center gap-2">
-              {/* Mini progress bar */}
-              <div className="h-0.5 w-12 overflow-hidden rounded-full bg-foreground/10">
-                <div
-                  className="h-full rounded-full transition-all duration-100"
-                  style={{ width: `${progress}%`, backgroundColor: colors.active }}
-                />
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* Play controls at bottom */}
+          <div className="flex items-center gap-2 pt-2 border-t border-foreground/[0.04]">
+            {/* Play button */}
+            <button
+              onClick={togglePlay}
+              className="relative flex shrink-0 items-center justify-center"
+              aria-label={isPlaying ? `Pause ${entry.title}` : `Play ${entry.title}`}
+            >
+              {/* Breathing ring when playing */}
+              <div 
+                className="absolute h-8 w-8 rounded-full transition-opacity duration-300"
+                style={{
+                  border: `1.5px solid ${colors.active}`,
+                  opacity: isPlaying ? 0.4 : 0,
+                  animation: isPlaying ? 'breatheRing 3s ease-in-out infinite' : 'none',
+                }}
+              />
+              {/* Button */}
+              <div 
+                className="relative flex h-6 w-6 items-center justify-center rounded-full transition-all duration-300"
+                style={{
+                  backgroundColor: isPlaying ? colors.active : 'rgba(255,255,255,0.6)',
+                  color: isPlaying ? '#fff' : colors.active,
+                }}
+              >
+                {isPlaying ? (
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                  </svg>
+                ) : (
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                )}
               </div>
-              {/* Time */}
-              <span className="font-mono text-[8px] text-muted-foreground/60">
-                {duration > 0 ? formatTime(duration) : '--:--'}
-              </span>
+            </button>
+
+            {/* Progress bar */}
+            <div className="flex-1 h-1 overflow-hidden rounded-full bg-foreground/10">
+              <div
+                className="h-full rounded-full transition-all duration-100"
+                style={{ width: `${progress}%`, backgroundColor: colors.active }}
+              />
             </div>
+
+            {/* Duration */}
+            <span className="font-mono text-[8px] text-muted-foreground/60">
+              {duration > 0 ? formatTime(duration) : '--:--'}
+            </span>
           </div>
         </div>
 
