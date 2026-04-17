@@ -40,7 +40,7 @@ export default function DiaryPage() {
   });
 
   return (
-    <main className="min-h-screen bg-[#f8f6f2]">
+    <main className="min-h-screen bg-background">
       {/* Header */}
       <header className="px-6 py-10 md:px-12 md:py-14">
         <div className="mx-auto max-w-6xl">
