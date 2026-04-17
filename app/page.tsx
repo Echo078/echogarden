@@ -47,8 +47,8 @@ export default function HomePage() {
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Entry to Archive */}
-          <nav className="mb-16">
+          {/* Navigation */}
+          <nav className="mb-16 flex flex-col gap-4">
             <Link
               href="/diary"
               className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -57,6 +57,16 @@ export default function HomePage() {
               <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
               <span className="font-mono text-xs uppercase tracking-widest">
                 {totalEntries} specimens
+              </span>
+            </Link>
+            <Link
+              href="/blog"
+              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <span className="font-serif text-lg italic">Reading Room</span>
+              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
+              <span className="font-mono text-xs uppercase tracking-widest">
+                Essays
               </span>
             </Link>
           </nav>
