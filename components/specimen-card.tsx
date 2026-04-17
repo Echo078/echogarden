@@ -9,14 +9,14 @@ interface SpecimenCardProps {
   specimenNumber: number;
 }
 
-// Background colors for each specimen type - muted botanical tones
-// Active colors are deeper, more saturated sage/moss greens
+// Background colors for each specimen type - elegant green tones
+// All colors harmonize with the sage green theme
 const specimenColors: Record<string, { bg: string; accent: string; active: string }> = {
-  leaf: { bg: "bg-[#e8ede6]", accent: "text-[#7a8b72]", active: "#4a6b42" },
-  petal: { bg: "bg-[#f0ebe6]", accent: "text-[#a89080]", active: "#5a7a52" },
-  wind: { bg: "bg-[#e6eaed]", accent: "text-[#7a8590]", active: "#4a7060" },
-  fern: { bg: "bg-[#e4ebe4]", accent: "text-[#6b7b68]", active: "#3d5f38" },
-  seed: { bg: "bg-[#ede9e4]", accent: "text-[#8a7a68]", active: "#5a6b48" },
+  leaf: { bg: "bg-[#dce8dc]", accent: "text-[#5a7a58]", active: "#3d5f3a" },
+  petal: { bg: "bg-[#e2ebe0]", accent: "text-[#6a8a65]", active: "#4a6b45" },
+  wind: { bg: "bg-[#d8e5db]", accent: "text-[#5b8068]", active: "#3a6050" },
+  fern: { bg: "bg-[#d5e3d5]", accent: "text-[#4d7050]", active: "#2d4d30" },
+  seed: { bg: "bg-[#e0e8dd]", accent: "text-[#6b8560]", active: "#4a6540" },
 };
 
 export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
