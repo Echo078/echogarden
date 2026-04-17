@@ -60,27 +60,38 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
       >
         {/* Upper area: Illustration with breathing animation - fixed height */}
         <div className="relative flex h-24 shrink-0 items-center justify-center overflow-hidden">
-          {/* Strong breathing glow behind illustration - only when playing */}
+          {/* Wandering glow orbs - drift around the illustration area when playing */}
           <div 
             className={`absolute inset-0 transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
           >
-            {/* Primary breathing pulse */}
+            {/* Primary wandering orb */}
             <div 
-              className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              className="absolute h-12 w-12 rounded-full"
               style={{
                 backgroundColor: colors.active,
-                opacity: isPlaying ? 0.3 : 0,
-                filter: 'blur(16px)',
-                animation: isPlaying ? 'breathe 3.5s ease-in-out infinite' : 'none',
+                opacity: isPlaying ? 0.25 : 0,
+                filter: 'blur(14px)',
+                animation: isPlaying ? 'wanderOrb1 8s ease-in-out infinite' : 'none',
               }}
             />
-            {/* Secondary pulse ring */}
+            {/* Secondary wandering orb - smaller, different path */}
             <div 
-              className="absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+              className="absolute h-8 w-8 rounded-full"
               style={{
-                borderColor: colors.active,
-                opacity: isPlaying ? 0.35 : 0,
-                animation: isPlaying ? 'breatheRingOuter 3.5s ease-in-out infinite' : 'none',
+                backgroundColor: colors.active,
+                opacity: isPlaying ? 0.2 : 0,
+                filter: 'blur(10px)',
+                animation: isPlaying ? 'wanderOrb2 10s ease-in-out infinite' : 'none',
+              }}
+            />
+            {/* Third orb - subtle accent */}
+            <div 
+              className="absolute h-6 w-6 rounded-full"
+              style={{
+                backgroundColor: colors.active,
+                opacity: isPlaying ? 0.15 : 0,
+                filter: 'blur(8px)',
+                animation: isPlaying ? 'wanderOrb3 12s ease-in-out infinite' : 'none',
               }}
             />
           </div>
@@ -245,6 +256,60 @@ export function SpecimenCard({ entry, specimenNumber }: SpecimenCardProps) {
 
       {/* CSS Keyframes for animations */}
       <style jsx>{`
+        @keyframes wanderOrb1 {
+          0%, 100% {
+            top: 20%;
+            left: 25%;
+            transform: scale(1);
+          }
+          25% {
+            top: 35%;
+            left: 65%;
+            transform: scale(1.1);
+          }
+          50% {
+            top: 55%;
+            left: 45%;
+            transform: scale(0.9);
+          }
+          75% {
+            top: 30%;
+            left: 20%;
+            transform: scale(1.05);
+          }
+        }
+
+        @keyframes wanderOrb2 {
+          0%, 100% {
+            top: 60%;
+            left: 70%;
+            transform: scale(1);
+          }
+          33% {
+            top: 25%;
+            left: 30%;
+            transform: scale(1.15);
+          }
+          66% {
+            top: 50%;
+            left: 55%;
+            transform: scale(0.85);
+          }
+        }
+
+        @keyframes wanderOrb3 {
+          0%, 100% {
+            top: 40%;
+            left: 15%;
+            transform: scale(1);
+          }
+          50% {
+            top: 20%;
+            left: 75%;
+            transform: scale(1.2);
+          }
+        }
+
         @keyframes breathe {
           0%, 100% {
             opacity: 0.25;
