@@ -7,7 +7,7 @@ interface KnowledgeMapProps {
   onCategorySelect: (category: string | null) => void;
 }
 
-// Subtopics for each category (derived from tags and entries)
+// Subtopics for each category
 const categorySubtopics: Record<string, string[]> = {
   courses: ["DSP", "Physics", "Math"],
   instruments: ["GC-MS", "NMR", "Spectroscopy"],
@@ -16,13 +16,27 @@ const categorySubtopics: Record<string, string[]> = {
   tools: ["Python", "Git", "Setup"],
 };
 
+// Fixed positions for horizontal layout - all branches spread left and right
+const branchPositions = [
+  { angle: 155, labelSide: "left" as const },   // Courses - upper left
+  { angle: 175, labelSide: "left" as const },   // Instruments - middle left
+  { angle: 195, labelSide: "left" as const },   // Work - lower left
+  { angle: 5, labelSide: "right" as const },    // Formulas - upper right
+  { angle: 350, labelSide: "right" as const },  // Tools - lower right
+];
+
 export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapProps) {
   const getCategoryCount = (categoryId: string) => {
     return knowledgeEntries.filter((e) => e.category === categoryId).length;
   };
 
+  const centerX = 400;
+  const centerY = 85;
+  const branchLength = 120;
+  const subBranchLength = 50;
+
   return (
-    <div className="relative mb-12 overflow-hidden rounded-xl border border-foreground/6 bg-card/30 p-6 backdrop-blur-sm md:p-8">
+    <div className="relative mb-6 overflow-hidden rounded-xl border border-foreground/6 bg-card/30 px-4 py-4 backdrop-blur-sm md:px-6">
       {/* Subtle background pattern */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.015]">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -33,30 +47,16 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
         </svg>
       </div>
 
-      {/* Map Title */}
-      <div className="mb-6 flex items-center gap-3">
-        <span className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground/40">
-          Knowledge Network
-        </span>
-        <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
-      </div>
-
-      {/* SVG Knowledge Tree */}
+      {/* SVG Knowledge Tree - Horizontal Layout */}
       <svg
-        viewBox="0 0 900 380"
+        viewBox="0 0 800 170"
         className="w-full"
-        style={{ maxHeight: "380px" }}
+        style={{ maxHeight: "170px" }}
+        preserveAspectRatio="xMidYMid meet"
       >
         <defs>
-          {/* Gradient for branches */}
-          <linearGradient id="branchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="0.1" />
-          </linearGradient>
-          
-          {/* Glow filter for active nodes */}
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
               <feMergeNode in="SourceGraphic" />
@@ -66,62 +66,26 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
         {/* Central Root Node */}
         <g className="text-primary">
-          {/* Root circle */}
-          <circle
-            cx="450"
-            cy="190"
-            r="24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            opacity="0.4"
-          />
-          <circle
-            cx="450"
-            cy="190"
-            r="16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            opacity="0.6"
-          />
-          <circle
-            cx="450"
-            cy="190"
-            r="6"
-            fill="currentColor"
-            opacity="0.8"
-          />
-          
-          {/* Decorative rings */}
-          <circle
-            cx="450"
-            cy="190"
-            r="32"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="0.5"
-            strokeDasharray="2 4"
-            opacity="0.2"
-          />
+          <circle cx={centerX} cy={centerY} r="18" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+          <circle cx={centerX} cy={centerY} r="10" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
+          <circle cx={centerX} cy={centerY} r="4" fill="currentColor" opacity="0.7" />
         </g>
 
         {/* Branch paths to each category */}
         {knowledgeCategories.map((category, index) => {
-          const angle = (index - 2) * 32 * (Math.PI / 180); // Spread from -64 to +64 degrees
+          const pos = branchPositions[index];
+          const angleRad = (pos.angle * Math.PI) / 180;
           const isActive = activeCategory === category.id;
           const isHighlighted = activeCategory === null || isActive;
           
-          // Calculate positions - center at 450, 190
-          const branchLength = 110;
-          const endX = 450 + Math.cos(angle) * branchLength;
-          const endY = 190 - Math.sin(angle) * branchLength;
+          const endX = centerX + Math.cos(angleRad) * branchLength;
+          const endY = centerY + Math.sin(angleRad) * branchLength;
           
-          // Control points for curved branches
-          const ctrlX = 450 + Math.cos(angle) * 55;
-          const ctrlY = 190 - Math.sin(angle) * 28;
-
           const subtopics = categorySubtopics[category.id] || [];
+
+          // Label positioning
+          const labelX = pos.labelSide === "left" ? endX - 14 : endX + 14;
+          const labelAnchor = pos.labelSide === "left" ? "end" : "start";
 
           return (
             <g
@@ -131,14 +95,16 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
               }`}
               onClick={() => onCategorySelect(isActive ? null : category.id)}
             >
-              {/* Main branch curve */}
-              <path
-                d={`M 450 190 Q ${ctrlX} ${ctrlY} ${endX} ${endY}`}
-                fill="none"
+              {/* Main branch line */}
+              <line
+                x1={centerX}
+                y1={centerY}
+                x2={endX}
+                y2={endY}
                 stroke="currentColor"
-                strokeWidth={isActive ? "2" : "1"}
+                strokeWidth={isActive ? "1.5" : "1"}
                 className={`text-primary transition-all duration-300 ${
-                  isActive ? "opacity-80" : "opacity-40"
+                  isActive ? "opacity-70" : "opacity-30"
                 }`}
               />
 
@@ -147,31 +113,31 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
                 <circle
                   cx={endX}
                   cy={endY}
-                  r={isActive ? "14" : "10"}
+                  r={isActive ? "10" : "7"}
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth={isActive ? "2" : "1"}
+                  strokeWidth={isActive ? "1.5" : "1"}
                   className={`text-primary transition-all duration-300 ${
-                    isActive ? "opacity-90" : "opacity-50"
+                    isActive ? "opacity-80" : "opacity-40"
                   }`}
                 />
                 <circle
                   cx={endX}
                   cy={endY}
-                  r="4"
+                  r="3"
                   fill="currentColor"
                   className={`text-primary transition-all duration-300 ${
-                    isActive ? "opacity-90" : "opacity-60"
+                    isActive ? "opacity-80" : "opacity-50"
                   }`}
                 />
               </g>
 
-              {/* Category label */}
+              {/* Category label - Level 2 */}
               <text
-                x={endX + (Math.cos(angle) > 0 ? 20 : -20)}
-                y={endY + 4}
-                textAnchor={Math.cos(angle) > 0 ? "start" : "end"}
-                className={`fill-current text-[11px] transition-all duration-300 ${
+                x={labelX}
+                y={endY + 1}
+                textAnchor={labelAnchor}
+                className={`fill-current text-[10px] transition-all duration-300 ${
                   isActive ? "text-foreground font-medium" : "text-muted-foreground"
                 }`}
                 style={{ fontFamily: "var(--font-serif)" }}
@@ -179,30 +145,32 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
                 {category.name.split(" & ")[0]}
               </text>
 
-              {/* Count badge */}
+              {/* Count - below category name */}
               <text
-                x={endX + (Math.cos(angle) > 0 ? 20 : -20)}
-                y={endY + 16}
-                textAnchor={Math.cos(angle) > 0 ? "start" : "end"}
-                className="fill-current text-[8px] text-muted-foreground/50"
+                x={labelX}
+                y={endY + 12}
+                textAnchor={labelAnchor}
+                className="fill-current text-[7px] text-muted-foreground/40"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                {getCategoryCount(category.id)} entries
+                {getCategoryCount(category.id)}
               </text>
 
-              {/* Subtopic branches */}
+              {/* Subtopic branches - Level 3 */}
               {subtopics.map((subtopic, subIndex) => {
-                // Spread subtopics and offset from main branch direction
-                const subAngleOffset = (subIndex - 1) * 30; // 30 degrees apart
-                const subAngle = angle + (subAngleOffset * (Math.PI / 180));
-                const subLength = 60; // Moderate length to fit in viewBox
-                const subEndX = endX + Math.cos(subAngle) * subLength;
-                const subEndY = endY - Math.sin(subAngle) * subLength;
+                // Fan out subtopics perpendicular to main branch
+                const baseSubAngle = pos.angle + 90; // perpendicular
+                const subSpread = 35; // degrees between subtopics
+                const subAngleOffset = (subIndex - 1) * subSpread;
+                const subAngleRad = ((baseSubAngle + subAngleOffset) * Math.PI) / 180;
+                
+                const subEndX = endX + Math.cos(subAngleRad) * subBranchLength;
+                const subEndY = endY + Math.sin(subAngleRad) * subBranchLength;
 
-                // Position label further from node, adjust based on position
-                const labelOffset = 10;
-                const labelX = subEndX + (Math.cos(subAngle) > 0 ? labelOffset : -labelOffset);
-                const labelY = subEndY + (Math.sin(subAngle) < -0.2 ? -5 : Math.sin(subAngle) > 0.2 ? 12 : 4);
+                // Label position - always away from branch
+                const subLabelX = subEndX + (Math.cos(subAngleRad) > 0 ? 8 : -8);
+                const subLabelAnchor = Math.cos(subAngleRad) > 0 ? "start" : "end";
+                const subLabelY = subEndY + (Math.sin(subAngleRad) > 0.3 ? 10 : Math.sin(subAngleRad) < -0.3 ? -4 : 3);
 
                 return (
                   <g key={subtopic}>
@@ -215,7 +183,7 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
                       stroke="currentColor"
                       strokeWidth="0.5"
                       className={`text-primary transition-all duration-300 ${
-                        isActive ? "opacity-50" : "opacity-20"
+                        isActive ? "opacity-40" : "opacity-15"
                       }`}
                     />
                     
@@ -223,25 +191,25 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
                     <circle
                       cx={subEndX}
                       cy={subEndY}
-                      r="3"
+                      r="2"
                       fill="currentColor"
                       className={`text-primary transition-all duration-300 ${
-                        isActive ? "opacity-60" : "opacity-25"
+                        isActive ? "opacity-50" : "opacity-20"
                       }`}
                     />
 
-                    {/* Subtopic label (only show when active) */}
-                    {isActive && (
-                      <text
-                        x={labelX}
-                        y={labelY}
-                        textAnchor={Math.cos(subAngle) > 0 ? "start" : "end"}
-                        className="fill-current text-[10px] text-foreground"
-                        style={{ fontFamily: "var(--font-mono)", fontWeight: 500 }}
-                      >
-                        {subtopic}
-                      </text>
-                    )}
+                    {/* Subtopic label - always visible but dimmer when not active */}
+                    <text
+                      x={subLabelX}
+                      y={subLabelY}
+                      textAnchor={subLabelAnchor}
+                      className={`fill-current text-[8px] transition-all duration-300 ${
+                        isActive ? "text-foreground/80" : "text-muted-foreground/30"
+                      }`}
+                      style={{ fontFamily: "var(--font-mono)", fontWeight: isActive ? 500 : 400 }}
+                    >
+                      {subtopic}
+                    </text>
                   </g>
                 );
               })}
@@ -251,22 +219,15 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
         {/* Central label */}
         <text
-          x="450"
-          y="235"
+          x={centerX}
+          y={centerY + 32}
           textAnchor="middle"
-          className="fill-current text-[9px] text-muted-foreground/40"
-          style={{ fontFamily: "var(--font-mono)", textTransform: "uppercase", letterSpacing: "0.1em" }}
+          className="fill-current text-[7px] text-muted-foreground/30"
+          style={{ fontFamily: "var(--font-mono)", textTransform: "uppercase", letterSpacing: "0.08em" }}
         >
-          Knowledge Root
+          Knowledge
         </text>
       </svg>
-
-      {/* Interaction hint */}
-      <div className="mt-4 text-center">
-        <p className="font-serif text-[10px] italic text-muted-foreground/40">
-          Select a branch to explore
-        </p>
-      </div>
     </div>
   );
 }
