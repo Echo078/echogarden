@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const navItems = [
   { label: "About", href: "/about" },
@@ -15,21 +16,50 @@ const navItems = [
 
 export function GlobalNavbar() {
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Always show navbar at the very top
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 60) {
+        // Scrolling down - hide
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="sticky top-0 z-50 w-full">
-      {/* Background with dewy garden illustration */}
+    <header 
+      className={`sticky top-0 z-50 w-full transition-transform duration-300 ease-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
+      {/* Background with dewy morning atmosphere */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Base layer - warm ivory with translucency */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f6f9f4]/95 via-[#f4f7f2]/90 to-[#f2f5f0]/85 backdrop-blur-sm" />
+        {/* Base layer - warm ivory with soft translucency */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#faf9f7]/92 via-[#f7f6f3]/88 to-[#f5f4f1]/85 backdrop-blur-[6px]" />
         
-        {/* Subtle dew glow at top */}
-        <div className="absolute -top-4 left-1/4 h-16 w-64 rounded-full bg-[#e8f0e6]/60 blur-3xl" />
-        <div className="absolute -top-2 right-1/3 h-12 w-48 rounded-full bg-[#dce8d8]/50 blur-2xl" />
+        {/* Dew glow layers - soft morning light */}
+        <div className="absolute -top-6 left-1/4 h-20 w-72 rounded-full bg-[#e9f2e6]/40 blur-3xl" />
+        <div className="absolute -top-4 right-1/3 h-16 w-56 rounded-full bg-[#dfeadb]/35 blur-2xl" />
+        <div className="absolute top-0 left-1/2 h-12 w-40 -translate-x-1/2 rounded-full bg-[#f0f5ed]/45 blur-xl" />
         
         {/* Garden illustration SVG - delicate botanical elements */}
         <svg
-          className="absolute inset-0 h-full w-full opacity-[0.12]"
+          className="absolute inset-0 h-full w-full opacity-[0.08]"
           viewBox="0 0 1200 80"
           preserveAspectRatio="xMidYMid slice"
           fill="none"
@@ -98,23 +128,50 @@ export function GlobalNavbar() {
         </svg>
         
         {/* Bottom border - soft dewy line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/12 to-transparent" />
       </div>
 
       {/* Navigation content */}
-      <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-12">
-        {/* Branding */}
+      <nav className="relative mx-auto flex h-14 max-w-7xl items-center justify-between px-6 md:px-12">
+        {/* Branding - Echo Garden with a gentle, botanical feel */}
         <Link
           href="/"
-          className="group flex items-center gap-2 transition-opacity hover:opacity-80"
+          className="group flex items-center gap-1.5 transition-opacity hover:opacity-80"
         >
-          <span className="font-serif text-xl font-light tracking-tight text-foreground">
-            Echo&apos;s Garden
+          {/* Small decorative leaf */}
+          <svg 
+            width="16" 
+            height="16" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            className="text-primary/60"
+          >
+            <path 
+              d="M12 2C8 6 4 10 4 14C4 18 8 22 12 22C16 22 20 18 20 14C20 10 16 6 12 2Z" 
+              fill="currentColor" 
+              fillOpacity="0.15"
+            />
+            <path 
+              d="M12 2C8 6 4 10 4 14C4 18 8 22 12 22" 
+              stroke="currentColor" 
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+            <path 
+              d="M12 8V18M12 12C10 12 8 13 8 15" 
+              stroke="currentColor" 
+              strokeWidth="1"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span className="font-serif text-lg tracking-wide text-foreground">
+            <span className="font-normal">Echo</span>
+            <span className="ml-0.5 font-light italic text-foreground/80">Garden</span>
           </span>
         </Link>
 
         {/* Navigation Items */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-0.5 md:flex">
           {navItems.map((item) => {
             const isActive = pathname === item.href || 
               (item.href !== "/" && pathname.startsWith(item.href));
@@ -124,20 +181,20 @@ export function GlobalNavbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative px-3 py-1.5 text-sm transition-all ${
+                className={`relative px-2.5 py-1.5 text-[13px] transition-all ${
                   isCV
                     ? isActive
                       ? "rounded-md border border-primary/30 bg-primary/10 font-medium text-primary"
-                      : "rounded-md border border-foreground/10 bg-card/40 text-foreground/80 hover:border-primary/20 hover:bg-primary/5 hover:text-primary"
+                      : "rounded-md border border-foreground/10 bg-card/40 text-foreground/75 hover:border-primary/20 hover:bg-primary/5 hover:text-primary"
                     : isActive
                       ? "font-medium text-primary"
-                      : "text-foreground/70 hover:text-foreground"
+                      : "text-foreground/65 hover:text-foreground"
                 }`}
               >
                 {item.label}
-                {/* Active indicator - subtle underline like morning dew drop */}
+                {/* Active indicator - subtle underline */}
                 {isActive && !isCV && (
-                  <span className="absolute bottom-0 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-primary/50" />
+                  <span className="absolute bottom-0 left-1/2 h-0.5 w-3 -translate-x-1/2 rounded-full bg-primary/40" />
                 )}
               </Link>
             );

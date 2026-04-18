@@ -32,9 +32,9 @@ export default function KnowledgePage() {
   const totalEntries = knowledgeEntries.length;
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] flex-col overflow-hidden bg-background">
+    <div className="min-h-screen bg-background">
       {/* Page Header */}
-      <header className="shrink-0 px-6 py-6 md:px-10 md:py-8">
+      <header className="px-6 py-6 md:px-10 md:py-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between">
             <div>
@@ -57,7 +57,7 @@ export default function KnowledgePage() {
       </header>
 
       {/* Knowledge Map - Compact */}
-      <section className="shrink-0 px-6 md:px-10">
+      <section className="px-6 md:px-10">
         <div className="mx-auto max-w-7xl">
           <KnowledgeMap 
             activeCategory={activeCategory} 
@@ -66,9 +66,9 @@ export default function KnowledgePage() {
         </div>
       </section>
 
-      {/* Two Column Layout - Fills remaining space */}
-      <section className="min-h-0 flex-1 px-6 pb-4 md:px-10">
-        <div className="mx-auto flex h-full max-w-7xl gap-6 lg:gap-10">
+      {/* Two Column Layout */}
+      <section className="px-6 pb-12 md:px-10">
+        <div className="mx-auto flex max-w-7xl gap-6 lg:gap-10">
           
           {/* Left Column: Category Tree + Search */}
           <aside className="hidden shrink-0 lg:block lg:w-48">
@@ -178,10 +178,10 @@ export default function KnowledgePage() {
             </div>
           </aside>
 
-          {/* Right Column: Knowledge Cards - Scrollable */}
-          <div className="flex min-h-0 flex-1 flex-col">
+          {/* Right Column: Knowledge Cards */}
+          <div className="flex flex-1 flex-col">
             {/* Column Header */}
-            <div className="mb-4 flex shrink-0 items-center gap-4">
+            <div className="mb-4 flex items-center gap-4">
               <h2 className="font-serif text-base font-normal italic text-muted-foreground">
                 {searchQuery.trim()
                   ? `Results for "${searchQuery}"`
@@ -195,8 +195,8 @@ export default function KnowledgePage() {
               </span>
             </div>
 
-            {/* Knowledge Cards Grid - Scrollable */}
-            <div className="flex-1 overflow-y-auto pr-2">
+            {/* Knowledge Cards Grid */}
+            <div>
               <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                 {filteredEntries.map((entry) => {
                   const category = knowledgeCategories.find(
