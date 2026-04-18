@@ -192,10 +192,17 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
               {/* Subtopic branches */}
               {subtopics.map((subtopic, subIndex) => {
-                const subAngle = angle + ((subIndex - 1) * 18 * (Math.PI / 180));
-                const subLength = 65;
+                // Spread subtopics more and offset from main branch direction
+                const subAngleOffset = (subIndex - 1) * 25; // Wider spread: 25 degrees apart
+                const subAngle = angle + (subAngleOffset * (Math.PI / 180));
+                const subLength = 85; // Longer branches
                 const subEndX = endX + Math.cos(subAngle) * subLength;
                 const subEndY = endY - Math.sin(subAngle) * subLength;
+
+                // Position label further from node
+                const labelOffset = 14;
+                const labelX = subEndX + (Math.cos(subAngle) > 0 ? labelOffset : -labelOffset);
+                const labelY = subEndY + (Math.sin(subAngle) < -0.3 ? -6 : Math.sin(subAngle) > 0.3 ? 10 : 4);
 
                 return (
                   <g key={subtopic}>
@@ -226,10 +233,10 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
                     {/* Subtopic label (only show when active) */}
                     {isActive && (
                       <text
-                        x={subEndX + (Math.cos(subAngle) > 0 ? 10 : -10)}
-                        y={subEndY + 3}
+                        x={labelX}
+                        y={labelY}
                         textAnchor={Math.cos(subAngle) > 0 ? "start" : "end"}
-                        className="fill-current text-[10px] text-foreground/70"
+                        className="fill-current text-[10px] text-foreground"
                         style={{ fontFamily: "var(--font-mono)", fontWeight: 500 }}
                       >
                         {subtopic}
