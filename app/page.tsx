@@ -89,6 +89,16 @@ export default function HomePage() {
                 Works
               </span>
             </Link>
+            <Link
+              href="/research"
+              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <span className="font-serif text-lg italic">Research Journey</span>
+              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
+              <span className="font-mono text-xs uppercase tracking-widest">
+                Inquiry
+              </span>
+            </Link>
           </nav>
 
           {/* Footer */}
