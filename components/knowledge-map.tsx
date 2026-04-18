@@ -16,13 +16,13 @@ const categorySubtopics: Record<string, string[]> = {
   tools: ["Python", "Git", "Setup"],
 };
 
-// Fixed positions for horizontal layout - all branches spread left and right
+// Fixed positions for horizontal layout - all branches spread left and right with more vertical spread
 const branchPositions = [
-  { angle: 155, labelSide: "left" as const },   // Courses - upper left
-  { angle: 175, labelSide: "left" as const },   // Instruments - middle left
-  { angle: 195, labelSide: "left" as const },   // Work - lower left
-  { angle: 5, labelSide: "right" as const },    // Formulas - upper right
-  { angle: 350, labelSide: "right" as const },  // Tools - lower right
+  { angle: 140, labelSide: "left" as const },   // Courses - upper left
+  { angle: 180, labelSide: "left" as const },   // Instruments - middle left
+  { angle: 220, labelSide: "left" as const },   // Work - lower left
+  { angle: 0, labelSide: "right" as const },    // Formulas - upper right
+  { angle: 330, labelSide: "right" as const },  // Tools - lower right
 ];
 
 export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapProps) {
@@ -31,9 +31,9 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
   };
 
   const centerX = 400;
-  const centerY = 85;
-  const branchLength = 120;
-  const subBranchLength = 50;
+  const centerY = 130;
+  const branchLength = 100;
+  const subBranchLength = 45;
 
   return (
     <div className="relative mb-6 overflow-hidden rounded-xl border border-foreground/6 bg-card/30 px-4 py-4 backdrop-blur-sm md:px-6">
@@ -49,9 +49,9 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
       {/* SVG Knowledge Tree - Horizontal Layout */}
       <svg
-        viewBox="0 0 800 170"
+        viewBox="0 0 800 260"
         className="w-full"
-        style={{ maxHeight: "170px" }}
+        style={{ maxHeight: "260px" }}
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
