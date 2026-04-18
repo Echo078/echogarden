@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useTheme } from "@/components/theme-provider";
 
 const navItems = [
   { label: "About", href: "/about" },
@@ -18,6 +19,12 @@ export function GlobalNavbar() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const { theme, toggleTheme, isDusk } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -171,7 +178,7 @@ export function GlobalNavbar() {
         </Link>
 
         {/* Navigation Items */}
-        <div className="hidden items-center gap-0.5 md:flex">
+        <div className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
             const isActive = pathname === item.href || 
               (item.href !== "/" && pathname.startsWith(item.href));
@@ -199,6 +206,62 @@ export function GlobalNavbar() {
               </Link>
             );
           })}
+          
+          {/* Day/Dusk Toggle */}
+          {mounted && (
+            <button
+              onClick={toggleTheme}
+              className="ml-2 flex h-8 items-center gap-1.5 rounded-full border border-foreground/10 bg-card/50 px-2.5 transition-all hover:border-primary/25 hover:bg-primary/5"
+              aria-label={isDusk ? "Switch to day mode" : "Switch to dusk mode"}
+              title={isDusk ? "Switch to day mode" : "Switch to dusk mode"}
+            >
+              {/* Sun icon */}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                className={`transition-all duration-300 ${
+                  isDusk ? "scale-75 text-muted-foreground/50" : "scale-100 text-amber-500"
+                }`}
+              >
+                <circle cx="12" cy="12" r="4" fill="currentColor" />
+                <path
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+              
+              {/* Toggle track */}
+              <div className="relative h-4 w-7 rounded-full bg-foreground/10 transition-colors">
+                <div
+                  className={`absolute top-0.5 h-3 w-3 rounded-full transition-all duration-300 ${
+                    isDusk
+                      ? "left-3.5 bg-indigo-400/80"
+                      : "left-0.5 bg-amber-400"
+                  }`}
+                />
+              </div>
+              
+              {/* Moon icon */}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                className={`transition-all duration-300 ${
+                  isDusk ? "scale-100 text-indigo-400" : "scale-75 text-muted-foreground/50"
+                }`}
+              >
+                <path
+                  d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          )}
         </div>
 
         {/* Mobile menu button */}

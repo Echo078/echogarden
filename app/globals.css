@@ -39,6 +39,56 @@
   --sidebar-ring: oklch(0.45 0.12 150);
 }
 
+/* Dusk mode - soft evening shadow over the garden */
+.dusk {
+  --background: oklch(0.82 0.025 150);
+  --foreground: oklch(0.18 0.04 150);
+  --card: oklch(0.85 0.02 148);
+  --card-foreground: oklch(0.18 0.04 150);
+  --popover: oklch(0.85 0.02 148);
+  --popover-foreground: oklch(0.18 0.04 150);
+  --primary: oklch(0.38 0.10 150);
+  --primary-foreground: oklch(0.95 0.01 145);
+  --secondary: oklch(0.78 0.035 148);
+  --secondary-foreground: oklch(0.25 0.05 150);
+  --muted: oklch(0.80 0.025 148);
+  --muted-foreground: oklch(0.35 0.04 150);
+  --accent: oklch(0.55 0.08 148);
+  --accent-foreground: oklch(0.18 0.04 150);
+  --border: oklch(0.72 0.04 148);
+  --input: oklch(0.80 0.025 148);
+  --ring: oklch(0.38 0.10 150);
+  --chart-1: oklch(0.38 0.10 150);
+  --chart-2: oklch(0.48 0.08 148);
+  --chart-3: oklch(0.58 0.06 148);
+  --chart-4: oklch(0.30 0.08 150);
+  --chart-5: oklch(0.68 0.05 148);
+  --sidebar: oklch(0.80 0.025 150);
+  --sidebar-foreground: oklch(0.18 0.04 150);
+  --sidebar-primary: oklch(0.38 0.10 150);
+  --sidebar-primary-foreground: oklch(0.95 0.01 145);
+  --sidebar-accent: oklch(0.78 0.035 148);
+  --sidebar-accent-foreground: oklch(0.25 0.05 150);
+  --sidebar-border: oklch(0.72 0.04 148);
+  --sidebar-ring: oklch(0.38 0.10 150);
+}
+
+/* Dusk overlay effect */
+.dusk body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    oklch(0.25 0.04 150 / 0.08) 0%,
+    oklch(0.30 0.05 155 / 0.12) 50%,
+    oklch(0.28 0.04 150 / 0.10) 100%
+  );
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+
 .dark {
   --background: oklch(0.16 0.04 150);
   --foreground: oklch(0.90 0.02 145);
@@ -122,5 +172,15 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.5s ease, color 0.3s ease;
   }
+}
+
+/* Smooth theme transitions */
+html {
+  transition: background-color 0.5s ease;
+}
+
+html *:not(canvas) {
+  transition: background-color 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
