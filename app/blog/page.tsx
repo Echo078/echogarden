@@ -71,8 +71,8 @@ export default function BlogPage() {
                 </span>
               </div>
 
-              {/* Blog Entries */}
-              <div className="flex flex-col gap-8">
+              {/* Blog Entries as Soft Archive Cards */}
+              <div className="flex flex-col gap-6">
                 {blogEntries.map((entry) => {
                   const date = new Date(entry.date);
                   const formattedDate = date.toLocaleDateString("en-US", {
@@ -87,22 +87,22 @@ export default function BlogPage() {
                       href={`/blog/${entry.slug}`}
                       className="group block"
                     >
-                      <article className="border-b border-foreground/8 pb-8 transition-colors hover:border-foreground/15">
+                      <article className="rounded-lg border border-foreground/8 bg-card/40 p-5 shadow-sm backdrop-blur-sm transition-all hover:border-foreground/12 hover:bg-card/60 hover:shadow-md md:p-6">
                         {/* Date */}
                         <time 
                           dateTime={entry.date}
-                          className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/60"
+                          className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/50"
                         >
                           {formattedDate}
                         </time>
 
                         {/* Title */}
-                        <h2 className="mb-3 font-serif text-xl font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-2xl">
+                        <h2 className="mb-2.5 font-serif text-lg font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-xl">
                           {entry.title}
                         </h2>
 
                         {/* Excerpt */}
-                        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                        <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground/80">
                           {entry.excerpt}
                         </p>
 
@@ -113,7 +113,7 @@ export default function BlogPage() {
                               {entry.tags.slice(0, 2).map((tag) => (
                                 <span
                                   key={tag}
-                                  className="rounded-full bg-secondary/50 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground"
+                                  className="rounded-full bg-secondary/30 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground/60"
                                 >
                                   {tag}
                                 </span>
@@ -121,12 +121,12 @@ export default function BlogPage() {
                             </div>
                           )}
                           
-                          <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground/50 transition-all group-hover:gap-2.5 group-hover:text-primary">
+                          <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
                             <span className="font-serif italic">Read</span>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              width="10"
-                              height="10"
+                              width="9"
+                              height="9"
                               viewBox="0 0 24 24"
                               fill="none"
                               stroke="currentColor"
@@ -148,46 +148,41 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Right Column: Notes Rail */}
-            <aside className="lg:flex-1">
+            {/* Right Column: Quiet Notes Rail */}
+            <aside className="hidden lg:block lg:flex-1">
               {/* Column Header */}
-              <div className="mb-8 flex items-center gap-4">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <div className="mb-8 flex items-center gap-3">
+                <span className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground/40">
                   Fragments
                 </span>
-                <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
-                  {totalNotes}
-                </span>
+                <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
               </div>
 
-              {/* Notes List */}
-              <div className="flex flex-col">
-                {noteEntries.map((note, index) => {
+              {/* Minimal Notes as Archive Slips */}
+              <div className="flex flex-col gap-4">
+                {noteEntries.slice(0, 8).map((note) => {
                   const date = new Date(note.date);
-                  const formattedDate = date.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  });
+                  const day = date.getDate();
+                  const month = date.toLocaleDateString("en-US", { month: "short" });
 
                   return (
-                    <article 
+                    <div 
                       key={note.id}
-                      className={`py-4 ${index !== noteEntries.length - 1 ? 'border-b border-foreground/5' : ''}`}
+                      className="border-l border-foreground/6 py-1 pl-3 transition-colors hover:border-foreground/15"
                     >
-                      {/* Date */}
+                      {/* Date marker */}
                       <time 
                         dateTime={note.date}
-                        className="mb-2 block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50"
+                        className="mb-1 block font-mono text-[8px] uppercase tracking-wider text-muted-foreground/35"
                       >
-                        {formattedDate}
+                        {month} {day}
                       </time>
 
-                      {/* Text */}
-                      <p className="text-[13px] leading-relaxed text-muted-foreground/80">
-                        {note.text}
+                      {/* Fragment */}
+                      <p className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground/55">
+                        {note.text.length > 55 ? note.text.slice(0, 55) + '...' : note.text}
                       </p>
-                    </article>
+                    </div>
                   );
                 })}
               </div>
