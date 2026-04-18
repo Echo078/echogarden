@@ -7,10 +7,27 @@ import { KnowledgeMap } from "@/components/knowledge-map";
 
 export default function KnowledgePage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredEntries = activeCategory
+  // Filter by category first
+  const categoryFiltered = activeCategory
     ? knowledgeEntries.filter((entry) => entry.category === activeCategory)
     : knowledgeEntries;
+
+  // Then filter by search query
+  const filteredEntries = searchQuery.trim()
+    ? categoryFiltered.filter((entry) => {
+        const query = searchQuery.toLowerCase();
+        const category = knowledgeCategories.find((c) => c.id === entry.category);
+        return (
+          entry.title.toLowerCase().includes(query) ||
+          entry.description.toLowerCase().includes(query) ||
+          entry.tags.some((tag) => tag.toLowerCase().includes(query)) ||
+          category?.name.toLowerCase().includes(query) ||
+          entry.quickRef?.toLowerCase().includes(query)
+        );
+      })
+    : categoryFiltered;
 
   const totalEntries = knowledgeEntries.length;
 
@@ -75,8 +92,68 @@ export default function KnowledgePage() {
       <section className="min-h-0 flex-1 px-6 pb-4 md:px-10">
         <div className="mx-auto flex h-full max-w-7xl gap-6 lg:gap-10">
           
-          {/* Left Column: Category Tree */}
+          {/* Left Column: Category Tree + Search */}
           <aside className="hidden shrink-0 lg:block lg:w-48">
+            {/* Search Input */}
+            <div className="mb-4">
+              <div className="relative">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/40"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search notes, formulas..."
+                  className="w-full rounded-lg border border-foreground/8 bg-card/30 py-2 pl-9 pr-3 text-xs text-foreground placeholder:text-muted-foreground/40 focus:border-primary/30 focus:bg-card/50 focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-0.5 text-muted-foreground/40 hover:text-muted-foreground transition-colors"
+                    aria-label="Clear search"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              {/* Search hint */}
+              {searchQuery && (
+                <p className="mt-1.5 text-[10px] text-muted-foreground/50">
+                  {filteredEntries.length} {filteredEntries.length === 1 ? "match" : "matches"}
+                </p>
+              )}
+            </div>
+
+            {/* Divider */}
+            <div className="mb-3 h-px bg-foreground/6" aria-hidden="true" />
+
             <div className="flex flex-col gap-1">
               {/* All entries option */}
               <button
@@ -128,9 +205,11 @@ export default function KnowledgePage() {
             {/* Column Header */}
             <div className="mb-4 flex shrink-0 items-center gap-4">
               <h2 className="font-serif text-base font-normal italic text-muted-foreground">
-                {activeCategory
-                  ? knowledgeCategories.find((c) => c.id === activeCategory)?.name
-                  : "All Entries"}
+                {searchQuery.trim()
+                  ? `Results for "${searchQuery}"`
+                  : activeCategory
+                    ? knowledgeCategories.find((c) => c.id === activeCategory)?.name
+                    : "All Entries"}
               </h2>
               <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
               <span className="font-mono text-xs text-muted-foreground/50">
@@ -200,8 +279,18 @@ export default function KnowledgePage() {
               {filteredEntries.length === 0 && (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <p className="font-serif text-base italic text-muted-foreground/50">
-                    No entries yet
+                    {searchQuery.trim()
+                      ? `No matches for "${searchQuery}"`
+                      : "No entries yet"}
                   </p>
+                  {searchQuery.trim() && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="mt-3 text-xs text-muted-foreground/60 underline underline-offset-2 hover:text-muted-foreground transition-colors"
+                    >
+                      Clear search
+                    </button>
+                  )}
                 </div>
               )}
             </div>
