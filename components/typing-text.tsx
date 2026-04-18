@@ -13,9 +13,9 @@ interface TypingTextProps {
 export function TypingText({
   text,
   className = "",
-  typingSpeed = 80,
-  deletingSpeed = 50,
-  pauseDuration = 2500,
+  typingSpeed = 150,
+  deletingSpeed = 80,
+  pauseDuration = 3500,
 }: TypingTextProps) {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
