@@ -120,7 +120,7 @@ export default function AboutPage() {
             {/* Right Content: Conversational About */}
             <div className="flex-1">
               {/* About - Main narrative */}
-              <section className="mb-10">
+              <section className="pb-8">
                 <h2 className="mb-5 font-serif text-2xl font-light text-foreground">
                   About
                 </h2>
@@ -133,8 +133,11 @@ export default function AboutPage() {
                 </div>
               </section>
 
+              {/* Divider */}
+              <div className="mb-8 h-px bg-foreground/10" aria-hidden="true" />
+
               {/* Research Interests - In my own words */}
-              <section className="mb-10">
+              <section className="pb-8">
                 <h2 className="mb-4 font-serif text-lg font-light text-foreground">
                   What I Care About
                 </h2>
@@ -150,8 +153,11 @@ export default function AboutPage() {
                 </div>
               </section>
 
+              {/* Divider */}
+              <div className="mb-8 h-px bg-foreground/10" aria-hidden="true" />
+
               {/* Experience & Current Direction */}
-              <section className="mb-10">
+              <section className="pb-8">
                 <h2 className="mb-4 font-serif text-lg font-light text-foreground">
                   Where I Come From & Where I Am Going
                 </h2>
@@ -170,21 +176,28 @@ export default function AboutPage() {
                 </div>
               </section>
 
+              {/* Divider */}
+              <div className="mb-8 h-px bg-foreground/10" aria-hidden="true" />
+
               {/* Personal Touch */}
-              <section className="mb-10">
-                <div className="rounded-lg border-l-2 border-primary/30 bg-card/30 py-3 pl-4 pr-4">
-                  <p className="text-sm italic leading-relaxed text-muted-foreground">
-                    When I am not in the lab, I spend time improvising on piano, walking 
-                    in botanical gardens, and collecting field recordings of everyday sounds.
-                  </p>
-                </div>
+              <section className="pb-8">
+                <h2 className="mb-4 font-serif text-lg font-light text-foreground">
+                  Beyond the Lab
+                </h2>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  When I am not in the lab, I spend time improvising on piano, walking 
+                  in botanical gardens, and collecting field recordings of everyday sounds.
+                </p>
               </section>
+
+              {/* Divider */}
+              <div className="mb-8 h-px bg-foreground/10" aria-hidden="true" />
 
               {/* Navigation Buttons */}
               <section>
-                <p className="mb-4 text-sm text-muted-foreground">
-                  Want to see more?
-                </p>
+                <h2 className="mb-4 font-serif text-lg font-light text-foreground">
+                  Explore More
+                </h2>
                 <div className="flex flex-wrap gap-3">
                   <Link 
                     href="/research"
