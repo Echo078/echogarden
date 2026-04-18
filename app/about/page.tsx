@@ -121,34 +121,30 @@ export default function AboutPage() {
                 <h2 className="mb-3 font-serif text-sm font-medium text-foreground">
                   Explore
                 </h2>
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-2">
                   <Link 
                     href="/research"
-                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
-                    <span>Research Journey</span>
+                    Research Journey
                   </Link>
                   <Link 
                     href="/projects"
-                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
-                    <span>Projects</span>
+                    Projects
                   </Link>
                   <Link 
                     href="/diary"
-                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
-                    <span>Sound Diary</span>
+                    Sound Diary
                   </Link>
                   <Link 
                     href="/blog"
-                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
-                    <span>Writing</span>
+                    Writing
                   </Link>
                 </div>
               </div>
