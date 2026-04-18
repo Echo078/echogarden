@@ -7,20 +7,12 @@ export const metadata: Metadata = {
     "Interdisciplinary researcher exploring sonic interaction, embodied computing, and the spaces between music and engineering.",
 };
 
-// Research interests
-const interests = [
-  "Sonic Interaction Design",
-  "Embodied Computing", 
-  "Spatial Audio",
-  "Tangible Interfaces",
-];
-
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
       <header className="px-6 py-6 md:px-12 md:py-8">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-4xl">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
@@ -47,11 +39,11 @@ export default function AboutPage() {
 
       {/* Main Content - Two Columns */}
       <div className="px-6 pb-16 md:px-12 md:pb-24">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-4xl">
           <div className="flex flex-col gap-12 md:flex-row md:gap-16">
             
-            {/* Left Sidebar: Identity, Connect, Background */}
-            <aside className="shrink-0 md:w-64">
+            {/* Left Sidebar: Photo, Name, Connect */}
+            <aside className="shrink-0 md:w-56">
               {/* Portrait */}
               <div className="mb-5 overflow-hidden rounded-lg border border-foreground/10">
                 <div className="flex aspect-square items-center justify-center bg-secondary/30">
@@ -60,11 +52,11 @@ export default function AboutPage() {
               </div>
 
               {/* Name & Title */}
-              <div className="mb-6 text-center md:text-left">
+              <div className="mb-5 text-center md:text-left">
                 <h1 className="mb-1 font-serif text-2xl font-light text-foreground">
                   Echo Chen
                 </h1>
-                <p className="mb-1 text-sm font-medium text-primary">
+                <p className="mb-0.5 text-sm font-medium text-primary">
                   Graduate Researcher
                 </p>
                 <p className="text-xs text-muted-foreground">
@@ -73,7 +65,7 @@ export default function AboutPage() {
               </div>
 
               {/* Connect Icons */}
-              <div className="mb-8 flex justify-center gap-3 md:justify-start">
+              <div className="mb-6 flex justify-center gap-2.5 md:justify-start">
                 <a 
                   href="mailto:echo@example.com" 
                   className="flex h-8 w-8 items-center justify-center rounded-full border border-foreground/10 text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
@@ -112,146 +104,112 @@ export default function AboutPage() {
               </div>
 
               {/* Research Interests */}
-              <div className="mb-8">
+              <div>
                 <h2 className="mb-3 font-serif text-sm font-medium text-foreground">
                   Research Interests
                 </h2>
-                <ul className="space-y-1.5">
-                  {interests.map((item) => (
-                    <li key={item} className="text-sm text-muted-foreground">
-                      {item}
-                    </li>
-                  ))}
+                <ul className="space-y-1">
+                  <li className="text-sm text-muted-foreground">Sonic Interaction Design</li>
+                  <li className="text-sm text-muted-foreground">Embodied Computing</li>
+                  <li className="text-sm text-muted-foreground">Spatial Audio</li>
+                  <li className="text-sm text-muted-foreground">Tangible Interfaces</li>
                 </ul>
-              </div>
-
-              {/* Explore Links */}
-              <div className="rounded-lg border border-foreground/8 bg-card/30 p-4">
-                <h2 className="mb-3 font-serif text-xs italic text-muted-foreground">
-                  Explore
-                </h2>
-                <div className="flex flex-col gap-2">
-                  <Link href="/research" className="text-sm text-foreground/80 transition-colors hover:text-primary">
-                    Research Journey
-                  </Link>
-                  <Link href="/projects" className="text-sm text-foreground/80 transition-colors hover:text-primary">
-                    Project Archive
-                  </Link>
-                  <Link href="/diary" className="text-sm text-foreground/80 transition-colors hover:text-primary">
-                    Sound Diary
-                  </Link>
-                  <Link href="/blog" className="text-sm text-foreground/80 transition-colors hover:text-primary">
-                    Writing
-                  </Link>
-                </div>
               </div>
             </aside>
 
-            {/* Right Content: About & More */}
+            {/* Right Content: Conversational About */}
             <div className="flex-1">
-              {/* About Section */}
-              <section className="mb-12">
+              {/* About - Main narrative */}
+              <section className="mb-10">
                 <h2 className="mb-5 font-serif text-2xl font-light text-foreground">
                   About
                 </h2>
                 <div className="space-y-4 text-base leading-relaxed text-foreground/85">
                   <p>
-                    I am a graduate researcher in Media Arts & Sciences, advised by{" "}
+                    Hi, I am a graduate researcher in Media Arts & Sciences, advised by{" "}
                     <a href="#" className="text-primary hover:underline">Prof. Advisor Name</a>.
-                    My work explores how sound can become a medium for embodied interaction — 
-                    responsive to gesture, breath, and spatial presence.
-                  </p>
-                  <p>
-                    Prior to this, I obtained a B.S. in Mechanical Engineering, where I developed 
-                    interests in acoustic phenomena and tangible interface design. This 
-                    interdisciplinary background shapes my approach to research at the intersection 
-                    of engineering, design, and artistic practice.
-                  </p>
-                  <p>
-                    My current research focuses on designing sonic interfaces that respond to 
-                    touch, breath, and movement, exploring how sound shapes our perception of 
-                    space and presence.
+                    Nice to meet you here.
                   </p>
                 </div>
               </section>
 
-              {/* Current Focus */}
-              <section className="mb-12">
-                <div className="mb-5 flex items-center justify-between">
-                  <h2 className="font-serif text-2xl font-light text-foreground">
-                    Current Focus
-                  </h2>
-                  <Link 
-                    href="/research" 
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    View All →
-                  </Link>
-                </div>
-                
-                <div className="rounded-lg border border-foreground/8 bg-card/40 p-5">
-                  <h3 className="mb-2 font-serif text-lg font-normal text-foreground">
-                    Sonic Interaction & Embodied Computing
-                  </h3>
-                  <p className="mb-3 text-sm italic text-primary">
-                    2024 — Present
+              {/* Research Interests - In my own words */}
+              <section className="mb-10">
+                <h2 className="mb-4 font-serif text-lg font-light text-foreground">
+                  What I Care About
+                </h2>
+                <div className="space-y-3 text-sm leading-relaxed text-foreground/80">
+                  <p>
+                    I am curious about the relationship between sound and body:
                   </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    Synthesizing earlier threads into a focused research practice. Designing 
-                    sonic interfaces that respond to touch, breath, and movement. Exploring 
-                    how sound shapes our perception of space and presence.
+                  <ul className="ml-4 space-y-1.5 text-muted-foreground">
+                    <li>• How can sound respond to gesture, breath, and presence?</li>
+                    <li>• What happens when we design instruments that listen back?</li>
+                    <li>• How does spatial audio shape our sense of place?</li>
+                  </ul>
+                </div>
+              </section>
+
+              {/* Experience & Current Direction */}
+              <section className="mb-10">
+                <h2 className="mb-4 font-serif text-lg font-light text-foreground">
+                  Where I Come From & Where I Am Going
+                </h2>
+                <div className="space-y-3 text-sm leading-relaxed text-foreground/80">
+                  <p>
+                    I studied Mechanical Engineering as an undergraduate, where I first 
+                    encountered acoustics and became fascinated by how physical systems 
+                    produce sound. That curiosity led me to explore instrument design, 
+                    then interactive media, and eventually here.
+                  </p>
+                  <p>
+                    Right now, I am building sonic interfaces that respond to breath and 
+                    movement — trying to make technology feel less like a tool and more 
+                    like a conversation.
                   </p>
                 </div>
               </section>
 
-              {/* Selected Projects */}
+              {/* Personal Touch */}
+              <section className="mb-10">
+                <div className="rounded-lg border-l-2 border-primary/30 bg-card/30 py-3 pl-4 pr-4">
+                  <p className="text-sm italic leading-relaxed text-muted-foreground">
+                    When I am not in the lab, I spend time improvising on piano, walking 
+                    in botanical gardens, and collecting field recordings of everyday sounds.
+                  </p>
+                </div>
+              </section>
+
+              {/* Navigation Buttons */}
               <section>
-                <div className="mb-5 flex items-center justify-between">
-                  <h2 className="font-serif text-2xl font-light text-foreground">
-                    Selected Projects
-                  </h2>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  Want to see more?
+                </p>
+                <div className="flex flex-wrap gap-3">
                   <Link 
-                    href="/projects" 
-                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    href="/research"
+                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
                   >
-                    View All →
+                    Research Journey
                   </Link>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="rounded-lg border border-foreground/8 bg-card/40 p-5">
-                    <h3 className="mb-1 font-serif text-base font-normal text-foreground">
-                      Breath-Responsive Sound Installation
-                    </h3>
-                    <p className="mb-2 flex items-center gap-2 text-xs text-muted-foreground/60">
-                      <span className="rounded bg-secondary/50 px-1.5 py-0.5 text-[10px] uppercase">
-                        Hardware
-                      </span>
-                      <span>·</span>
-                      <span>2024</span>
-                    </p>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      An interactive installation that translates breathing patterns into 
-                      spatial sound, creating an intimate dialogue between body and environment.
-                    </p>
-                  </div>
-
-                  <div className="rounded-lg border border-foreground/8 bg-card/40 p-5">
-                    <h3 className="mb-1 font-serif text-base font-normal text-foreground">
-                      Tangible Sound Synthesizer
-                    </h3>
-                    <p className="mb-2 flex items-center gap-2 text-xs text-muted-foreground/60">
-                      <span className="rounded bg-secondary/50 px-1.5 py-0.5 text-[10px] uppercase">
-                        Acoustic
-                      </span>
-                      <span>·</span>
-                      <span>2023</span>
-                    </p>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      A physical interface for sound synthesis using gesture and touch, 
-                      bridging the gap between digital sound and tactile interaction.
-                    </p>
-                  </div>
+                  <Link 
+                    href="/projects"
+                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
+                  >
+                    Projects
+                  </Link>
+                  <Link 
+                    href="/diary"
+                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
+                  >
+                    Sound Diary
+                  </Link>
+                  <Link 
+                    href="/blog"
+                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
+                  >
+                    Writing
+                  </Link>
                 </div>
               </section>
             </div>
