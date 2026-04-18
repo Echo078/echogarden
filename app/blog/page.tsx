@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { blogEntries } from "@/data/blog";
+import { noteEntries } from "@/data/notes";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,13 +9,14 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const totalEntries = blogEntries.length;
+  const totalBlogEntries = blogEntries.length;
+  const totalNotes = noteEntries.length;
 
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
       <header className="px-6 py-10 md:px-12 md:py-14">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-6xl">
           <Link
             href="/"
             className="mb-12 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
@@ -44,102 +46,156 @@ export default function BlogPage() {
             <h1 className="mb-4 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
               Writings
             </h1>
-            <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-              Essays and collected thoughts on sound, listening, and the practice of attention.
+            <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
+              Essays and collected fragments on sound, listening, and the practice of attention.
             </p>
-          </div>
-
-          {/* Entry count */}
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-              {totalEntries} entries
-            </span>
-            <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
           </div>
         </div>
       </header>
 
-      {/* Soft Archive Cards */}
+      {/* Dual Column Layout */}
       <section className="px-6 pb-20 md:px-12 md:pb-28">
-        <div className="mx-auto max-w-4xl">
-          {/* Cards in a gentle vertical flow with occasional side-by-side on larger screens */}
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            {blogEntries.map((entry) => {
-              const date = new Date(entry.date);
-              const formattedDate = date.toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              });
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
+            
+            {/* Left Column: Blog Archive */}
+            <div className="flex-1 lg:flex-[2]">
+              {/* Column Header */}
+              <div className="mb-8 flex items-center gap-4">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  Essays
+                </span>
+                <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                  {totalBlogEntries}
+                </span>
+              </div>
 
-              return (
-                <Link
-                  key={entry.id}
-                  href={`/blog/${entry.slug}`}
-                  className="group block"
-                >
-                  <article className="flex h-full flex-col rounded-xl border border-foreground/8 bg-card/60 p-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-foreground/15 hover:bg-card hover:shadow-md md:p-8">
-                    {/* Date - quiet and small */}
-                    <time 
-                      dateTime={entry.date}
-                      className="mb-4 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70"
+              {/* Blog Entries */}
+              <div className="flex flex-col gap-8">
+                {blogEntries.map((entry) => {
+                  const date = new Date(entry.date);
+                  const formattedDate = date.toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  });
+
+                  return (
+                    <Link
+                      key={entry.id}
+                      href={`/blog/${entry.slug}`}
+                      className="group block"
                     >
-                      {formattedDate}
-                    </time>
-
-                    {/* Title - prominent serif */}
-                    <h2 className="mb-3 font-serif text-xl font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-2xl">
-                      {entry.title}
-                    </h2>
-
-                    {/* Excerpt - generous and readable */}
-                    <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
-                      {entry.excerpt}
-                    </p>
-
-                    {/* Footer: tags and read indicator */}
-                    <div className="flex items-end justify-between gap-4">
-                      {entry.tags && entry.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {entry.tags.slice(0, 2).map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full bg-secondary/40 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      
-                      <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground/60 transition-all group-hover:gap-2.5 group-hover:text-primary">
-                        <span className="font-serif italic">Read</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="10"
-                          height="10"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                          className="transition-transform group-hover:translate-x-0.5"
+                      <article className="border-b border-foreground/8 pb-8 transition-colors hover:border-foreground/15">
+                        {/* Date */}
+                        <time 
+                          dateTime={entry.date}
+                          className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/60"
                         >
-                          <path d="M5 12h14" />
-                          <path d="m12 5 7 7-7 7" />
-                        </svg>
-                      </span>
-                    </div>
-                  </article>
-                </Link>
-              );
-            })}
+                          {formattedDate}
+                        </time>
+
+                        {/* Title */}
+                        <h2 className="mb-3 font-serif text-xl font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-2xl">
+                          {entry.title}
+                        </h2>
+
+                        {/* Excerpt */}
+                        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                          {entry.excerpt}
+                        </p>
+
+                        {/* Footer */}
+                        <div className="flex items-center justify-between gap-4">
+                          {entry.tags && entry.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5">
+                              {entry.tags.slice(0, 2).map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="rounded-full bg-secondary/50 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                          
+                          <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground/50 transition-all group-hover:gap-2.5 group-hover:text-primary">
+                            <span className="font-serif italic">Read</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="10"
+                              height="10"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                              className="transition-transform group-hover:translate-x-0.5"
+                            >
+                              <path d="M5 12h14" />
+                              <path d="m12 5 7 7-7 7" />
+                            </svg>
+                          </span>
+                        </div>
+                      </article>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Column: Notes Rail */}
+            <aside className="lg:flex-1">
+              {/* Column Header */}
+              <div className="mb-8 flex items-center gap-4">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  Fragments
+                </span>
+                <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                  {totalNotes}
+                </span>
+              </div>
+
+              {/* Notes List */}
+              <div className="flex flex-col">
+                {noteEntries.map((note, index) => {
+                  const date = new Date(note.date);
+                  const formattedDate = date.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  });
+
+                  return (
+                    <article 
+                      key={note.id}
+                      className={`py-4 ${index !== noteEntries.length - 1 ? 'border-b border-foreground/5' : ''}`}
+                    >
+                      {/* Date */}
+                      <time 
+                        dateTime={note.date}
+                        className="mb-2 block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50"
+                      >
+                        {formattedDate}
+                      </time>
+
+                      {/* Text */}
+                      <p className="text-[13px] leading-relaxed text-muted-foreground/80">
+                        {note.text}
+                      </p>
+                    </article>
+                  );
+                })}
+              </div>
+            </aside>
           </div>
 
           {/* Footer */}
-          <footer className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/50">
+          <footer className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/40">
             <span>Collected writings</span>
             <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
             <span>Est. 2026</span>
