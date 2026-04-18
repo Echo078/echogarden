@@ -63,7 +63,7 @@ export default function BlogPage() {
               {/* Column Header */}
               <div className="mb-8 flex items-center gap-4">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Blog
+                  Essays
                 </span>
                 <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
@@ -71,8 +71,8 @@ export default function BlogPage() {
                 </span>
               </div>
 
-              {/* Blog Entries - Soft Archive Cards */}
-              <div className="flex flex-col gap-5">
+              {/* Blog Entries */}
+              <div className="flex flex-col gap-8">
                 {blogEntries.map((entry) => {
                   const date = new Date(entry.date);
                   const formattedDate = date.toLocaleDateString("en-US", {
@@ -87,33 +87,33 @@ export default function BlogPage() {
                       href={`/blog/${entry.slug}`}
                       className="group block"
                     >
-                      <article className="rounded-lg border border-foreground/6 bg-card/40 px-6 py-5 shadow-sm transition-all hover:border-foreground/12 hover:bg-card/60 hover:shadow-md">
-                        {/* Date - quiet mono */}
+                      <article className="border-b border-foreground/8 pb-8 transition-colors hover:border-foreground/15">
+                        {/* Date */}
                         <time 
                           dateTime={entry.date}
-                          className="mb-2.5 block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50"
+                          className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/60"
                         >
                           {formattedDate}
                         </time>
 
-                        {/* Title - literary serif */}
-                        <h2 className="mb-2.5 font-serif text-lg font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-xl">
+                        {/* Title */}
+                        <h2 className="mb-3 font-serif text-xl font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-2xl">
                           {entry.title}
                         </h2>
 
-                        {/* Excerpt - comfortable reading */}
-                        <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground/80">
+                        {/* Excerpt */}
+                        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
                           {entry.excerpt}
                         </p>
 
-                        {/* Footer - tags and read indicator */}
+                        {/* Footer */}
                         <div className="flex items-center justify-between gap-4">
                           {entry.tags && entry.tags.length > 0 && (
                             <div className="flex flex-wrap gap-1.5">
                               {entry.tags.slice(0, 2).map((tag) => (
                                 <span
                                   key={tag}
-                                  className="rounded-full bg-secondary/40 px-2 py-0.5 text-[8px] uppercase tracking-wider text-muted-foreground/60"
+                                  className="rounded-full bg-secondary/50 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground"
                                 >
                                   {tag}
                                 </span>
@@ -121,9 +121,24 @@ export default function BlogPage() {
                             </div>
                           )}
                           
-                          <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
+                          <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground/50 transition-all group-hover:gap-2.5 group-hover:text-primary">
                             <span className="font-serif italic">Read</span>
-                            <span className="h-px w-3 bg-current transition-all group-hover:w-5" aria-hidden="true" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="10"
+                              height="10"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                              className="transition-transform group-hover:translate-x-0.5"
+                            >
+                              <path d="M5 12h14" />
+                              <path d="m12 5 7 7-7 7" />
+                            </svg>
                           </span>
                         </div>
                       </article>
@@ -133,38 +148,46 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Right Column: Quiet Notes Rail */}
+            {/* Right Column: Notes Rail */}
             <aside className="lg:flex-1">
               {/* Column Header */}
-              <div className="mb-6 flex items-center gap-3 lg:mb-8">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/50">
-                  Slips
+              <div className="mb-8 flex items-center gap-4">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  Fragments
                 </span>
-                <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
+                <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                  {totalNotes}
+                </span>
               </div>
 
-              {/* Notes List - minimal slips */}
-              <div className="flex flex-col gap-5 lg:gap-6">
-                {noteEntries.map((note) => {
+              {/* Notes List */}
+              <div className="flex flex-col">
+                {noteEntries.map((note, index) => {
                   const date = new Date(note.date);
-                  const day = date.getDate();
-                  const month = date.toLocaleDateString("en-US", { month: "short" });
+                  const formattedDate = date.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  });
 
                   return (
-                    <div key={note.id} className="group">
-                      {/* Date - very quiet */}
+                    <article 
+                      key={note.id}
+                      className={`py-4 ${index !== noteEntries.length - 1 ? 'border-b border-foreground/5' : ''}`}
+                    >
+                      {/* Date */}
                       <time 
                         dateTime={note.date}
-                        className="mb-1 block font-mono text-[8px] uppercase tracking-wider text-muted-foreground/35"
+                        className="mb-2 block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50"
                       >
-                        {month} {day}
+                        {formattedDate}
                       </time>
 
-                      {/* Fragment - brief and light */}
-                      <p className="font-serif text-[11px] italic leading-snug text-muted-foreground/60">
-                        {note.fragment}
+                      {/* Text */}
+                      <p className="text-[13px] leading-relaxed text-muted-foreground/80">
+                        {note.text}
                       </p>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
