@@ -16,17 +16,17 @@ export default function KnowledgePage() {
 
   return (
     <main className="flex h-screen flex-col overflow-hidden bg-background">
-      {/* Compact Header */}
-      <header className="shrink-0 px-6 py-4 md:px-10">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
+      {/* Header */}
+      <header className="shrink-0 px-6 py-6 md:px-10 md:py-8">
+        <div className="mx-auto max-w-7xl">
           <Link
             href="/"
-            className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+            className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
+              width="14"
+              height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -41,16 +41,23 @@ export default function KnowledgePage() {
             <span>Return</span>
           </Link>
 
-          <div className="flex items-center gap-4">
-            <h1 className="font-serif text-lg font-light tracking-tight text-foreground">
-              Knowledge
-            </h1>
-            <span className="font-mono text-[9px] text-muted-foreground/50">
-              {totalEntries} entries
-            </span>
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+                Reference Grove
+              </p>
+              <h1 className="font-serif text-3xl font-light tracking-tight text-foreground md:text-4xl">
+                Knowledge Tree
+              </h1>
+            </div>
+            <p className="hidden text-right text-sm text-muted-foreground md:block">
+              <span className="font-serif text-2xl font-light text-foreground">
+                {totalEntries}
+              </span>
+              <br />
+              entries
+            </p>
           </div>
-
-          <div className="w-16" /> {/* Spacer for balance */}
         </div>
       </header>
 
@@ -68,21 +75,21 @@ export default function KnowledgePage() {
       <section className="min-h-0 flex-1 px-6 pb-4 md:px-10">
         <div className="mx-auto flex h-full max-w-7xl gap-6 lg:gap-10">
           
-          {/* Left Column: Category Tree - Compact */}
-          <aside className="hidden shrink-0 lg:block lg:w-44">
-            <div className="flex flex-col gap-0.5">
+          {/* Left Column: Category Tree */}
+          <aside className="hidden shrink-0 lg:block lg:w-48">
+            <div className="flex flex-col gap-1">
               {/* All entries option */}
               <button
                 onClick={() => setActiveCategory(null)}
-                className={`group flex items-center gap-2 rounded px-2.5 py-1.5 text-left transition-all ${
+                className={`group flex items-center gap-2 rounded px-3 py-2 text-left transition-all ${
                   activeCategory === null
                     ? "bg-secondary/50 text-foreground"
                     : "text-muted-foreground hover:bg-secondary/30 hover:text-foreground"
                 }`}
               >
-                <span className="text-[10px] text-muted-foreground/50">*</span>
-                <span className="text-[11px]">All</span>
-                <span className="ml-auto font-mono text-[9px] text-muted-foreground/40">
+                <span className="text-xs text-muted-foreground/50">*</span>
+                <span className="text-xs">All</span>
+                <span className="ml-auto font-mono text-[10px] text-muted-foreground/40">
                   {totalEntries}
                 </span>
               </button>
@@ -97,17 +104,17 @@ export default function KnowledgePage() {
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`group flex items-center gap-2 rounded px-2.5 py-1.5 text-left transition-all ${
+                    className={`group flex items-center gap-2 rounded px-3 py-2 text-left transition-all ${
                       activeCategory === category.id
                         ? "bg-secondary/50 text-foreground"
                         : "text-muted-foreground hover:bg-secondary/30 hover:text-foreground"
                     }`}
                   >
-                    <span className="text-[10px] text-muted-foreground/50">
+                    <span className="text-xs text-muted-foreground/50">
                       {category.icon}
                     </span>
-                    <span className="text-[11px]">{category.name.split(" & ")[0]}</span>
-                    <span className="ml-auto font-mono text-[9px] text-muted-foreground/40">
+                    <span className="text-xs">{category.name.split(" & ")[0]}</span>
+                    <span className="ml-auto font-mono text-[10px] text-muted-foreground/40">
                       {count}
                     </span>
                   </button>
@@ -119,14 +126,14 @@ export default function KnowledgePage() {
           {/* Right Column: Knowledge Cards - Scrollable */}
           <div className="flex min-h-0 flex-1 flex-col">
             {/* Column Header */}
-            <div className="mb-3 flex shrink-0 items-center gap-3">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/60">
+            <div className="mb-4 flex shrink-0 items-center gap-4">
+              <h2 className="font-serif text-base font-normal italic text-muted-foreground">
                 {activeCategory
-                  ? knowledgeCategories.find((c) => c.id === activeCategory)?.name.split(" & ")[0]
-                  : "All"}
-              </span>
-              <div className="h-px flex-1 bg-foreground/8" aria-hidden="true" />
-              <span className="font-mono text-[9px] text-muted-foreground/40">
+                  ? knowledgeCategories.find((c) => c.id === activeCategory)?.name
+                  : "All Entries"}
+              </h2>
+              <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
+              <span className="font-mono text-xs text-muted-foreground/50">
                 {filteredEntries.length}
               </span>
             </div>
@@ -142,43 +149,43 @@ export default function KnowledgePage() {
                   return (
                     <article
                       key={entry.id}
-                      className="group rounded-lg border border-foreground/6 bg-card/30 p-3 transition-all hover:border-foreground/10 hover:bg-card/50"
+                      className="group rounded-lg border border-foreground/8 bg-card/40 p-4 transition-all hover:border-foreground/12 hover:bg-card/60"
                     >
                       {/* Header row */}
-                      <div className="mb-1.5 flex items-center gap-1.5">
-                        <span className="text-[9px] text-muted-foreground/40">
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground/50">
                           {category?.icon}
                         </span>
-                        <span className="font-mono text-[8px] uppercase tracking-wider text-muted-foreground/40">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/50">
                           {category?.name.split(" & ")[0]}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="mb-1 font-serif text-[13px] font-normal leading-snug text-foreground">
+                      <h3 className="mb-1.5 font-serif text-sm font-normal leading-snug text-foreground">
                         {entry.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="mb-2 line-clamp-1 text-[10px] leading-relaxed text-muted-foreground/60">
+                      <p className="mb-2.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground/70">
                         {entry.description}
                       </p>
 
                       {/* Quick reference preview */}
                       {entry.quickRef && (
-                        <div className="mb-2 rounded bg-secondary/20 px-2 py-1">
-                          <code className="font-mono text-[9px] text-muted-foreground/70">
+                        <div className="mb-2.5 rounded bg-secondary/30 px-2.5 py-1.5">
+                          <code className="font-mono text-[10px] text-muted-foreground/80">
                             {entry.quickRef}
                           </code>
                         </div>
                       )}
 
                       {/* Tags */}
-                      <div className="flex flex-wrap gap-1">
+                      <div className="flex flex-wrap gap-1.5">
                         {entry.tags.slice(0, 2).map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full bg-secondary/30 px-1.5 py-0.5 text-[7px] uppercase tracking-wider text-muted-foreground/50"
+                            className="rounded-full bg-secondary/40 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground/60"
                           >
                             {tag}
                           </span>
@@ -191,8 +198,8 @@ export default function KnowledgePage() {
 
               {/* Empty state */}
               {filteredEntries.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <p className="font-serif text-sm italic text-muted-foreground/40">
+                <div className="flex flex-col items-center justify-center py-16 text-center">
+                  <p className="font-serif text-base italic text-muted-foreground/50">
                     No entries yet
                   </p>
                 </div>
