@@ -161,18 +161,18 @@ export function BotanicalBackground() {
       // Sort by layer so back ones draw first
       stems.sort((a, b) => a.layer - b.layer);
 
-      // More visible rain lines
+      // Gentle rain lines - smaller and slower
       rainLines = [];
-      const rainCount = Math.floor(width / 8);
+      const rainCount = Math.floor(width / 12);
       
       for (let i = 0; i < rainCount; i++) {
         rainLines.push({
           x: Math.random() * width,
           y: Math.random() * height * 2 - height,
-          length: 50 + Math.random() * 80,
-          speed: 4 + Math.random() * 3,
-          opacity: 0.25 + Math.random() * 0.2,
-          width: 1 + Math.random() * 0.5,
+          length: 30 + Math.random() * 50,
+          speed: 1.5 + Math.random() * 1.5,
+          opacity: 0.15 + Math.random() * 0.15,
+          width: 0.5 + Math.random() * 0.5,
         });
       }
 
@@ -193,7 +193,7 @@ export function BotanicalBackground() {
           targetX: Math.random() * width,
           targetY: 100 + Math.random() * (height * 0.5),
           wingPhase: Math.random() * Math.PI * 2,
-          speed: 0.3 + Math.random() * 0.4,
+          speed: 0.15 + Math.random() * 0.2,
           size: 8 + Math.random() * 6,
           color: colors.body,
           wingColor: colors.wing,
@@ -212,7 +212,7 @@ export function BotanicalBackground() {
           y: centerY,
           angle: Math.random() * Math.PI * 2,
           orbitRadius: 30 + Math.random() * 50,
-          orbitSpeed: 0.015 + Math.random() * 0.01,
+          orbitSpeed: 0.006 + Math.random() * 0.004,
           centerX,
           centerY,
           size: 5 + Math.random() * 3,
@@ -455,7 +455,7 @@ export function BotanicalBackground() {
           butterfly.y += (dy / dist) * butterfly.speed + Math.sin(time * 2 + butterfly.wingPhase) * 0.5;
         }
         
-        butterfly.wingPhase += 0.15;
+        butterfly.wingPhase += 0.08;
       });
 
       // Draw bees
@@ -468,8 +468,8 @@ export function BotanicalBackground() {
         bee.y = bee.centerY + Math.sin(bee.angle * 0.7) * bee.orbitRadius * 0.6;
         
         // Slowly move orbit center
-        bee.centerX += Math.sin(time * 0.1 + bee.angle) * 0.2;
-        bee.centerY += Math.cos(time * 0.08 + bee.angle) * 0.15;
+        bee.centerX += Math.sin(time * 0.05 + bee.angle) * 0.08;
+        bee.centerY += Math.cos(time * 0.04 + bee.angle) * 0.06;
         
         // Keep in bounds
         if (bee.centerX < 50) bee.centerX = 50;
