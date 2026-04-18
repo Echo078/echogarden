@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { knowledgeCategories, knowledgeEntries } from "@/data/knowledge";
+import { KnowledgeMap } from "@/components/knowledge-map";
 
 export default function KnowledgePage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -54,6 +55,16 @@ export default function KnowledgePage() {
           </div>
         </div>
       </header>
+
+      {/* Knowledge Map */}
+      <section className="px-6 md:px-12">
+        <div className="mx-auto max-w-6xl">
+          <KnowledgeMap 
+            activeCategory={activeCategory} 
+            onCategorySelect={setActiveCategory} 
+          />
+        </div>
+      </section>
 
       {/* Two Column Layout */}
       <section className="px-6 pb-20 md:px-12 md:pb-28">
