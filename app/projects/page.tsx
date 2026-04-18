@@ -126,90 +126,156 @@ export default function ProjectsPage() {
         </div>
       </header>
 
-      {/* Filters */}
-      <section className="border-y border-foreground/8 bg-card/30 px-6 py-6 md:px-12 md:py-8">
+      {/* Filter Bar */}
+      <section className="px-6 md:px-12">
         <div className="mx-auto max-w-6xl">
-          {/* Filter Groups */}
-          <div className="flex flex-col gap-6">
-            {/* Domain Filters */}
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="w-20 shrink-0 text-xs uppercase tracking-wider text-muted-foreground/60">
-                Domain
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {domains.map((domain) => (
-                  <button
-                    key={domain.id}
-                    onClick={() => toggleDomain(domain.id)}
-                    className={`rounded-full border px-3 py-1 text-xs transition-all ${
-                      activeDomains.includes(domain.id)
-                        ? domainColors[domain.id]
-                        : "border-foreground/10 bg-transparent text-muted-foreground hover:border-foreground/20 hover:bg-secondary/20"
-                    }`}
-                  >
-                    <span className="mr-1.5 opacity-60">{domain.icon}</span>
-                    {domain.name}
-                  </button>
-                ))}
+          <div className="rounded-xl border border-foreground/10 bg-card/50 px-6 py-5 shadow-sm backdrop-blur-sm md:px-8 md:py-6">
+            {/* Filter Header */}
+            <div className="mb-5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-primary/60"
+                >
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+                </svg>
+                <span className="font-serif text-sm font-medium text-foreground">
+                  Filter Projects
+                </span>
               </div>
-            </div>
-
-            {/* Project Type Filters */}
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="w-20 shrink-0 text-xs uppercase tracking-wider text-muted-foreground/60">
-                Type
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {projectTypes.map((type) => (
-                  <button
-                    key={type.id}
-                    onClick={() => toggleType(type.id)}
-                    className={`rounded-full border px-3 py-1 text-xs transition-all ${
-                      activeTypes.includes(type.id)
-                        ? "border-primary/30 bg-primary/10 text-primary"
-                        : "border-foreground/10 bg-transparent text-muted-foreground hover:border-foreground/20 hover:bg-secondary/20"
-                    }`}
-                  >
-                    <span className="mr-1.5 opacity-50">{type.icon}</span>
-                    {type.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Skills Filters */}
-            <div className="flex flex-wrap items-start gap-3">
-              <span className="w-20 shrink-0 pt-1 text-xs uppercase tracking-wider text-muted-foreground/60">
-                Skills
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {usedSkills.map((skill) => (
-                  <button
-                    key={skill}
-                    onClick={() => toggleSkill(skill)}
-                    className={`rounded px-2 py-0.5 text-[10px] uppercase tracking-wider transition-all ${
-                      activeSkills.includes(skill)
-                        ? "bg-primary/15 text-primary"
-                        : "bg-secondary/30 text-muted-foreground/60 hover:bg-secondary/50 hover:text-muted-foreground"
-                    }`}
-                  >
-                    {skill}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Clear Filters */}
-            {hasActiveFilters && (
-              <div className="flex items-center gap-3 pt-2">
-                <div className="h-px flex-1 bg-foreground/5" />
+              {hasActiveFilters && (
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs text-muted-foreground/60 underline underline-offset-2 transition-colors hover:text-muted-foreground"
+                  className="flex items-center gap-1.5 rounded-full border border-foreground/10 px-3 py-1 text-xs text-muted-foreground transition-all hover:border-foreground/20 hover:bg-secondary/30 hover:text-foreground"
                 >
-                  Clear all filters
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                  Clear all
                 </button>
-                <div className="h-px flex-1 bg-foreground/5" />
+              )}
+            </div>
+
+            {/* Filter Groups in a horizontal layout */}
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:gap-8">
+              {/* Domain Filters */}
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+                  Domain
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {domains.map((domain) => (
+                    <button
+                      key={domain.id}
+                      onClick={() => toggleDomain(domain.id)}
+                      className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
+                        activeDomains.includes(domain.id)
+                          ? domainColors[domain.id] + " shadow-sm"
+                          : "border-foreground/8 bg-background/50 text-muted-foreground hover:border-foreground/15 hover:bg-background"
+                      }`}
+                    >
+                      <span className={activeDomains.includes(domain.id) ? "opacity-80" : "opacity-50"}>{domain.icon}</span>
+                      {domain.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="hidden h-16 w-px bg-foreground/8 lg:block" />
+
+              {/* Project Type Filters */}
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+                  Type
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {projectTypes.map((type) => (
+                    <button
+                      key={type.id}
+                      onClick={() => toggleType(type.id)}
+                      className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
+                        activeTypes.includes(type.id)
+                          ? "border-primary/40 bg-primary/15 text-primary shadow-sm"
+                          : "border-foreground/8 bg-background/50 text-muted-foreground hover:border-foreground/15 hover:bg-background"
+                      }`}
+                    >
+                      <span className={activeTypes.includes(type.id) ? "opacity-80" : "opacity-50"}>{type.icon}</span>
+                      {type.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="hidden h-16 w-px bg-foreground/8 lg:block" />
+
+              {/* Skills Filters */}
+              <div className="flex flex-1 flex-col gap-2">
+                <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+                  Skills
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {usedSkills.map((skill) => (
+                    <button
+                      key={skill}
+                      onClick={() => toggleSkill(skill)}
+                      className={`rounded-md px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider transition-all ${
+                        activeSkills.includes(skill)
+                          ? "bg-primary/20 text-primary shadow-sm"
+                          : "bg-secondary/40 text-muted-foreground/70 hover:bg-secondary/60 hover:text-muted-foreground"
+                      }`}
+                    >
+                      {skill}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Active filters summary */}
+            {hasActiveFilters && (
+              <div className="mt-5 flex items-center gap-2 border-t border-foreground/6 pt-4">
+                <span className="text-xs text-muted-foreground/60">Active:</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {activeDomains.map((d) => (
+                    <span key={d} className={`rounded-full border px-2 py-0.5 text-[10px] ${domainColors[d]}`}>
+                      {domains.find((dom) => dom.id === d)?.name}
+                    </span>
+                  ))}
+                  {activeTypes.map((t) => (
+                    <span key={t} className="rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] text-primary">
+                      {projectTypes.find((type) => type.id === t)?.name}
+                    </span>
+                  ))}
+                  {activeSkills.map((s) => (
+                    <span key={s} className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] text-primary">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <span className="ml-auto font-mono text-xs text-muted-foreground/50">
+                  {filteredProjects.length} results
+                </span>
               </div>
             )}
           </div>
