@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { BotanicalBackgroundSubtle } from "@/components/botanical-background-subtle";
 
 export const metadata: Metadata = {
   title: "About — Echo's Garden",
@@ -10,8 +9,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-background">
-      <BotanicalBackgroundSubtle />
+    <div className="min-h-screen bg-background">
       {/* Main Content - Two Columns */}
       <div className="px-6 py-10 md:px-12 md:py-14">
         <div className="mx-auto max-w-4xl">

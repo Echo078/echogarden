@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { projects, domains, projectTypes, allSkills } from "@/data/projects";
-import { BotanicalBackgroundSubtle } from "@/components/botanical-background-subtle";
 
 // Domain color mapping
 const domainColors: Record<string, string> = {
@@ -78,8 +77,7 @@ export default function ProjectsPage() {
   const hasActiveFilters = activeDomains.length > 0 || activeTypes.length > 0 || activeSkills.length > 0;
 
   return (
-    <div className="relative min-h-screen bg-background">
-      <BotanicalBackgroundSubtle />
+    <div className="min-h-screen bg-background">
       {/* Page Header */}
       <header className="px-6 py-8 md:px-12 md:py-10">
         <div className="mx-auto max-w-6xl">
