@@ -63,7 +63,7 @@ export default function BlogPage() {
               {/* Column Header */}
               <div className="mb-8 flex items-center gap-4">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Essays
+                  Blog
                 </span>
                 <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
@@ -122,7 +122,7 @@ export default function BlogPage() {
                           )}
                           
                           <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
-                            <span className="font-serif italic">Continue</span>
+                            <span className="font-serif italic">Read</span>
                             <span className="h-px w-3 bg-current transition-all group-hover:w-5" aria-hidden="true" />
                           </span>
                         </div>
@@ -134,7 +134,7 @@ export default function BlogPage() {
             </div>
 
             {/* Right Column: Quiet Notes Rail */}
-            <aside className="lg:w-48 lg:flex-none">
+            <aside className="lg:flex-1">
               {/* Column Header */}
               <div className="mb-6 flex items-center gap-3 lg:mb-8">
                 <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/50">
