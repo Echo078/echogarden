@@ -29,6 +29,7 @@ const phaseStyles: Record<string, { dot: string; line: string; badge: string }> 
 
 export default function ResearchPage() {
   const sortedProjects = [...researchProjects].sort((a, b) => a.order - b.order);
+  const currentProject = researchProjects.find((p) => p.isCurrent);
 
   return (
     <main className="min-h-screen bg-background">
@@ -70,9 +71,136 @@ export default function ResearchPage() {
         </div>
       </header>
 
-      {/* Timeline */}
-      <section className="px-6 pb-20 md:px-12 md:pb-28">
+      {/* Current Focus Section */}
+      {currentProject && (
+        <section className="px-6 pb-12 md:px-12 md:pb-16">
+          <div className="mx-auto max-w-3xl">
+            {/* Section Header */}
+            <div className="mb-6 flex items-center gap-4">
+              <span className="font-serif text-sm italic text-muted-foreground">Current Focus</span>
+              <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
+            </div>
+
+            {/* Current Focus Card */}
+            <div className="rounded-xl border border-primary/20 bg-card/50 p-6 shadow-sm md:p-8">
+              {/* Phase badge and time */}
+              <div className="mb-4 flex flex-wrap items-center gap-3">
+                <span className={`rounded-full border px-3 py-1 text-[10px] font-medium uppercase tracking-wider ${phaseStyles[currentProject.phase].badge}`}>
+                  {currentProject.phaseLabel}
+                </span>
+                <span className="font-mono text-xs text-muted-foreground/60">
+                  {currentProject.timeRange}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h2 className="mb-4 font-serif text-2xl font-normal leading-snug text-foreground md:text-3xl">
+                {currentProject.title}
+              </h2>
+
+              {/* Research Question */}
+              {currentProject.researchQuestion && (
+                <blockquote className="mb-5 border-l-2 border-primary/30 pl-4">
+                  <p className="font-serif text-base italic leading-relaxed text-foreground/80 md:text-lg">
+                    {currentProject.researchQuestion}
+                  </p>
+                </blockquote>
+              )}
+
+              {/* Summary */}
+              <p className="mb-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+                {currentProject.summary}
+              </p>
+
+              {/* Themes */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                {currentProject.themes.map((theme) => (
+                  <span
+                    key={theme}
+                    className="rounded-md bg-primary/10 px-2.5 py-1 text-xs text-primary/80"
+                  >
+                    {theme}
+                  </span>
+                ))}
+              </div>
+
+              {/* Action row */}
+              <div className="flex items-center justify-between">
+                <Link
+                  href={`/research/${currentProject.slug}`}
+                  className="group inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all hover:bg-primary/20"
+                >
+                  <span>Explore this research</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="transition-transform group-hover:translate-x-0.5"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg>
+                </Link>
+
+                {/* Mini timeline preview */}
+                <a 
+                  href="#journey" 
+                  className="hidden items-center gap-2 text-xs text-muted-foreground/60 transition-colors hover:text-muted-foreground md:flex"
+                >
+                  <span className="font-serif italic">See full journey</span>
+                  <div className="flex items-center gap-1">
+                    {sortedProjects.map((p, i) => (
+                      <div
+                        key={p.id}
+                        className={`h-1.5 rounded-full transition-all ${
+                          p.isCurrent 
+                            ? "w-4 bg-primary" 
+                            : "w-1.5 bg-foreground/20"
+                        }`}
+                        title={p.title}
+                      />
+                    ))}
+                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Research Journey Timeline */}
+      <section id="journey" className="scroll-mt-8 px-6 pb-20 md:px-12 md:pb-28">
         <div className="mx-auto max-w-3xl">
+          {/* Section Header */}
+          <div className="mb-10 flex items-center gap-4">
+            <span className="font-serif text-sm italic text-muted-foreground">Research Journey</span>
+            <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/50">
+              2021 — Present
+            </span>
+          </div>
+
           {/* Timeline container */}
           <div className="relative">
             {/* Vertical line */}
@@ -82,7 +210,7 @@ export default function ResearchPage() {
             />
 
             {/* Timeline items */}
-            <div className="flex flex-col gap-16 md:gap-20">
+            <div className="flex flex-col gap-14 md:gap-16">
               {sortedProjects.map((project, index) => {
                 const styles = phaseStyles[project.phase];
                 const isLast = index === sortedProjects.length - 1;
@@ -91,14 +219,16 @@ export default function ResearchPage() {
                   <div key={project.id} className="relative pl-10 md:pl-14">
                     {/* Timeline dot */}
                     <div 
-                      className={`absolute left-0 top-1 h-6 w-6 rounded-full border-4 border-background ${styles.dot} md:h-8 md:w-8`}
+                      className={`absolute left-0 top-1 h-6 w-6 rounded-full border-4 border-background ${styles.dot} md:h-8 md:w-8 ${
+                        project.isCurrent ? "ring-2 ring-primary/30 ring-offset-2 ring-offset-background" : ""
+                      }`}
                       aria-hidden="true"
                     />
 
                     {/* Content card */}
                     <article className="group">
                       {/* Phase label & time */}
-                      <div className="mb-3 flex flex-wrap items-center gap-3">
+                      <div className="mb-2 flex flex-wrap items-center gap-3">
                         <span 
                           className={`rounded-full border px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider ${styles.badge}`}
                         >
@@ -107,20 +237,25 @@ export default function ResearchPage() {
                         <span className="font-mono text-xs text-muted-foreground/60">
                           {project.timeRange}
                         </span>
+                        {project.isCurrent && (
+                          <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-primary">
+                            Current
+                          </span>
+                        )}
                       </div>
 
                       {/* Title */}
-                      <h2 className="mb-3 font-serif text-xl font-normal leading-snug text-foreground md:text-2xl">
+                      <h3 className="mb-2 font-serif text-lg font-normal leading-snug text-foreground md:text-xl">
                         {project.title}
-                      </h2>
+                      </h3>
 
                       {/* Summary */}
-                      <p className="mb-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+                      <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
                         {project.summary}
                       </p>
 
                       {/* Themes */}
-                      <div className="mb-5 flex flex-wrap gap-1.5">
+                      <div className="mb-4 flex flex-wrap gap-1.5">
                         {project.themes.map((theme) => (
                           <span
                             key={theme}
@@ -154,15 +289,6 @@ export default function ResearchPage() {
                           <path d="m12 5 7 7-7 7" />
                         </svg>
                       </Link>
-
-                      {/* Connector line to next (not on last item) */}
-                      {!isLast && (
-                        <div 
-                          className="absolute -bottom-10 left-[11px] h-4 w-px md:-bottom-12 md:left-[15px]"
-                          style={{ backgroundColor: styles.line.replace('bg-', '') }}
-                          aria-hidden="true"
-                        />
-                      )}
                     </article>
                   </div>
                 );
@@ -170,7 +296,7 @@ export default function ResearchPage() {
             </div>
 
             {/* End marker */}
-            <div className="mt-12 pl-10 md:mt-16 md:pl-14">
+            <div className="mt-10 pl-10 md:mt-12 md:pl-14">
               <div className="flex items-center gap-4">
                 <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
                 <span className="font-serif text-sm italic text-muted-foreground/50">

@@ -6,8 +6,10 @@ export interface ResearchProject {
   phase: string;
   phaseLabel: string;
   summary: string;
+  researchQuestion?: string; // Central research question (for current focus)
   themes: string[];
   order: number;
+  isCurrent?: boolean;
 }
 
 // Three long-term research projects representing a journey from first encounter to deeper inquiry
@@ -45,7 +47,9 @@ export const researchProjects: ResearchProject[] = [
     phaseLabel: "Deeper Inquiry",
     summary:
       "Synthesizing earlier threads into a focused research practice. Designing sonic interfaces that respond to touch, breath, and movement. Exploring how sound shapes our perception of space and presence.",
+    researchQuestion: "How can sound become a medium for embodied interaction — responsive to gesture, breath, and spatial presence?",
     themes: ["interaction design", "embodied cognition", "spatial audio", "tangible interfaces"],
     order: 3,
+    isCurrent: true,
   },
 ];
