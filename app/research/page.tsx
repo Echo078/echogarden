@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { researchProjects } from "@/data/research";
 import type { Metadata } from "next";
+import { BotanicalBackgroundSubtle } from "@/components/botanical-background-subtle";
 
 export const metadata: Metadata = {
   title: "Research Journey — Echo's Garden",
@@ -32,7 +33,8 @@ export default function ResearchPage() {
   const currentProject = researchProjects.find((p) => p.isCurrent);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <BotanicalBackgroundSubtle />
       {/* Page Header */}
       <header className="px-6 py-8 md:px-12 md:py-10">
         <div className="mx-auto max-w-3xl">

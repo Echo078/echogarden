@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { knowledgeCategories, knowledgeEntries } from "@/data/knowledge";
 import { KnowledgeMap } from "@/components/knowledge-map";
+import { BotanicalBackgroundSubtle } from "@/components/botanical-background-subtle";
 
 export default function KnowledgePage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -32,7 +33,8 @@ export default function KnowledgePage() {
   const totalEntries = knowledgeEntries.length;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <BotanicalBackgroundSubtle />
       {/* Page Header */}
       <header className="px-6 py-6 md:px-10 md:py-8">
         <div className="mx-auto max-w-7xl">

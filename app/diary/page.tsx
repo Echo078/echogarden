@@ -1,6 +1,7 @@
 import { diaryEntries, type DiaryEntry } from "@/data/diary";
 import { SpecimenCard } from "@/components/specimen-card";
 import type { Metadata } from "next";
+import { BotanicalBackgroundSubtle } from "@/components/botanical-background-subtle";
 
 export const metadata: Metadata = {
   title: "Audio Diary — Echo's Garden",
@@ -39,7 +40,8 @@ export default function DiaryPage() {
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <BotanicalBackgroundSubtle />
       {/* Page Header */}
       <header className="px-6 py-8 md:px-12 md:py-10">
         <div className="mx-auto max-w-6xl">
