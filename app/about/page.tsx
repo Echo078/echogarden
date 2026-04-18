@@ -137,7 +137,7 @@ export default function AboutPage() {
               <div className="mb-8 h-px bg-foreground/10" aria-hidden="true" />
 
               {/* Research Interests - In my own words */}
-              <section className="pb-8">
+              <section className="pb-6">
                 <h2 className="mb-4 font-serif text-lg font-light text-foreground">
                   What I Care About
                 </h2>
@@ -152,6 +152,38 @@ export default function AboutPage() {
                   </ul>
                 </div>
               </section>
+
+              {/* Explore More - Right after research interests */}
+              <div className="mb-8 flex flex-wrap items-center gap-2">
+                <Link 
+                  href="/research"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary transition-all hover:border-primary/30 hover:bg-primary/10"
+                >
+                  <span>Research Journey</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </Link>
+                <Link 
+                  href="/projects"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-foreground/10 bg-card/50 px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all hover:border-foreground/20 hover:bg-card/70 hover:text-foreground"
+                >
+                  <span>Projects</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </Link>
+                <Link 
+                  href="/diary"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-foreground/10 bg-card/50 px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all hover:border-foreground/20 hover:bg-card/70 hover:text-foreground"
+                >
+                  <span>Sound Diary</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </Link>
+                <Link 
+                  href="/blog"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-foreground/10 bg-card/50 px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all hover:border-foreground/20 hover:bg-card/70 hover:text-foreground"
+                >
+                  <span>Writing</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </Link>
+              </div>
 
               {/* Divider */}
               <div className="mb-8 h-px bg-foreground/10" aria-hidden="true" />
@@ -190,41 +222,6 @@ export default function AboutPage() {
                 </p>
               </section>
 
-              {/* Divider */}
-              <div className="mb-8 h-px bg-foreground/10" aria-hidden="true" />
-
-              {/* Navigation Buttons */}
-              <section>
-                <h2 className="mb-4 font-serif text-lg font-light text-foreground">
-                  Explore More
-                </h2>
-                <div className="flex flex-wrap gap-3">
-                  <Link 
-                    href="/research"
-                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
-                  >
-                    Research Journey
-                  </Link>
-                  <Link 
-                    href="/projects"
-                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
-                  >
-                    Projects
-                  </Link>
-                  <Link 
-                    href="/diary"
-                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
-                  >
-                    Sound Diary
-                  </Link>
-                  <Link 
-                    href="/blog"
-                    className="rounded-lg border border-foreground/10 bg-card/40 px-4 py-2 text-sm text-foreground transition-all hover:border-foreground/20 hover:bg-card/60"
-                  >
-                    Writing
-                  </Link>
-                </div>
-              </section>
             </div>
 
           </div>
