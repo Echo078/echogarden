@@ -1,13 +1,13 @@
-import Link from "next/link";
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "About — Echo's Garden",
-  description:
-    "Interdisciplinary researcher exploring sonic interaction, embodied computing, and the spaces between music and engineering.",
-};
+import Link from "next/link";
+import { useLanguage } from "@/components/language-provider";
+import { translations } from "@/lib/translations";
 
 export default function AboutPage() {
+  const { lang, t } = useLanguage();
+  const aboutT = translations.about;
+
   return (
     <div className="min-h-screen bg-background">
       {/* Main Content - Two Columns */}
@@ -30,10 +30,10 @@ export default function AboutPage() {
                   Echo Chen
                 </h1>
                 <p className="mb-0.5 text-sm font-medium text-primary">
-                  Graduate Researcher
+                  {aboutT.graduateResearcher[lang]}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Media Arts & Sciences
+                  {aboutT.department[lang]}
                 </p>
               </div>
 
@@ -79,45 +79,44 @@ export default function AboutPage() {
               {/* Research Interests */}
               <div className="mb-6">
                 <h2 className="mb-3 font-serif text-sm font-medium text-foreground">
-                  Research Interests
+                  {aboutT.researchInterests[lang]}
                 </h2>
                 <ul className="space-y-1">
-                  <li className="text-sm text-muted-foreground">Sonic Interaction Design</li>
-                  <li className="text-sm text-muted-foreground">Embodied Computing</li>
-                  <li className="text-sm text-muted-foreground">Spatial Audio</li>
-                  <li className="text-sm text-muted-foreground">Tangible Interfaces</li>
+                  {aboutT.interests[lang].map((interest, i) => (
+                    <li key={i} className="text-sm text-muted-foreground">{interest}</li>
+                  ))}
                 </ul>
               </div>
 
               {/* Explore More */}
               <div>
                 <h2 className="mb-3 font-serif text-sm font-medium text-foreground">
-                  Explore
+                  {aboutT.explore[lang]}
                 </h2>
                 <div className="flex flex-col gap-2">
                   <Link 
                     href="/research"
                     className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    Research Journey
+                    {aboutT.researchJourney[lang]}
                   </Link>
                   <Link 
                     href="/projects"
                     className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    Projects
+                    {translations.nav.projects[lang]}
                   </Link>
                   <Link 
                     href="/diary"
                     className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    Sound Diary
+                    {aboutT.soundDiary[lang]}
                   </Link>
                   <Link 
                     href="/blog"
                     className="flex items-center justify-center rounded-md border border-foreground/12 bg-card/40 px-3 py-2 text-sm text-foreground transition-all hover:border-primary/30 hover:bg-primary/8 hover:text-primary"
                   >
-                    Writing
+                    {aboutT.writing[lang]}
                   </Link>
                 </div>
               </div>
@@ -128,13 +127,13 @@ export default function AboutPage() {
               {/* About - Main narrative */}
               <section className="pb-8">
                 <h2 className="mb-5 font-serif text-2xl font-light text-foreground">
-                  About
+                  {aboutT.title[lang]}
                 </h2>
                 <div className="space-y-4 text-base leading-relaxed text-foreground/85">
                   <p>
-                    Hi, I am a graduate researcher in Media Arts & Sciences, advised by{" "}
-                    <a href="#" className="text-primary hover:underline">Prof. Advisor Name</a>.
-                    Nice to meet you here.
+                    {aboutT.greeting[lang]}{" "}
+                    <a href="#" className="text-primary hover:underline">{aboutT.advisorName[lang]}</a>。
+                    {aboutT.greetingEnd[lang]}
                   </p>
                 </div>
               </section>
@@ -145,39 +144,26 @@ export default function AboutPage() {
               {/* Research Interests - In my own words */}
               <section className="pb-6">
                 <h2 className="mb-4 font-serif text-lg font-light text-foreground">
-                  What I Care About
+                  {aboutT.whatICareAbout[lang]}
                 </h2>
                 <div className="space-y-3 text-sm leading-relaxed text-foreground/80">
-                  <p>
-                    I am curious about the relationship between sound and body:
-                  </p>
+                  <p>{aboutT.curiosity[lang]}</p>
                   <ul className="ml-4 space-y-1.5 text-muted-foreground">
-                    <li>• How can sound respond to gesture, breath, and presence?</li>
-                    <li>• What happens when we design instruments that listen back?</li>
-                    <li>• How does spatial audio shape our sense of place?</li>
+                    {aboutT.questions[lang].map((question, i) => (
+                      <li key={i}>• {question}</li>
+                    ))}
                   </ul>
                 </div>
               </section>
 
-
-
               {/* Experience & Current Direction */}
               <section className="pb-8">
                 <h2 className="mb-4 font-serif text-lg font-light text-foreground">
-                  Where I Come From & Where I Am Going
+                  {aboutT.whereFrom[lang]}
                 </h2>
                 <div className="space-y-3 text-sm leading-relaxed text-foreground/80">
-                  <p>
-                    I studied Mechanical Engineering as an undergraduate, where I first 
-                    encountered acoustics and became fascinated by how physical systems 
-                    produce sound. That curiosity led me to explore instrument design, 
-                    then interactive media, and eventually here.
-                  </p>
-                  <p>
-                    Right now, I am building sonic interfaces that respond to breath and 
-                    movement — trying to make technology feel less like a tool and more 
-                    like a conversation.
-                  </p>
+                  <p>{aboutT.background[lang]}</p>
+                  <p>{aboutT.currentWork[lang]}</p>
                 </div>
               </section>
 
@@ -187,11 +173,10 @@ export default function AboutPage() {
               {/* Personal Touch */}
               <section className="pb-8">
                 <h2 className="mb-4 font-serif text-lg font-light text-foreground">
-                  Beyond the Lab
+                  {aboutT.beyondLab[lang]}
                 </h2>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  When I am not in the lab, I spend time improvising on piano, walking 
-                  in botanical gardens, and collecting field recordings of everyday sounds.
+                  {aboutT.personalLife[lang]}
                 </p>
               </section>
 

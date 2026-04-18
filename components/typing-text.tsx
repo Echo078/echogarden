@@ -21,6 +21,13 @@ export function TypingText({
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Reset when text changes (e.g., language switch)
+  useEffect(() => {
+    setDisplayText("");
+    setIsDeleting(false);
+    setIsPaused(false);
+  }, [text]);
+
   useEffect(() => {
     let timeout: NodeJS.Timeout;
 

@@ -1,24 +1,25 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "CV — Echo's Garden",
-  description: "Curriculum vitae and academic background.",
-};
+import { useLanguage } from "@/components/language-provider";
+import { translations } from "@/lib/translations";
 
 export default function CVPage() {
+  const { lang, t } = useLanguage();
+  const cvT = translations.cv;
+
   return (
     <div className="min-h-screen bg-background">
       {/* Page Header */}
       <header className="px-6 py-8 md:px-12 md:py-10">
         <div className="mx-auto max-w-3xl">
           <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
-            Curriculum Vitae
+            {cvT.subtitle[lang]}
           </p>
           <h1 className="mb-6 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-            CV
+            {cvT.pageTitle[lang]}
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-            Academic background, publications, and experience.
+            {cvT.description[lang]}
           </p>
         </div>
       </header>
@@ -47,18 +48,18 @@ export default function CVPage() {
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              Download PDF
+              {cvT.downloadPdf[lang]}
             </a>
           </div>
 
           {/* Education */}
           <section className="mb-12">
             <h2 className="mb-6 font-serif text-xl font-normal text-foreground">
-              Education
+              {cvT.education[lang]}
             </h2>
             <div className="space-y-6">
               <div className="border-l-2 border-primary/20 pl-4">
-                <p className="font-mono text-xs text-muted-foreground/60">2024 — Present</p>
+                <p className="font-mono text-xs text-muted-foreground/60">2024 — {lang === "zh" ? "至今" : "Present"}</p>
                 <h3 className="mt-1 font-medium text-foreground">
                   M.S. Media Arts & Sciences
                 </h3>
@@ -81,11 +82,11 @@ export default function CVPage() {
           {/* Experience */}
           <section className="mb-12">
             <h2 className="mb-6 font-serif text-xl font-normal text-foreground">
-              Experience
+              {cvT.experience[lang]}
             </h2>
             <div className="space-y-6">
               <div className="border-l-2 border-primary/20 pl-4">
-                <p className="font-mono text-xs text-muted-foreground/60">2024 — Present</p>
+                <p className="font-mono text-xs text-muted-foreground/60">2024 — {lang === "zh" ? "至今" : "Present"}</p>
                 <h3 className="mt-1 font-medium text-foreground">
                   Graduate Research Assistant
                 </h3>
@@ -108,7 +109,7 @@ export default function CVPage() {
           {/* Skills */}
           <section className="mb-12">
             <h2 className="mb-6 font-serif text-xl font-normal text-foreground">
-              Skills
+              {cvT.skills[lang]}
             </h2>
             <div className="flex flex-wrap gap-2">
               {[
@@ -135,9 +136,9 @@ export default function CVPage() {
 
           {/* Footer */}
           <footer className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/40">
-            <span>Last updated</span>
+            <span>{cvT.lastUpdated[lang]}</span>
             <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
-            <span>April 2026</span>
+            <span>{lang === "zh" ? "2026年4月" : "April 2026"}</span>
           </footer>
         </div>
       </section>

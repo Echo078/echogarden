@@ -4,8 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { knowledgeCategories, knowledgeEntries } from "@/data/knowledge";
 import { KnowledgeMap } from "@/components/knowledge-map";
+import { useLanguage } from "@/components/language-provider";
+import { translations } from "@/lib/translations";
 
 export default function KnowledgePage() {
+  const { lang, t } = useLanguage();
+  const knowledgeT = translations.knowledge;
+
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -39,10 +44,10 @@ export default function KnowledgePage() {
           <div className="flex items-end justify-between">
             <div>
               <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
-                Reference Grove
+                {knowledgeT.subtitle[lang]}
               </p>
               <h1 className="font-serif text-3xl font-light tracking-tight text-foreground md:text-4xl">
-                Knowledge
+                {knowledgeT.pageTitle[lang]}
               </h1>
             </div>
             <p className="hidden text-right text-sm text-muted-foreground md:block">
@@ -50,7 +55,7 @@ export default function KnowledgePage() {
                 {totalEntries}
               </span>
               <br />
-              entries
+              {knowledgeT.entries[lang]}
             </p>
           </div>
         </div>
@@ -95,14 +100,14 @@ export default function KnowledgePage() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search notes, formulas..."
+                  placeholder={knowledgeT.search[lang]}
                   className="w-full rounded-lg border border-foreground/8 bg-card/30 py-2 pl-9 pr-3 text-xs text-foreground placeholder:text-muted-foreground/40 focus:border-primary/30 focus:bg-card/50 focus:outline-none focus:ring-1 focus:ring-primary/20 transition-all"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
                     className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-0.5 text-muted-foreground/40 hover:text-muted-foreground transition-colors"
-                    aria-label="Clear search"
+                    aria-label={knowledgeT.clearSearch[lang]}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +129,7 @@ export default function KnowledgePage() {
               {/* Search hint */}
               {searchQuery && (
                 <p className="mt-1.5 text-[10px] text-muted-foreground/50">
-                  {filteredEntries.length} {filteredEntries.length === 1 ? "match" : "matches"}
+                  {filteredEntries.length} {filteredEntries.length === 1 ? knowledgeT.match[lang] : knowledgeT.matches[lang]}
                 </p>
               )}
             </div>
@@ -143,7 +148,7 @@ export default function KnowledgePage() {
                 }`}
               >
                 <span className="text-xs text-muted-foreground/50">*</span>
-                <span className="text-xs">All</span>
+                <span className="text-xs">{knowledgeT.all[lang]}</span>
                 <span className="ml-auto font-mono text-[10px] text-muted-foreground/40">
                   {totalEntries}
                 </span>
@@ -184,10 +189,10 @@ export default function KnowledgePage() {
             <div className="mb-4 flex items-center gap-4">
               <h2 className="font-serif text-base font-normal italic text-muted-foreground">
                 {searchQuery.trim()
-                  ? `Results for "${searchQuery}"`
+                  ? `${knowledgeT.resultsFor[lang]} "${searchQuery}"`
                   : activeCategory
                     ? knowledgeCategories.find((c) => c.id === activeCategory)?.name
-                    : "All Entries"}
+                    : knowledgeT.allEntries[lang]}
               </h2>
               <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
               <span className="font-mono text-xs text-muted-foreground/50">
@@ -258,15 +263,15 @@ export default function KnowledgePage() {
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <p className="font-serif text-base italic text-muted-foreground/50">
                     {searchQuery.trim()
-                      ? `No matches for "${searchQuery}"`
-                      : "No entries yet"}
+                      ? `${knowledgeT.noMatches[lang]} "${searchQuery}"`
+                      : knowledgeT.noEntriesYet[lang]}
                   </p>
                   {searchQuery.trim() && (
                     <button
                       onClick={() => setSearchQuery("")}
                       className="mt-3 text-xs text-muted-foreground/60 underline underline-offset-2 hover:text-muted-foreground transition-colors"
                     >
-                      Clear search
+                      {knowledgeT.clearSearch[lang]}
                     </button>
                   )}
                 </div>

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { projects, domains, projectTypes, allSkills } from "@/data/projects";
+import { useLanguage } from "@/components/language-provider";
+import { translations } from "@/lib/translations";
 
 // Domain color mapping
 const domainColors: Record<string, string> = {
@@ -20,6 +22,9 @@ const projectTypeColors: Record<string, string> = {
 };
 
 export default function ProjectsPage() {
+  const { lang, t } = useLanguage();
+  const projectsT = translations.projects;
+
   const [activeDomains, setActiveDomains] = useState<string[]>([]);
   const [activeTypes, setActiveTypes] = useState<string[]>([]);
   const [activeSkills, setActiveSkills] = useState<string[]>([]);
@@ -84,13 +89,13 @@ export default function ProjectsPage() {
           <div className="flex items-end justify-between">
             <div>
               <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
-                Project Archive
+                {projectsT.subtitle[lang]}
               </p>
               <h1 className="mb-4 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-                Projects
+                {projectsT.pageTitle[lang]}
               </h1>
               <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-                Cross-disciplinary work spanning mechanical, hardware, software, and acoustic domains.
+                {projectsT.description[lang]}
               </p>
             </div>
             <p className="hidden text-right text-sm text-muted-foreground md:block">
@@ -98,7 +103,7 @@ export default function ProjectsPage() {
                 {projects.length}
               </span>
               <br />
-              projects
+              {projectsT.projects[lang]}
             </p>
           </div>
         </div>
@@ -111,7 +116,7 @@ export default function ProjectsPage() {
             <div className="flex flex-col gap-3">
               {/* Domain Row */}
               <div className="flex items-center gap-4">
-                <span className="w-16 shrink-0 text-xs font-medium text-foreground">Domain</span>
+                <span className="w-16 shrink-0 text-xs font-medium text-foreground">{projectsT.filterDomain[lang]}</span>
                 <div className="flex flex-wrap gap-2">
                   {domains.map((domain) => (
                     <button
@@ -132,7 +137,7 @@ export default function ProjectsPage() {
 
               {/* Type Row */}
               <div className="flex items-center gap-4">
-                <span className="w-16 shrink-0 text-xs font-medium text-foreground">Type</span>
+                <span className="w-16 shrink-0 text-xs font-medium text-foreground">{projectsT.filterType[lang]}</span>
                 <div className="flex flex-wrap gap-2">
                   {projectTypes.map((type) => (
                     <button
@@ -153,7 +158,7 @@ export default function ProjectsPage() {
 
               {/* Skills Row */}
               <div className="flex items-start gap-4">
-                <span className="w-16 shrink-0 pt-1 text-xs font-medium text-foreground">Skills</span>
+                <span className="w-16 shrink-0 pt-1 text-xs font-medium text-foreground">{projectsT.filterSkills[lang]}</span>
                 <div className="flex flex-1 flex-wrap gap-1.5">
                   {usedSkills.map((skill) => (
                     <button
@@ -175,7 +180,7 @@ export default function ProjectsPage() {
                     onClick={clearAllFilters}
                     className="shrink-0 text-xs text-muted-foreground/60 underline underline-offset-2 transition-colors hover:text-muted-foreground"
                   >
-                    Clear
+                    {projectsT.clear[lang]}
                   </button>
                 )}
               </div>
@@ -190,7 +195,7 @@ export default function ProjectsPage() {
           {/* Results count */}
           <div className="mb-8 flex items-center gap-4">
             <h2 className="font-serif text-base font-normal italic text-muted-foreground">
-              {hasActiveFilters ? "Filtered Results" : "All Projects"}
+              {hasActiveFilters ? projectsT.filteredResults[lang] : projectsT.allProjects[lang]}
             </h2>
             <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
             <span className="font-mono text-xs text-muted-foreground/50">
@@ -281,7 +286,7 @@ export default function ProjectsPage() {
 
                   {/* View indicator */}
                   <div className="mt-4 flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
-                    <span className="font-serif italic">View details</span>
+                    <span className="font-serif italic">{projectsT.viewDetails[lang]}</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="9"
@@ -308,22 +313,22 @@ export default function ProjectsPage() {
           {filteredProjects.length === 0 && (
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <p className="font-serif text-base italic text-muted-foreground/50">
-                No projects match the current filters
+                {projectsT.noMatch[lang]}
               </p>
               <button
                 onClick={clearAllFilters}
                 className="mt-4 text-xs text-muted-foreground/60 underline underline-offset-2 transition-colors hover:text-muted-foreground"
               >
-                Clear all filters
+                {projectsT.clearAll[lang]}
               </button>
             </div>
           )}
 
           {/* Footer */}
           <footer className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/40">
-            <span>Cross-disciplinary work</span>
+            <span>{projectsT.crossDisciplinary[lang]}</span>
             <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
-            <span>Est. 2023</span>
+            <span>{t("home.established")}</span>
           </footer>
         </div>
       </section>

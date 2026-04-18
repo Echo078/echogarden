@@ -1,20 +1,16 @@
+"use client";
+
 import { diaryEntries, type DiaryEntry } from "@/data/diary";
 import { SpecimenCard } from "@/components/specimen-card";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Audio Diary — Echo's Garden",
-  description:
-    "Browse all audio diary entries. A collection of daily improvisations and sound notes.",
-};
+import { useLanguage } from "@/components/language-provider";
 
 // Group entries by month
-function groupByMonth(entries: DiaryEntry[]): Map<string, DiaryEntry[]> {
+function groupByMonth(entries: DiaryEntry[], locale: string): Map<string, DiaryEntry[]> {
   const groups = new Map<string, DiaryEntry[]>();
 
   entries.forEach((entry) => {
     const date = new Date(entry.date);
-    const monthKey = date.toLocaleDateString("en-US", {
+    const monthKey = date.toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
     });
@@ -29,8 +25,11 @@ function groupByMonth(entries: DiaryEntry[]): Map<string, DiaryEntry[]> {
 }
 
 export default function DiaryPage() {
+  const { lang, t } = useLanguage();
+  const locale = lang === "zh" ? "zh-CN" : "en-US";
+  
   const totalEntries = diaryEntries.length;
-  const groupedEntries = groupByMonth(diaryEntries);
+  const groupedEntries = groupByMonth(diaryEntries, locale);
 
   // Create specimen numbers (descending from total)
   const specimenNumbers = new Map<string, number>();
@@ -46,10 +45,10 @@ export default function DiaryPage() {
           <div className="flex items-end justify-between">
             <div>
               <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
-                Specimen Cabinet
+                {t("diary.subtitle")}
               </p>
               <h1 className="font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-                Music Specimens
+                {t("diary.pageTitle")}
               </h1>
             </div>
             <p className="hidden text-right text-sm text-muted-foreground md:block">
@@ -57,7 +56,7 @@ export default function DiaryPage() {
                 {totalEntries}
               </span>
               <br />
-              preserved
+              {t("diary.preserved")}
             </p>
           </div>
         </div>
@@ -91,9 +90,9 @@ export default function DiaryPage() {
 
           {/* Archive footer */}
           <div className="mt-24 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground">
-            <span>Ongoing collection</span>
+            <span>{t("home.ongoingCollection")}</span>
             <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
-            <span>Est. 2026</span>
+            <span>{t("home.established")}</span>
           </div>
         </div>
       </section>

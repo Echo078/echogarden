@@ -4,15 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "@/components/theme-provider";
+import { useLanguage } from "@/components/language-provider";
 
 const navItems = [
-  { label: "About", href: "/about" },
-  { label: "Research", href: "/research" },
-  { label: "Projects", href: "/projects" },
-  { label: "Music Specimens", href: "/diary" },
-  { label: "Blog", href: "/blog" },
-  { label: "Knowledge", href: "/knowledge" },
-  { label: "CV", href: "/cv" },
+  { labelKey: "nav.about", href: "/about" },
+  { labelKey: "nav.research", href: "/research" },
+  { labelKey: "nav.projects", href: "/projects" },
+  { labelKey: "nav.musicSpecimens", href: "/diary" },
+  { labelKey: "nav.blog", href: "/blog" },
+  { labelKey: "nav.knowledge", href: "/knowledge" },
+  { labelKey: "nav.cv", href: "/cv" },
 ];
 
 export function GlobalNavbar() {
@@ -20,6 +21,7 @@ export function GlobalNavbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const { theme, toggleTheme, isDusk } = useTheme();
+  const { lang, toggleLang, isZh, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -172,17 +174,18 @@ export function GlobalNavbar() {
             />
           </svg>
           <span className="font-serif text-lg tracking-wide text-foreground">
-            <span className="font-normal">Echo</span>
-            <span className="ml-0.5 font-light italic text-foreground/80">Garden</span>
+            <span className="font-normal">{t("brand.echo")}</span>
+            <span className="ml-0.5 font-light italic text-foreground/80">{t("brand.garden")}</span>
           </span>
         </Link>
 
         {/* Navigation Items */}
         <div className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
+            const label = t(item.labelKey);
             const isActive = pathname === item.href || 
               (item.href !== "/" && pathname.startsWith(item.href));
-            const isCV = item.label === "CV";
+            const isCV = item.labelKey === "nav.cv";
             
             return (
               <Link
@@ -198,7 +201,7 @@ export function GlobalNavbar() {
                       : "text-foreground/65 hover:text-foreground"
                 }`}
               >
-                {item.label}
+                {label}
                 {/* Active indicator - subtle underline */}
                 {isActive && !isCV && (
                   <span className="absolute bottom-0 left-1/2 h-0.5 w-3 -translate-x-1/2 rounded-full bg-primary/40" />
@@ -207,11 +210,29 @@ export function GlobalNavbar() {
             );
           })}
           
+          {/* Language Toggle */}
+          {mounted && (
+            <button
+              onClick={toggleLang}
+              className="ml-2 flex h-8 items-center gap-1 rounded-full border border-foreground/10 bg-card/50 px-2 transition-all hover:border-primary/25 hover:bg-primary/5"
+              aria-label={isZh ? "Switch to English" : "切换到中文"}
+              title={isZh ? "Switch to English" : "切换到中文"}
+            >
+              <span className={`text-xs font-medium transition-all ${isZh ? "text-muted-foreground/50" : "text-foreground"}`}>
+                EN
+              </span>
+              <span className="text-muted-foreground/30">/</span>
+              <span className={`text-xs font-medium transition-all ${isZh ? "text-foreground" : "text-muted-foreground/50"}`}>
+                中
+              </span>
+            </button>
+          )}
+
           {/* Day/Dusk Toggle */}
           {mounted && (
             <button
               onClick={toggleTheme}
-              className="ml-2 flex h-8 items-center gap-1.5 rounded-full border border-foreground/10 bg-card/50 px-2.5 transition-all hover:border-primary/25 hover:bg-primary/5"
+              className="ml-1 flex h-8 items-center gap-1.5 rounded-full border border-foreground/10 bg-card/50 px-2.5 transition-all hover:border-primary/25 hover:bg-primary/5"
               aria-label={isDusk ? "Switch to day mode" : "Switch to dusk mode"}
               title={isDusk ? "Switch to day mode" : "Switch to dusk mode"}
             >

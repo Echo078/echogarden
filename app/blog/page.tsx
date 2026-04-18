@@ -1,14 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { blogEntries } from "@/data/blog";
 import { noteEntries } from "@/data/notes";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Writings — Echo's Garden",
-  description: "Essays and collected writings on sound, listening, and the practice of attention.",
-};
+import { useLanguage } from "@/components/language-provider";
+import { translations } from "@/lib/translations";
 
 export default function BlogPage() {
+  const { lang, t } = useLanguage();
+  const blogT = translations.blog;
+  const locale = lang === "zh" ? "zh-CN" : "en-US";
+
   const totalBlogEntries = blogEntries.length;
   const totalNotes = noteEntries.length;
 
@@ -19,13 +21,13 @@ export default function BlogPage() {
         <div className="mx-auto max-w-6xl">
           <div className="mb-10">
             <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
-              Reading Room
+              {blogT.subtitle[lang]}
             </p>
             <h1 className="mb-4 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-              Blog
+              {blogT.pageTitle[lang]}
             </h1>
             <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
-              Essays and collected fragments on sound, listening, and the practice of attention.
+              {blogT.description[lang]}
             </p>
           </div>
         </div>
@@ -41,7 +43,7 @@ export default function BlogPage() {
               {/* Column Header */}
               <div className="mb-8 flex items-center gap-4">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Essays
+                  {blogT.essays[lang]}
                 </span>
                 <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
                 <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
@@ -53,7 +55,7 @@ export default function BlogPage() {
               <div className="flex flex-col gap-6">
                 {blogEntries.map((entry) => {
                   const date = new Date(entry.date);
-                  const formattedDate = date.toLocaleDateString("en-US", {
+                  const formattedDate = date.toLocaleDateString(locale, {
                     month: "long",
                     day: "numeric",
                     year: "numeric",
@@ -100,7 +102,7 @@ export default function BlogPage() {
                           )}
                           
                           <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
-                            <span className="font-serif italic">Read</span>
+                            <span className="font-serif italic">{blogT.read[lang]}</span>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="9"
@@ -131,7 +133,7 @@ export default function BlogPage() {
               {/* Column Header */}
               <div className="mb-8 flex items-center gap-3">
                 <span className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground/40">
-                  Fragments
+                  {blogT.fragments[lang]}
                 </span>
                 <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
               </div>
@@ -141,7 +143,7 @@ export default function BlogPage() {
                 {noteEntries.slice(0, 8).map((note) => {
                   const date = new Date(note.date);
                   const day = date.getDate();
-                  const month = date.toLocaleDateString("en-US", { month: "short" });
+                  const month = date.toLocaleDateString(locale, { month: "short" });
 
                   return (
                     <div 
@@ -169,9 +171,9 @@ export default function BlogPage() {
 
           {/* Footer */}
           <footer className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/40">
-            <span>Collected writings</span>
+            <span>{blogT.collectedWritings[lang]}</span>
             <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
-            <span>Est. 2026</span>
+            <span>{t("home.established")}</span>
           </footer>
         </div>
       </section>

@@ -3,6 +3,7 @@ import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { GlobalNavbar } from '@/components/global-navbar'
 import { ThemeProvider } from '@/components/theme-provider'
+import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
 
 const playfair = Playfair_Display({ 
@@ -54,8 +55,10 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange={false}
         >
-          <GlobalNavbar />
-          <main>{children}</main>
+          <LanguageProvider defaultLanguage="en">
+            <GlobalNavbar />
+            <main>{children}</main>
+          </LanguageProvider>
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

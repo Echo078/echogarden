@@ -1,12 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { researchProjects } from "@/data/research";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Research Journey — Echo's Garden",
-  description:
-    "A quiet research timeline tracing the path from first encounter to deeper inquiry.",
-};
+import { useLanguage } from "@/components/language-provider";
+import { translations } from "@/lib/translations";
 
 // Phase colors - subtle, muted tones
 const phaseStyles: Record<string, { dot: string; line: string; badge: string }> = {
@@ -28,8 +25,17 @@ const phaseStyles: Record<string, { dot: string; line: string; badge: string }> 
 };
 
 export default function ResearchPage() {
+  const { lang, t } = useLanguage();
+  const researchT = translations.research;
+
   const sortedProjects = [...researchProjects].sort((a, b) => a.order - b.order);
   const currentProject = researchProjects.find((p) => p.isCurrent);
+
+  // Get phase label based on language
+  const getPhaseLabel = (phase: string) => {
+    const phases = researchT.phases as Record<string, { en: string; zh: string }>;
+    return phases[phase]?.[lang] || phase;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -37,14 +43,13 @@ export default function ResearchPage() {
       <header className="px-6 py-8 md:px-12 md:py-10">
         <div className="mx-auto max-w-3xl">
           <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
-            Research Journey
+            {researchT.subtitle[lang]}
           </p>
           <h1 className="mb-6 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-            Research
+            {researchT.pageTitle[lang]}
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-            A path of deepening questions. Three long-term projects that trace a journey 
-            from initial curiosity through exploration to focused research practice.
+            {researchT.description[lang]}
           </p>
         </div>
       </header>
@@ -58,7 +63,7 @@ export default function ResearchPage() {
               {/* Left: Info */}
               <div className="flex-1">
                 <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <span className="font-serif text-xs italic text-primary">Current Focus</span>
+                  <span className="font-serif text-xs italic text-primary">{researchT.currentFocus[lang]}</span>
                   <span className="text-muted-foreground/30">·</span>
                   <span className="font-mono text-[10px] text-muted-foreground/60">
                     {currentProject.timeRange}
@@ -80,7 +85,7 @@ export default function ResearchPage() {
                   href={`/research/${currentProject.slug}`}
                   className="group inline-flex items-center gap-1.5 text-xs text-primary transition-all hover:gap-2"
                 >
-                  <span>Explore</span>
+                  <span>{researchT.explore[lang]}</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="12"
@@ -109,10 +114,10 @@ export default function ResearchPage() {
         <div className="mx-auto max-w-3xl">
           {/* Section Header */}
           <div className="mb-10 flex items-center gap-4">
-            <span className="font-serif text-sm italic text-muted-foreground">Research Journey</span>
+            <span className="font-serif text-sm italic text-muted-foreground">{researchT.subtitle[lang]}</span>
             <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
             <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/50">
-              2021 — Present
+              2021 — {researchT.present[lang]}
             </span>
           </div>
 
@@ -147,14 +152,14 @@ export default function ResearchPage() {
                         <span 
                           className={`rounded-full border px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider ${styles.badge}`}
                         >
-                          {project.phaseLabel}
+                          {getPhaseLabel(project.phase)}
                         </span>
                         <span className="font-mono text-xs text-muted-foreground/60">
                           {project.timeRange}
                         </span>
                         {project.isCurrent && (
                           <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-primary">
-                            Current
+                            {researchT.current[lang]}
                           </span>
                         )}
                       </div>
@@ -186,7 +191,7 @@ export default function ResearchPage() {
                         href={`/research/${project.slug}`}
                         className="inline-flex items-center gap-2 text-xs text-muted-foreground/60 transition-all hover:gap-3 hover:text-foreground"
                       >
-                        <span className="font-serif italic">View project</span>
+                        <span className="font-serif italic">{researchT.viewProject[lang]}</span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="12"
@@ -215,7 +220,7 @@ export default function ResearchPage() {
               <div className="flex items-center gap-4">
                 <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
                 <span className="font-serif text-sm italic text-muted-foreground/50">
-                  The inquiry continues
+                  {researchT.inquiryContinues[lang]}
                 </span>
                 <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
               </div>
@@ -228,9 +233,9 @@ export default function ResearchPage() {
       <footer className="px-6 pb-12 md:px-12 md:pb-16">
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/60">
-            <span>Research journey</span>
+            <span>{researchT.subtitle[lang]}</span>
             <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
-            <span>2021 — Present</span>
+            <span>2021 — {researchT.present[lang]}</span>
           </div>
         </div>
       </footer>

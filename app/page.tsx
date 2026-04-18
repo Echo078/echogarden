@@ -1,44 +1,50 @@
+"use client";
+
 import Link from "next/link";
 import { BotanicalBackground } from "@/components/botanical-background";
 import { RandomAudioPlayer } from "@/components/random-audio-player";
 import { TypingText } from "@/components/typing-text";
 import { updates, formatUpdateDate } from "@/data/updates";
-
-const gardenPages = [
-  {
-    href: "/about",
-    title: "About",
-    points: ["Who I am", "Research interests", "Background"],
-  },
-  {
-    href: "/research",
-    title: "Research",
-    points: ["Sonic interaction", "Embodied computing", "Current focus"],
-  },
-  {
-    href: "/projects",
-    title: "Projects",
-    points: ["Cross-disciplinary work", "Prototypes", "Experiments"],
-  },
-  {
-    href: "/diary",
-    title: "Music Specimens",
-    points: ["Daily improvisations", "Sound notes", "Piano pieces"],
-  },
-  {
-    href: "/blog",
-    title: "Blog",
-    points: ["Essays", "Reflections", "Collected fragments"],
-  },
-  {
-    href: "/knowledge",
-    title: "Knowledge",
-    points: ["Reference notes", "Formulas", "Learning traces"],
-  },
-];
+import { useLanguage } from "@/components/language-provider";
+import { translations } from "@/lib/translations";
 
 export default function HomePage() {
+  const { lang, t } = useLanguage();
   const recentUpdates = updates.slice(0, 4);
+
+  // Get garden pages with translations
+  const gardenPages = [
+    {
+      href: "/about",
+      title: translations.gardenPages.about.title[lang],
+      points: translations.gardenPages.about.points[lang],
+    },
+    {
+      href: "/research",
+      title: translations.gardenPages.research.title[lang],
+      points: translations.gardenPages.research.points[lang],
+    },
+    {
+      href: "/projects",
+      title: translations.gardenPages.projects.title[lang],
+      points: translations.gardenPages.projects.points[lang],
+    },
+    {
+      href: "/diary",
+      title: translations.gardenPages.musicSpecimens.title[lang],
+      points: translations.gardenPages.musicSpecimens.points[lang],
+    },
+    {
+      href: "/blog",
+      title: translations.gardenPages.blog.title[lang],
+      points: translations.gardenPages.blog.points[lang],
+    },
+    {
+      href: "/knowledge",
+      title: translations.gardenPages.knowledge.title[lang],
+      points: translations.gardenPages.knowledge.points[lang],
+    },
+  ];
 
   return (
     <div className="relative min-h-screen">
@@ -55,20 +61,18 @@ export default function HomePage() {
               <div className="md:col-span-3">
                 <header className="rounded-xl bg-background/60 p-6 backdrop-blur-md md:bg-transparent md:p-0 md:backdrop-blur-none">
                   <p className="mb-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
-                    A space for sound, research & growing ideas
+                    {t("home.tagline")}
                   </p>
                   <h1 className="mb-4 font-serif text-2xl font-light tracking-tight text-foreground md:text-3xl">
                     <TypingText 
-                      text="Hello, welcome to Echo Garden" 
+                      text={t("home.welcome")} 
                       typingSpeed={70}
                       deletingSpeed={40}
                       pauseDuration={3000}
                     />
                   </h1>
                   <p className="max-w-md text-sm leading-relaxed text-foreground/75">
-                    A quiet digital garden where research meets creation. Here you will find 
-                    daily sound improvisations, essays on listening, and traces of inquiry 
-                    into sonic interaction and embodied computing.
+                    {t("home.description")}
                   </p>
                 </header>
               </div>
@@ -91,7 +95,7 @@ export default function HomePage() {
                 <section>
                   <div className="mb-5 flex items-center gap-4">
                     <h2 className="font-serif text-base font-normal text-foreground">
-                      Explore the Garden
+                      {t("home.exploreTitle")}
                     </h2>
                     <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
                   </div>
@@ -129,7 +133,7 @@ export default function HomePage() {
                 <section className="rounded-xl bg-card/30 p-5 backdrop-blur-sm">
                   <div className="mb-5 flex items-center gap-4">
                     <h2 className="font-serif text-base font-normal text-foreground">
-                      Recent Updates
+                      {t("home.recentUpdates")}
                     </h2>
                     <div className="h-px flex-1 bg-foreground/8 lg:hidden" aria-hidden="true" />
                   </div>
@@ -156,7 +160,7 @@ export default function HomePage() {
                       href="/blog"
                       className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground/60 transition-colors hover:text-primary"
                     >
-                      <span>View all updates</span>
+                      <span>{t("home.viewAllUpdates")}</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="10"
@@ -183,10 +187,10 @@ export default function HomePage() {
         <footer className="border-t border-foreground/5 bg-background/50 px-6 py-6 backdrop-blur-sm md:px-12">
           <div className="mx-auto flex max-w-5xl items-center justify-between">
             <p className="text-[10px] text-muted-foreground/50">
-              Ongoing collection
+              {t("home.ongoingCollection")}
             </p>
             <p className="text-[10px] text-muted-foreground/50">
-              Est. 2024
+              {t("home.established")}
             </p>
           </div>
         </footer>

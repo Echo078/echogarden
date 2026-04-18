@@ -3,8 +3,10 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { diaryEntries } from "@/data/diary";
+import { useLanguage } from "@/components/language-provider";
 
 export function RandomAudioPlayer() {
+  const { t, lang } = useLanguage();
   const [currentEntry, setCurrentEntry] = useState(() => {
     const randomIndex = Math.floor(Math.random() * diaryEntries.length);
     return diaryEntries[randomIndex];
@@ -140,7 +142,7 @@ export function RandomAudioPlayer() {
               )}
             </div>
             <span className={`text-xs font-medium uppercase tracking-wider transition-colors duration-300 ${isPlaying ? 'text-foreground/80' : 'text-muted-foreground/60'}`}>
-              Random Improvisation
+              {t("audioPlayer.shuffleToDiscover")}
             </span>
           </div>
           <button
@@ -165,7 +167,7 @@ export function RandomAudioPlayer() {
               <path d="M15 15l6 6" />
               <path d="M4 4l5 5" />
             </svg>
-            <span>Shuffle</span>
+            <span>{t("audioPlayer.shuffle")}</span>
           </button>
         </div>
 
@@ -175,7 +177,7 @@ export function RandomAudioPlayer() {
             {currentEntry.title}
           </h3>
           <p className="text-[11px] text-muted-foreground/50">
-            {new Date(currentEntry.date).toLocaleDateString("en-US", {
+            {new Date(currentEntry.date).toLocaleDateString(lang === "zh" ? "zh-CN" : "en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
@@ -273,7 +275,7 @@ export function RandomAudioPlayer() {
             href="/diary"
             className="flex items-center gap-1.5 text-xs text-muted-foreground/50 transition-colors hover:text-primary"
           >
-            <span>All specimens</span>
+            <span>{t("audioPlayer.viewAllSpecimens")}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="10"
