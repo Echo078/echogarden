@@ -86,7 +86,7 @@ export function BotanicalBackground() {
       
       for (let i = 0; i < stemCount; i++) {
         const x = (i / stemCount) * width + (Math.random() - 0.5) * 80;
-        const baseHeight = 120 + Math.random() * 200;
+        const baseHeight = 200 + Math.random() * 280;
         
         // Create leaves along the stem
         const leaves: Leaf[] = [];
@@ -123,15 +123,15 @@ export function BotanicalBackground() {
 
       // Create rain lines - thin continuous vertical lines
       rainLines = [];
-      const rainCount = Math.floor(width / 20);
+      const rainCount = Math.floor(width / 12);
       
       for (let i = 0; i < rainCount; i++) {
         rainLines.push({
           x: Math.random() * width,
           y: Math.random() * height * 2 - height,
-          length: 40 + Math.random() * 80,
-          speed: 3 + Math.random() * 2,
-          opacity: 0.06 + Math.random() * 0.08,
+          length: 60 + Math.random() * 100,
+          speed: 4 + Math.random() * 3,
+          opacity: 0.12 + Math.random() * 0.12,
         });
       }
     };
