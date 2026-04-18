@@ -148,46 +148,42 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Right Column: Notes Rail */}
-            <aside className="lg:flex-1">
+            {/* Right Column: Quiet Notes Rail */}
+            <aside className="hidden lg:block lg:flex-1">
               {/* Column Header */}
-              <div className="mb-8 flex items-center gap-4">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <div className="mb-10 flex items-center gap-3">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/50">
                   Fragments
                 </span>
-                <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
-                  {totalNotes}
-                </span>
+                <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
               </div>
 
-              {/* Notes List */}
-              <div className="flex flex-col">
-                {noteEntries.map((note, index) => {
+              {/* Minimal Notes */}
+              <div className="flex flex-col gap-6">
+                {noteEntries.slice(0, 6).map((note) => {
                   const date = new Date(note.date);
-                  const formattedDate = date.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  });
+                  const day = date.getDate();
+                  const month = date.toLocaleDateString("en-US", { month: "short" });
 
                   return (
-                    <article 
+                    <div 
                       key={note.id}
-                      className={`py-4 ${index !== noteEntries.length - 1 ? 'border-b border-foreground/5' : ''}`}
+                      className="flex items-start gap-3"
                     >
-                      {/* Date */}
+                      {/* Date marker */}
                       <time 
                         dateTime={note.date}
-                        className="mb-2 block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50"
+                        className="w-8 shrink-0 pt-0.5 text-right font-mono text-[9px] leading-none text-muted-foreground/40"
                       >
-                        {formattedDate}
+                        <span className="block">{day}</span>
+                        <span className="block text-[8px] uppercase">{month}</span>
                       </time>
 
-                      {/* Text */}
-                      <p className="text-[13px] leading-relaxed text-muted-foreground/80">
-                        {note.text}
+                      {/* Fragment */}
+                      <p className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground/60">
+                        {note.text.length > 60 ? note.text.slice(0, 60) + '...' : note.text}
                       </p>
-                    </article>
+                    </div>
                   );
                 })}
               </div>
