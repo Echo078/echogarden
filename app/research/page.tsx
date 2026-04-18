@@ -71,70 +71,42 @@ export default function ResearchPage() {
         </div>
       </header>
 
-      {/* Current Focus Section */}
+      {/* Current Focus Section - Compact */}
       {currentProject && (
-        <section className="px-6 pb-12 md:px-12 md:pb-16">
+        <section className="px-6 pb-8 md:px-12 md:pb-10">
           <div className="mx-auto max-w-3xl">
-            {/* Section Header */}
-            <div className="mb-6 flex items-center gap-4">
-              <span className="font-serif text-sm italic text-muted-foreground">Current Focus</span>
-              <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
-            </div>
-
-            {/* Current Focus Card */}
-            <div className="rounded-xl border border-primary/20 bg-card/50 p-6 shadow-sm md:p-8">
-              {/* Phase badge and time */}
-              <div className="mb-4 flex flex-wrap items-center gap-3">
-                <span className={`rounded-full border px-3 py-1 text-[10px] font-medium uppercase tracking-wider ${phaseStyles[currentProject.phase].badge}`}>
-                  {currentProject.phaseLabel}
-                </span>
-                <span className="font-mono text-xs text-muted-foreground/60">
-                  {currentProject.timeRange}
-                </span>
-              </div>
-
-              {/* Title */}
-              <h2 className="mb-4 font-serif text-2xl font-normal leading-snug text-foreground md:text-3xl">
-                {currentProject.title}
-              </h2>
-
-              {/* Research Question */}
-              {currentProject.researchQuestion && (
-                <blockquote className="mb-5 border-l-2 border-primary/30 pl-4">
-                  <p className="font-serif text-base italic leading-relaxed text-foreground/80 md:text-lg">
+            {/* Compact Card */}
+            <div className="flex flex-col gap-4 rounded-lg border border-primary/15 bg-card/40 p-4 md:flex-row md:items-start md:gap-6 md:p-5">
+              {/* Left: Info */}
+              <div className="flex-1">
+                <div className="mb-2 flex flex-wrap items-center gap-2">
+                  <span className="font-serif text-xs italic text-primary">Current Focus</span>
+                  <span className="text-muted-foreground/30">·</span>
+                  <span className="font-mono text-[10px] text-muted-foreground/60">
+                    {currentProject.timeRange}
+                  </span>
+                </div>
+                <h2 className="mb-1.5 font-serif text-lg font-normal text-foreground md:text-xl">
+                  {currentProject.title}
+                </h2>
+                {currentProject.researchQuestion && (
+                  <p className="text-sm italic leading-relaxed text-muted-foreground">
                     {currentProject.researchQuestion}
                   </p>
-                </blockquote>
-              )}
-
-              {/* Summary */}
-              <p className="mb-5 text-sm leading-relaxed text-muted-foreground md:text-base">
-                {currentProject.summary}
-              </p>
-
-              {/* Themes */}
-              <div className="mb-6 flex flex-wrap gap-2">
-                {currentProject.themes.map((theme) => (
-                  <span
-                    key={theme}
-                    className="rounded-md bg-primary/10 px-2.5 py-1 text-xs text-primary/80"
-                  >
-                    {theme}
-                  </span>
-                ))}
+                )}
               </div>
 
-              {/* Action row */}
-              <div className="flex items-center justify-between">
+              {/* Right: Action */}
+              <div className="flex shrink-0 items-center gap-4">
                 <Link
                   href={`/research/${currentProject.slug}`}
-                  className="group inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all hover:bg-primary/20"
+                  className="group inline-flex items-center gap-1.5 text-xs text-primary transition-all hover:gap-2"
                 >
-                  <span>Explore this research</span>
+                  <span>Explore</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="12"
+                    height="12"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -148,41 +120,6 @@ export default function ResearchPage() {
                     <path d="m12 5 7 7-7 7" />
                   </svg>
                 </Link>
-
-                {/* Mini timeline preview */}
-                <a 
-                  href="#journey" 
-                  className="hidden items-center gap-2 text-xs text-muted-foreground/60 transition-colors hover:text-muted-foreground md:flex"
-                >
-                  <span className="font-serif italic">See full journey</span>
-                  <div className="flex items-center gap-1">
-                    {sortedProjects.map((p, i) => (
-                      <div
-                        key={p.id}
-                        className={`h-1.5 rounded-full transition-all ${
-                          p.isCurrent 
-                            ? "w-4 bg-primary" 
-                            : "w-1.5 bg-foreground/20"
-                        }`}
-                        title={p.title}
-                      />
-                    ))}
-                  </div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </a>
               </div>
             </div>
           </div>
