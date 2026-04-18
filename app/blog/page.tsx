@@ -71,8 +71,8 @@ export default function BlogPage() {
                 </span>
               </div>
 
-              {/* Blog Entries */}
-              <div className="flex flex-col gap-8">
+              {/* Blog Entries - Soft Archive Cards */}
+              <div className="flex flex-col gap-5">
                 {blogEntries.map((entry) => {
                   const date = new Date(entry.date);
                   const formattedDate = date.toLocaleDateString("en-US", {
@@ -87,33 +87,33 @@ export default function BlogPage() {
                       href={`/blog/${entry.slug}`}
                       className="group block"
                     >
-                      <article className="border-b border-foreground/8 pb-8 transition-colors hover:border-foreground/15">
-                        {/* Date */}
+                      <article className="rounded-lg border border-foreground/6 bg-card/40 px-6 py-5 shadow-sm transition-all hover:border-foreground/12 hover:bg-card/60 hover:shadow-md">
+                        {/* Date - quiet mono */}
                         <time 
                           dateTime={entry.date}
-                          className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/60"
+                          className="mb-2.5 block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50"
                         >
                           {formattedDate}
                         </time>
 
-                        {/* Title */}
-                        <h2 className="mb-3 font-serif text-xl font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-2xl">
+                        {/* Title - literary serif */}
+                        <h2 className="mb-2.5 font-serif text-lg font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-xl">
                           {entry.title}
                         </h2>
 
-                        {/* Excerpt */}
-                        <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                        {/* Excerpt - comfortable reading */}
+                        <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground/80">
                           {entry.excerpt}
                         </p>
 
-                        {/* Footer */}
+                        {/* Footer - tags and read indicator */}
                         <div className="flex items-center justify-between gap-4">
                           {entry.tags && entry.tags.length > 0 && (
                             <div className="flex flex-wrap gap-1.5">
                               {entry.tags.slice(0, 2).map((tag) => (
                                 <span
                                   key={tag}
-                                  className="rounded-full bg-secondary/50 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground"
+                                  className="rounded-full bg-secondary/40 px-2 py-0.5 text-[8px] uppercase tracking-wider text-muted-foreground/60"
                                 >
                                   {tag}
                                 </span>
@@ -121,24 +121,9 @@ export default function BlogPage() {
                             </div>
                           )}
                           
-                          <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground/50 transition-all group-hover:gap-2.5 group-hover:text-primary">
-                            <span className="font-serif italic">Read</span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="10"
-                              height="10"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              aria-hidden="true"
-                              className="transition-transform group-hover:translate-x-0.5"
-                            >
-                              <path d="M5 12h14" />
-                              <path d="m12 5 7 7-7 7" />
-                            </svg>
+                          <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
+                            <span className="font-serif italic">Continue</span>
+                            <span className="h-px w-3 bg-current transition-all group-hover:w-5" aria-hidden="true" />
                           </span>
                         </div>
                       </article>
