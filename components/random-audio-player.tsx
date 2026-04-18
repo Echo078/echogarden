@@ -73,36 +73,39 @@ export function RandomAudioPlayer() {
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
 
   return (
-    <div className="rounded-xl border border-foreground/8 bg-card/40 p-5">
+    <div className="rounded-lg border border-foreground/6 bg-card/30 backdrop-blur-sm p-4">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
+            width="12"
+            height="12"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-primary/60"
+            className="text-primary/50"
           >
             <path d="M9 18V5l12-2v13" />
             <circle cx="6" cy="18" r="3" />
             <circle cx="18" cy="16" r="3" />
           </svg>
-          <span className="text-xs font-medium text-foreground">Random Improvisation</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
+            Random Improvisation
+          </span>
         </div>
         <button
           onClick={loadRandom}
-          className="flex items-center gap-1.5 rounded-md px-2 py-1 text-[10px] text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground"
+          className="flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] text-muted-foreground/50 transition-colors hover:bg-secondary/30 hover:text-muted-foreground"
+          aria-label="Shuffle"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="10"
-            height="10"
+            width="9"
+            height="9"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -121,13 +124,13 @@ export function RandomAudioPlayer() {
       </div>
 
       {/* Track Info */}
-      <div className="mb-4">
-        <h3 className="mb-1 font-serif text-base font-medium text-foreground">
+      <div className="mb-3">
+        <h3 className="mb-0.5 font-serif text-sm font-medium text-foreground">
           {currentEntry.title}
         </h3>
-        <p className="text-xs text-muted-foreground/70">
+        <p className="text-[10px] text-muted-foreground/50">
           {new Date(currentEntry.date).toLocaleDateString("en-US", {
-            month: "long",
+            month: "short",
             day: "numeric",
             year: "numeric",
           })}
@@ -139,13 +142,13 @@ export function RandomAudioPlayer() {
 
       {/* Progress Bar */}
       <div className="mb-3">
-        <div className="h-1 w-full overflow-hidden rounded-full bg-foreground/8">
+        <div className="h-0.5 w-full overflow-hidden rounded-full bg-foreground/6">
           <div
-            className="h-full rounded-full bg-primary/50 transition-all duration-100"
+            className="h-full rounded-full bg-primary/40 transition-all duration-100"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
-        <div className="mt-1 flex justify-between text-[10px] text-muted-foreground/60">
+        <div className="mt-1 flex justify-between text-[9px] text-muted-foreground/40">
           <span>{formatTime(progress)}</span>
           <span>{formatTime(duration)}</span>
         </div>
@@ -155,14 +158,14 @@ export function RandomAudioPlayer() {
       <div className="flex items-center justify-between">
         <button
           onClick={togglePlay}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-primary transition-all hover:bg-primary/20"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/15 bg-primary/8 text-primary/70 transition-all hover:bg-primary/15 hover:text-primary"
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           {isPlaying ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="12"
+              height="12"
               viewBox="0 0 24 24"
               fill="currentColor"
             >
@@ -172,8 +175,8 @@ export function RandomAudioPlayer() {
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="12"
+              height="12"
               viewBox="0 0 24 24"
               fill="currentColor"
             >
@@ -184,13 +187,13 @@ export function RandomAudioPlayer() {
 
         <Link
           href="/diary"
-          className="flex items-center gap-1 text-xs text-muted-foreground/70 transition-colors hover:text-primary"
+          className="flex items-center gap-1 text-[10px] text-muted-foreground/50 transition-colors hover:text-primary"
         >
-          <span>View all specimens</span>
+          <span>All specimens</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="10"
-            height="10"
+            width="8"
+            height="8"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
