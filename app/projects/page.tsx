@@ -126,90 +126,82 @@ export default function ProjectsPage() {
         </div>
       </header>
 
-      {/* Filter Bar - Compact Horizontal */}
+      {/* Filter Bar - Three Rows */}
       <section className="px-6 md:px-12">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 rounded-lg border border-foreground/10 bg-card/40 px-5 py-3">
-            {/* Domain */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-foreground">Domain</span>
-              <div className="flex gap-1.5">
-                {domains.map((domain) => (
+          <div className="rounded-lg border border-foreground/10 bg-card/40 px-5 py-4">
+            <div className="flex flex-col gap-3">
+              {/* Domain Row */}
+              <div className="flex items-center gap-4">
+                <span className="w-16 shrink-0 text-xs font-medium text-foreground">Domain</span>
+                <div className="flex flex-wrap gap-2">
+                  {domains.map((domain) => (
+                    <button
+                      key={domain.id}
+                      onClick={() => toggleDomain(domain.id)}
+                      className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-all ${
+                        activeDomains.includes(domain.id)
+                          ? domainColors[domain.id]
+                          : "border-foreground/8 text-muted-foreground/70 hover:border-foreground/15 hover:text-muted-foreground"
+                      }`}
+                    >
+                      <span>{domain.icon}</span>
+                      {domain.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Type Row */}
+              <div className="flex items-center gap-4">
+                <span className="w-16 shrink-0 text-xs font-medium text-foreground">Type</span>
+                <div className="flex flex-wrap gap-2">
+                  {projectTypes.map((type) => (
+                    <button
+                      key={type.id}
+                      onClick={() => toggleType(type.id)}
+                      className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-all ${
+                        activeTypes.includes(type.id)
+                          ? "border-primary/40 bg-primary/15 text-primary"
+                          : "border-foreground/8 text-muted-foreground/70 hover:border-foreground/15 hover:text-muted-foreground"
+                      }`}
+                    >
+                      <span>{type.icon}</span>
+                      {type.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Skills Row */}
+              <div className="flex items-start gap-4">
+                <span className="w-16 shrink-0 pt-1 text-xs font-medium text-foreground">Skills</span>
+                <div className="flex flex-1 flex-wrap gap-1.5">
+                  {usedSkills.map((skill) => (
+                    <button
+                      key={skill}
+                      onClick={() => toggleSkill(skill)}
+                      className={`rounded-md px-2 py-1 text-[10px] font-medium uppercase tracking-wider transition-all ${
+                        activeSkills.includes(skill)
+                          ? "bg-primary/20 text-primary"
+                          : "bg-secondary/40 text-muted-foreground/60 hover:bg-secondary/60 hover:text-muted-foreground"
+                      }`}
+                    >
+                      {skill}
+                    </button>
+                  ))}
+                </div>
+                {/* Clear button */}
+                {hasActiveFilters && (
                   <button
-                    key={domain.id}
-                    onClick={() => toggleDomain(domain.id)}
-                    className={`flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] font-medium transition-all ${
-                      activeDomains.includes(domain.id)
-                        ? domainColors[domain.id]
-                        : "border-foreground/8 text-muted-foreground/70 hover:border-foreground/15 hover:text-muted-foreground"
-                    }`}
+                    onClick={clearAllFilters}
+                    className="shrink-0 text-xs text-muted-foreground/60 underline underline-offset-2 transition-colors hover:text-muted-foreground"
                   >
-                    <span className="text-xs">{domain.icon}</span>
-                    {domain.name}
+                    Clear
                   </button>
-                ))}
+                )}
               </div>
             </div>
-
-            {/* Divider */}
-            <div className="h-5 w-px bg-foreground/10" />
-
-            {/* Type */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-foreground">Type</span>
-              <div className="flex gap-1.5">
-                {projectTypes.map((type) => (
-                  <button
-                    key={type.id}
-                    onClick={() => toggleType(type.id)}
-                    className={`flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] font-medium transition-all ${
-                      activeTypes.includes(type.id)
-                        ? "border-primary/40 bg-primary/15 text-primary"
-                        : "border-foreground/8 text-muted-foreground/70 hover:border-foreground/15 hover:text-muted-foreground"
-                    }`}
-                  >
-                    <span className="text-xs">{type.icon}</span>
-                    {type.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div className="h-5 w-px bg-foreground/10" />
-
-            {/* Skills */}
-            <div className="flex flex-1 items-center gap-2">
-              <span className="text-xs font-medium text-foreground">Skills</span>
-              <div className="flex flex-wrap gap-1">
-                {usedSkills.map((skill) => (
-                  <button
-                    key={skill}
-                    onClick={() => toggleSkill(skill)}
-                    className={`rounded px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider transition-all ${
-                      activeSkills.includes(skill)
-                        ? "bg-primary/20 text-primary"
-                        : "bg-secondary/40 text-muted-foreground/60 hover:bg-secondary/60 hover:text-muted-foreground"
-                    }`}
-                  >
-                    {skill}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Clear button */}
-            {hasActiveFilters && (
-              <>
-                <div className="h-5 w-px bg-foreground/10" />
-                <button
-                  onClick={clearAllFilters}
-                  className="text-xs text-muted-foreground/60 underline underline-offset-2 transition-colors hover:text-muted-foreground"
-                >
-                  Clear
-                </button>
-              </>
-            )}
           </div>
         </div>
       </section>
