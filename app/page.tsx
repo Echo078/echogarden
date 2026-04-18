@@ -50,6 +50,16 @@ export default function HomePage() {
           {/* Navigation */}
           <nav className="mb-16 flex flex-col gap-4">
             <Link
+              href="/about"
+              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <span className="font-serif text-lg italic">About</span>
+              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
+              <span className="font-mono text-xs uppercase tracking-widest">
+                Who I am
+              </span>
+            </Link>
+            <Link
               href="/diary"
               className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
