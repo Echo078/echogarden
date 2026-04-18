@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { diaryEntries, type DiaryEntry } from "@/data/diary";
 import { SpecimenCard } from "@/components/specimen-card";
 import type { Metadata } from "next";
@@ -40,39 +39,17 @@ export default function DiaryPage() {
   });
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="px-6 py-10 md:px-12 md:py-14">
+    <div className="min-h-screen bg-background">
+      {/* Page Header */}
+      <header className="px-6 py-8 md:px-12 md:py-10">
         <div className="mx-auto max-w-6xl">
-          <Link
-            href="/"
-            className="mb-12 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m12 19-7-7 7-7" />
-              <path d="M19 12H5" />
-            </svg>
-            <span>Return</span>
-          </Link>
-
           <div className="flex items-end justify-between">
             <div>
               <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
                 Specimen Cabinet
               </p>
               <h1 className="font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
-                Sound Specimens
+                Music Specimens
               </h1>
             </div>
             <p className="hidden text-right text-sm text-muted-foreground md:block">
@@ -120,6 +97,6 @@ export default function DiaryPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

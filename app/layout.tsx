@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { GlobalNavbar } from '@/components/global-navbar'
 import './globals.css'
 
 const playfair = Playfair_Display({ 
@@ -45,7 +46,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background">
       <body className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased`}>
-        {children}
+        <GlobalNavbar />
+        <main>{children}</main>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

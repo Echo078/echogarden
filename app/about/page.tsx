@@ -9,36 +9,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="px-6 py-6 md:px-12 md:py-8">
-        <div className="mx-auto max-w-4xl">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m12 19-7-7 7-7" />
-              <path d="M19 12H5" />
-            </svg>
-            <span>Return</span>
-          </Link>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-background">
       {/* Main Content - Two Columns */}
-      <div className="px-6 pb-16 md:px-12 md:pb-24">
+      <div className="px-6 py-10 md:px-12 md:py-14">
         <div className="mx-auto max-w-4xl">
           <div className="flex flex-col gap-12 md:flex-row md:gap-16">
             
@@ -227,6 +200,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

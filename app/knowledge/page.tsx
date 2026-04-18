@@ -32,39 +32,17 @@ export default function KnowledgePage() {
   const totalEntries = knowledgeEntries.length;
 
   return (
-    <main className="flex h-screen flex-col overflow-hidden bg-background">
-      {/* Header */}
+    <div className="flex h-[calc(100vh-4rem)] flex-col overflow-hidden bg-background">
+      {/* Page Header */}
       <header className="shrink-0 px-6 py-6 md:px-10 md:py-8">
         <div className="mx-auto max-w-7xl">
-          <Link
-            href="/"
-            className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m12 19-7-7 7-7" />
-              <path d="M19 12H5" />
-            </svg>
-            <span>Return</span>
-          </Link>
-
           <div className="flex items-end justify-between">
             <div>
               <p className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
                 Reference Grove
               </p>
               <h1 className="font-serif text-3xl font-light tracking-tight text-foreground md:text-4xl">
-                Knowledge Tree
+                Knowledge
               </h1>
             </div>
             <p className="hidden text-right text-sm text-muted-foreground md:block">
@@ -297,6 +275,6 @@ export default function KnowledgePage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

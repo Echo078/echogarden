@@ -1,0 +1,170 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navItems = [
+  { label: "About", href: "/about" },
+  { label: "Research", href: "/research" },
+  { label: "Projects", href: "/projects" },
+  { label: "Music Specimens", href: "/diary" },
+  { label: "Blog", href: "/blog" },
+  { label: "Knowledge", href: "/knowledge" },
+  { label: "CV", href: "/cv" },
+];
+
+export function GlobalNavbar() {
+  const pathname = usePathname();
+
+  return (
+    <header className="sticky top-0 z-50 w-full">
+      {/* Background with dewy garden illustration */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Base layer - warm ivory with translucency */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f6f9f4]/95 via-[#f4f7f2]/90 to-[#f2f5f0]/85 backdrop-blur-sm" />
+        
+        {/* Subtle dew glow at top */}
+        <div className="absolute -top-4 left-1/4 h-16 w-64 rounded-full bg-[#e8f0e6]/60 blur-3xl" />
+        <div className="absolute -top-2 right-1/3 h-12 w-48 rounded-full bg-[#dce8d8]/50 blur-2xl" />
+        
+        {/* Garden illustration SVG - delicate botanical elements */}
+        <svg
+          className="absolute inset-0 h-full w-full opacity-[0.12]"
+          viewBox="0 0 1200 80"
+          preserveAspectRatio="xMidYMid slice"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Left side - delicate leaves and stems */}
+          <path
+            d="M-20 70 Q30 50 60 65 Q80 40 110 55"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-primary"
+          />
+          <ellipse cx="45" cy="55" rx="12" ry="6" className="fill-primary/30" transform="rotate(-30 45 55)" />
+          <ellipse cx="85" cy="48" rx="10" ry="5" className="fill-primary/25" transform="rotate(20 85 48)" />
+          <path
+            d="M100 80 Q120 45 150 60"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            className="text-primary/60"
+          />
+          <ellipse cx="135" cy="52" rx="14" ry="6" className="fill-primary/20" transform="rotate(-15 135 52)" />
+          
+          {/* Center-left - small botanical cluster */}
+          <path
+            d="M250 75 Q280 35 320 50 Q340 25 380 45"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            className="text-primary/50"
+          />
+          <circle cx="290" cy="42" r="4" className="fill-primary/15" />
+          <circle cx="350" cy="38" r="3" className="fill-primary/20" />
+          <ellipse cx="310" cy="50" rx="8" ry="4" className="fill-primary/15" transform="rotate(25 310 50)" />
+          
+          {/* Center - gentle arching stem with dew drops */}
+          <path
+            d="M520 80 Q560 20 620 40 Q680 15 720 50"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-primary/40"
+          />
+          <circle cx="560" cy="32" r="2" className="fill-primary/30" />
+          <circle cx="600" cy="28" r="2.5" className="fill-primary/25" />
+          <circle cx="650" cy="30" r="2" className="fill-primary/30" />
+          <ellipse cx="580" cy="38" rx="12" ry="5" className="fill-primary/15" transform="rotate(-20 580 38)" />
+          <ellipse cx="640" cy="35" rx="10" ry="4" className="fill-primary/12" transform="rotate(15 640 35)" />
+          
+          {/* Right side - trailing vines and petals */}
+          <path
+            d="M850 70 Q900 30 950 55 Q1000 20 1050 45"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            className="text-primary/50"
+          />
+          <ellipse cx="920" cy="42" rx="11" ry="5" className="fill-primary/18" transform="rotate(-25 920 42)" />
+          <ellipse cx="980" cy="35" rx="9" ry="4" className="fill-primary/15" transform="rotate(30 980 35)" />
+          <circle cx="1020" cy="40" r="3" className="fill-primary/20" />
+          
+          {/* Far right - fading botanical elements */}
+          <path
+            d="M1100 75 Q1140 45 1180 60 Q1200 35 1220 50"
+            stroke="currentColor"
+            strokeWidth="0.6"
+            className="text-primary/35"
+          />
+          <ellipse cx="1150" cy="52" rx="8" ry="4" className="fill-primary/12" transform="rotate(-10 1150 52)" />
+        </svg>
+        
+        {/* Bottom border - soft dewy line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+      </div>
+
+      {/* Navigation content */}
+      <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-12">
+        {/* Branding */}
+        <Link
+          href="/"
+          className="group flex items-center gap-2 transition-opacity hover:opacity-80"
+        >
+          <span className="font-serif text-xl font-light tracking-tight text-foreground">
+            Echo&apos;s Garden
+          </span>
+        </Link>
+
+        {/* Navigation Items */}
+        <div className="hidden items-center gap-1 md:flex">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href || 
+              (item.href !== "/" && pathname.startsWith(item.href));
+            const isCV = item.label === "CV";
+            
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative px-3 py-1.5 text-sm transition-all ${
+                  isCV
+                    ? isActive
+                      ? "rounded-md border border-primary/30 bg-primary/10 font-medium text-primary"
+                      : "rounded-md border border-foreground/10 bg-card/40 text-foreground/80 hover:border-primary/20 hover:bg-primary/5 hover:text-primary"
+                    : isActive
+                      ? "font-medium text-primary"
+                      : "text-foreground/70 hover:text-foreground"
+                }`}
+              >
+                {item.label}
+                {/* Active indicator - subtle underline like morning dew drop */}
+                {isActive && !isCV && (
+                  <span className="absolute bottom-0 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-primary/50" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          className="flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-secondary/50 hover:text-foreground md:hidden"
+          aria-label="Open menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="4" y1="8" x2="20" y2="8" />
+            <line x1="4" y1="16" x2="20" y2="16" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+  );
+}

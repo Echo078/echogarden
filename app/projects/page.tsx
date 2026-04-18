@@ -77,32 +77,10 @@ export default function ProjectsPage() {
   const hasActiveFilters = activeDomains.length > 0 || activeTypes.length > 0 || activeSkills.length > 0;
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="px-6 py-10 md:px-12 md:py-14">
+    <div className="min-h-screen bg-background">
+      {/* Page Header */}
+      <header className="px-6 py-8 md:px-12 md:py-10">
         <div className="mx-auto max-w-6xl">
-          <Link
-            href="/"
-            className="mb-12 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="m12 19-7-7 7-7" />
-              <path d="M19 12H5" />
-            </svg>
-            <span>Return</span>
-          </Link>
-
           <div className="flex items-end justify-between">
             <div>
               <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
@@ -349,6 +327,6 @@ export default function ProjectsPage() {
           </footer>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

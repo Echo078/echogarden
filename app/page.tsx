@@ -7,18 +7,18 @@ export default function HomePage() {
   const totalEntries = diaryEntries.length;
 
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       {/* Entrance Hall */}
-      <div className="flex min-h-screen flex-col px-6 py-16 md:px-12 md:py-24">
+      <div className="flex min-h-[calc(100vh-4rem)] flex-col px-6 py-12 md:px-12 md:py-16">
         <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col">
           
-          {/* Header - quiet threshold */}
-          <header className="mb-20 md:mb-28">
+          {/* Hero - quiet welcome */}
+          <header className="mb-16 md:mb-20">
             <p className="mb-4 text-xs uppercase tracking-widest text-muted-foreground">
               Sound Specimen Museum
             </p>
-            <h1 className="mb-6 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Echo&apos;s Garden
+            <h1 className="mb-6 font-serif text-4xl font-light tracking-tight text-foreground md:text-5xl">
+              Welcome to the Garden
             </h1>
             <p className="max-w-md text-base leading-relaxed text-muted-foreground">
               A quiet place for daily improvisations and sound notes. 
@@ -47,70 +47,6 @@ export default function HomePage() {
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Navigation */}
-          <nav className="mb-16 flex flex-col gap-4">
-            <Link
-              href="/about"
-              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="font-serif text-lg italic">About</span>
-              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
-              <span className="font-mono text-xs uppercase tracking-widest">
-                Who I am
-              </span>
-            </Link>
-            <Link
-              href="/diary"
-              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="font-serif text-lg italic">Enter the Cabinet</span>
-              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
-              <span className="font-mono text-xs uppercase tracking-widest">
-                {totalEntries} specimens
-              </span>
-            </Link>
-            <Link
-              href="/blog"
-              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="font-serif text-lg italic">Reading Room</span>
-              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
-              <span className="font-mono text-xs uppercase tracking-widest">
-                Essays
-              </span>
-            </Link>
-            <Link
-              href="/knowledge"
-              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="font-serif text-lg italic">Reference Grove</span>
-              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
-              <span className="font-mono text-xs uppercase tracking-widest">
-                Knowledge
-              </span>
-            </Link>
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="font-serif text-lg italic">Project Archive</span>
-              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
-              <span className="font-mono text-xs uppercase tracking-widest">
-                Works
-              </span>
-            </Link>
-            <Link
-              href="/research"
-              className="group inline-flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <span className="font-serif text-lg italic">Research Journey</span>
-              <span className="h-px w-8 bg-foreground/20 transition-all group-hover:w-12 group-hover:bg-foreground/40" aria-hidden="true" />
-              <span className="font-mono text-xs uppercase tracking-widest">
-                Inquiry
-              </span>
-            </Link>
-          </nav>
-
           {/* Footer */}
           <footer className="flex items-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/60">
             <span>Ongoing collection</span>
@@ -119,6 +55,6 @@ export default function HomePage() {
           </footer>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
