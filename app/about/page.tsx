@@ -124,30 +124,30 @@ export default function AboutPage() {
                 <div className="flex flex-col gap-1.5">
                   <Link 
                     href="/research"
-                    className="group flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1 w-1 rounded-full bg-current opacity-40 transition-all group-hover:opacity-100" />
+                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
                     <span>Research Journey</span>
                   </Link>
                   <Link 
                     href="/projects"
-                    className="group flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1 w-1 rounded-full bg-current opacity-40 transition-all group-hover:opacity-100" />
+                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
                     <span>Projects</span>
                   </Link>
                   <Link 
                     href="/diary"
-                    className="group flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1 w-1 rounded-full bg-current opacity-40 transition-all group-hover:opacity-100" />
+                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
                     <span>Sound Diary</span>
                   </Link>
                   <Link 
                     href="/blog"
-                    className="group flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
+                    className="group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground transition-all hover:bg-primary/8 hover:text-primary"
                   >
-                    <span className="h-1 w-1 rounded-full bg-current opacity-40 transition-all group-hover:opacity-100" />
+                    <span className="h-1.5 w-1.5 rounded-sm bg-current opacity-40 transition-all group-hover:opacity-100" />
                     <span>Writing</span>
                   </Link>
                 </div>
