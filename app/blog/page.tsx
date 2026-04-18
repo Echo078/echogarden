@@ -148,46 +148,38 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Right Column: Notes Rail */}
-            <aside className="lg:flex-1">
+            {/* Right Column: Quiet Notes Rail */}
+            <aside className="lg:w-48 lg:flex-none">
               {/* Column Header */}
-              <div className="mb-8 flex items-center gap-4">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  Fragments
+              <div className="mb-6 flex items-center gap-3 lg:mb-8">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground/50">
+                  Slips
                 </span>
-                <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
-                  {totalNotes}
-                </span>
+                <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
               </div>
 
-              {/* Notes List */}
-              <div className="flex flex-col">
-                {noteEntries.map((note, index) => {
+              {/* Notes List - minimal slips */}
+              <div className="flex flex-col gap-5 lg:gap-6">
+                {noteEntries.map((note) => {
                   const date = new Date(note.date);
-                  const formattedDate = date.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  });
+                  const day = date.getDate();
+                  const month = date.toLocaleDateString("en-US", { month: "short" });
 
                   return (
-                    <article 
-                      key={note.id}
-                      className={`py-4 ${index !== noteEntries.length - 1 ? 'border-b border-foreground/5' : ''}`}
-                    >
-                      {/* Date */}
+                    <div key={note.id} className="group">
+                      {/* Date - very quiet */}
                       <time 
                         dateTime={note.date}
-                        className="mb-2 block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50"
+                        className="mb-1 block font-mono text-[8px] uppercase tracking-wider text-muted-foreground/35"
                       >
-                        {formattedDate}
+                        {month} {day}
                       </time>
 
-                      {/* Text */}
-                      <p className="text-[13px] leading-relaxed text-muted-foreground/80">
-                        {note.text}
+                      {/* Fragment - brief and light */}
+                      <p className="font-serif text-[11px] italic leading-snug text-muted-foreground/60">
+                        {note.fragment}
                       </p>
-                    </article>
+                    </div>
                   );
                 })}
               </div>
