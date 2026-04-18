@@ -43,9 +43,9 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
       {/* SVG Knowledge Tree */}
       <svg
-        viewBox="0 0 800 280"
+        viewBox="0 0 900 380"
         className="w-full"
-        style={{ maxHeight: "280px" }}
+        style={{ maxHeight: "380px" }}
       >
         <defs>
           {/* Gradient for branches */}
@@ -68,8 +68,8 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
         <g className="text-primary">
           {/* Root circle */}
           <circle
-            cx="400"
-            cy="140"
+            cx="450"
+            cy="190"
             r="24"
             fill="none"
             stroke="currentColor"
@@ -77,8 +77,8 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
             opacity="0.4"
           />
           <circle
-            cx="400"
-            cy="140"
+            cx="450"
+            cy="190"
             r="16"
             fill="none"
             stroke="currentColor"
@@ -86,8 +86,8 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
             opacity="0.6"
           />
           <circle
-            cx="400"
-            cy="140"
+            cx="450"
+            cy="190"
             r="6"
             fill="currentColor"
             opacity="0.8"
@@ -95,8 +95,8 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
           
           {/* Decorative rings */}
           <circle
-            cx="400"
-            cy="140"
+            cx="450"
+            cy="190"
             r="32"
             fill="none"
             stroke="currentColor"
@@ -108,18 +108,18 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
         {/* Branch paths to each category */}
         {knowledgeCategories.map((category, index) => {
-          const angle = (index - 2) * 35 * (Math.PI / 180); // Spread from -70 to +70 degrees
+          const angle = (index - 2) * 32 * (Math.PI / 180); // Spread from -64 to +64 degrees
           const isActive = activeCategory === category.id;
           const isHighlighted = activeCategory === null || isActive;
           
-          // Calculate positions
-          const branchLength = 120;
-          const endX = 400 + Math.cos(angle) * branchLength;
-          const endY = 140 - Math.sin(angle) * branchLength;
+          // Calculate positions - center at 450, 190
+          const branchLength = 110;
+          const endX = 450 + Math.cos(angle) * branchLength;
+          const endY = 190 - Math.sin(angle) * branchLength;
           
           // Control points for curved branches
-          const ctrlX = 400 + Math.cos(angle) * 60;
-          const ctrlY = 140 - Math.sin(angle) * 30;
+          const ctrlX = 450 + Math.cos(angle) * 55;
+          const ctrlY = 190 - Math.sin(angle) * 28;
 
           const subtopics = categorySubtopics[category.id] || [];
 
@@ -133,7 +133,7 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
             >
               {/* Main branch curve */}
               <path
-                d={`M 400 140 Q ${ctrlX} ${ctrlY} ${endX} ${endY}`}
+                d={`M 450 190 Q ${ctrlX} ${ctrlY} ${endX} ${endY}`}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={isActive ? "2" : "1"}
@@ -192,17 +192,17 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
               {/* Subtopic branches */}
               {subtopics.map((subtopic, subIndex) => {
-                // Spread subtopics more and offset from main branch direction
-                const subAngleOffset = (subIndex - 1) * 25; // Wider spread: 25 degrees apart
+                // Spread subtopics and offset from main branch direction
+                const subAngleOffset = (subIndex - 1) * 30; // 30 degrees apart
                 const subAngle = angle + (subAngleOffset * (Math.PI / 180));
-                const subLength = 85; // Longer branches
+                const subLength = 60; // Moderate length to fit in viewBox
                 const subEndX = endX + Math.cos(subAngle) * subLength;
                 const subEndY = endY - Math.sin(subAngle) * subLength;
 
-                // Position label further from node
-                const labelOffset = 14;
+                // Position label further from node, adjust based on position
+                const labelOffset = 10;
                 const labelX = subEndX + (Math.cos(subAngle) > 0 ? labelOffset : -labelOffset);
-                const labelY = subEndY + (Math.sin(subAngle) < -0.3 ? -6 : Math.sin(subAngle) > 0.3 ? 10 : 4);
+                const labelY = subEndY + (Math.sin(subAngle) < -0.2 ? -5 : Math.sin(subAngle) > 0.2 ? 12 : 4);
 
                 return (
                   <g key={subtopic}>
@@ -251,8 +251,8 @@ export function KnowledgeMap({ activeCategory, onCategorySelect }: KnowledgeMapP
 
         {/* Central label */}
         <text
-          x="400"
-          y="185"
+          x="450"
+          y="235"
           textAnchor="middle"
           className="fill-current text-[9px] text-muted-foreground/40"
           style={{ fontFamily: "var(--font-mono)", textTransform: "uppercase", letterSpacing: "0.1em" }}
