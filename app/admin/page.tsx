@@ -20,7 +20,7 @@ import {
   approveVisitorMessage,
   deleteVisitorMessage,
 } from "@/lib/actions";
-import { uploadToR2 } from "@/lib/r2";
+import { uploadToR2, validateAudioFile, AUDIO_UPLOAD_CONSTRAINTS } from "@/lib/r2";
 import type { MusicSpecimen, BlogPost, VisitorMessage } from "@/lib/database.types";
 
 export default function AdminPage() {
@@ -156,6 +156,7 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
   const [specimenType, setSpecimenType] = useState("leaf");
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [audioUrl, setAudioUrl] = useState("");
+  const [fileError, setFileError] = useState<string | null>(null);
 
   const resetForm = () => {
     setTitle("");
@@ -166,6 +167,25 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
     setAudioUrl("");
     setEditingId(null);
     setShowForm(false);
+    setFileError(null);
+  };
+
+  const handleFileSelect = async (file: File | null) => {
+    setFileError(null);
+    if (!file) {
+      setAudioFile(null);
+      return;
+    }
+    
+    // Validate file before setting
+    const validation = await validateAudioFile(file);
+    if (!validation.valid) {
+      setFileError(validation.error || "Invalid file");
+      setAudioFile(null);
+      return;
+    }
+    
+    setAudioFile(file);
   };
 
   const handleEdit = (specimen: MusicSpecimen) => {
@@ -295,19 +315,41 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
               <label className="mb-1 block text-xs font-medium">Audio File</label>
               <input
                 type="file"
-                accept="audio/*"
-                onChange={(e) => setAudioFile(e.target.files?.[0] || null)}
+                accept=".mp3,.m4a,.aac,.ogg,.webm,audio/mpeg,audio/mp4,audio/aac,audio/ogg,audio/webm"
+                onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
                 className="text-sm"
               />
+              {/* Upload constraints helper text */}
+              <div className="mt-2 rounded-md bg-secondary/30 p-2.5 text-[11px] text-muted-foreground">
+                <p className="font-medium text-foreground/80">Upload requirements:</p>
+                <ul className="mt-1 space-y-0.5 ml-2">
+                  <li>Recommended: <span className="text-primary">{AUDIO_UPLOAD_CONSTRAINTS.recommendedFormat}</span> for best web playback</li>
+                  <li>Max size: {AUDIO_UPLOAD_CONSTRAINTS.maxSizeMB}MB</li>
+                  <li>Supported: MP3, M4A, AAC, OGG, WebM</li>
+                  <li className="text-destructive/70">Not supported: WAV, FLAC, AIFF (too large for web)</li>
+                </ul>
+              </div>
+              {/* File validation error */}
+              {fileError && (
+                <p className="mt-2 rounded-md bg-destructive/10 px-2.5 py-1.5 text-xs text-destructive">
+                  {fileError}
+                </p>
+              )}
+              {/* Current file indicator */}
+              {audioFile && (
+                <p className="mt-2 text-xs text-green-600">
+                  Selected: {audioFile.name} ({(audioFile.size / (1024 * 1024)).toFixed(1)}MB)
+                </p>
+              )}
               {audioUrl && !audioFile && (
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-2 text-xs text-muted-foreground">
                   Current: {audioUrl.split("/").pop()}
                 </p>
               )}
             </div>
             <div className="flex gap-2">
-              <Button type="submit" disabled={uploading}>
-                {uploading ? "Saving..." : "Save"}
+              <Button type="submit" disabled={uploading || !!fileError}>
+                {uploading ? "Uploading..." : "Save"}
               </Button>
               <Button type="button" variant="outline" onClick={resetForm}>
                 Cancel

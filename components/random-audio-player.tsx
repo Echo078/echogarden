@@ -23,20 +23,23 @@ function toDisplayEntry(specimen: MusicSpecimen): DiaryEntry {
 export function RandomAudioPlayer() {
   const { t, lang } = useLanguage();
   const [entries, setEntries] = useState<DiaryEntry[]>(staticEntries);
-  // Start with null to avoid hydration mismatch from Math.random()
-  const [currentEntry, setCurrentEntry] = useState<DiaryEntry | null>(null);
+  // Track index for navigation
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [mounted, setMounted] = useState(false);
 
+  // Current entry derived from index
+  const currentEntry = entries[currentIndex] || null;
+
   // Set initial random entry only on client after mount
   useEffect(() => {
     setMounted(true);
-    // Select random entry from static entries first
+    // Select random index from static entries first
     const randomIndex = Math.floor(Math.random() * staticEntries.length);
-    setCurrentEntry(staticEntries[randomIndex]);
+    setCurrentIndex(randomIndex);
   }, []);
 
   // Load specimens from DB on mount
@@ -46,22 +49,36 @@ export function RandomAudioPlayer() {
       if (result.data && result.data.length > 0) {
         const dbEntries = result.data.map(toDisplayEntry);
         setEntries(dbEntries);
-        // Update current entry to one from DB
+        // Update to random index from DB entries
         const randomIndex = Math.floor(Math.random() * dbEntries.length);
-        setCurrentEntry(dbEntries[randomIndex]);
+        setCurrentIndex(randomIndex);
       }
     }
     loadSpecimens();
   }, []);
 
-  const loadRandom = () => {
-    const randomIndex = Math.floor(Math.random() * entries.length);
-    setCurrentEntry(entries[randomIndex]);
+  const goToTrack = (index: number) => {
+    setCurrentIndex(index);
     setIsPlaying(false);
     setProgress(0);
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
     }
+  };
+
+  const loadRandom = () => {
+    const randomIndex = Math.floor(Math.random() * entries.length);
+    goToTrack(randomIndex);
+  };
+
+  const goToPrevious = () => {
+    const newIndex = currentIndex > 0 ? currentIndex - 1 : entries.length - 1;
+    goToTrack(newIndex);
+  };
+
+  const goToNext = () => {
+    const newIndex = currentIndex < entries.length - 1 ? currentIndex + 1 : 0;
+    goToTrack(newIndex);
   };
 
   const togglePlay = () => {
@@ -275,62 +292,108 @@ export function RandomAudioPlayer() {
 
         {/* Controls */}
         <div className="flex items-center justify-between">
-          <button
-            onClick={togglePlay}
-            className="relative flex items-center justify-center"
-            aria-label={isPlaying ? "Pause" : "Play"}
-          >
-            {/* Breathing ring when playing */}
-            <div 
-              className="absolute h-12 w-12 rounded-full transition-opacity duration-300"
-              style={{
-                border: '2px solid rgba(95, 125, 85, 0.4)',
-                opacity: isPlaying ? 1 : 0,
-                animation: isPlaying ? 'breatheRing 3s ease-in-out infinite' : 'none',
-              }}
-            />
-            <div 
-              className="absolute h-14 w-14 rounded-full transition-opacity duration-300"
-              style={{
-                border: '1px solid rgba(95, 125, 85, 0.2)',
-                opacity: isPlaying ? 1 : 0,
-                animation: isPlaying ? 'breatheRing 3s ease-in-out infinite 0.5s' : 'none',
-              }}
-            />
-            
-            {/* Button */}
-            <div 
-              className={`relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ${
-                isPlaying 
-                  ? 'bg-primary text-white shadow-md' 
-                  : 'bg-primary/10 text-primary hover:bg-primary/20'
-              }`}
+          <div className="flex items-center gap-2">
+            {/* Previous Button */}
+            <button
+              onClick={goToPrevious}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 text-muted-foreground/60 transition-all hover:bg-foreground/10 hover:text-foreground/80"
+              aria-label="Previous track"
+              title="Previous"
             >
-              {isPlaying ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <rect x="6" y="4" width="4" height="16" rx="1" />
-                  <rect x="14" y="4" width="4" height="16" rx="1" />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="ml-0.5"
-                >
-                  <polygon points="6 3 20 12 6 21 6 3" />
-                </svg>
-              )}
-            </div>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <polygon points="19 20 9 12 19 4 19 20" />
+                <rect x="5" y="4" width="2" height="16" />
+              </svg>
+            </button>
+
+            {/* Play/Pause Button */}
+            <button
+              onClick={togglePlay}
+              className="relative flex items-center justify-center"
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
+              {/* Breathing ring when playing */}
+              <div 
+                className="absolute h-12 w-12 rounded-full transition-opacity duration-300"
+                style={{
+                  border: '2px solid rgba(95, 125, 85, 0.4)',
+                  opacity: isPlaying ? 1 : 0,
+                  animation: isPlaying ? 'breatheRing 3s ease-in-out infinite' : 'none',
+                }}
+              />
+              <div 
+                className="absolute h-14 w-14 rounded-full transition-opacity duration-300"
+                style={{
+                  border: '1px solid rgba(95, 125, 85, 0.2)',
+                  opacity: isPlaying ? 1 : 0,
+                  animation: isPlaying ? 'breatheRing 3s ease-in-out infinite 0.5s' : 'none',
+                }}
+              />
+              
+              {/* Button */}
+              <div 
+                className={`relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 ${
+                  isPlaying 
+                    ? 'bg-primary text-white shadow-md' 
+                    : 'bg-primary/10 text-primary hover:bg-primary/20'
+                }`}
+              >
+                {isPlaying ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <rect x="6" y="4" width="4" height="16" rx="1" />
+                    <rect x="14" y="4" width="4" height="16" rx="1" />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="ml-0.5"
+                  >
+                    <polygon points="6 3 20 12 6 21 6 3" />
+                  </svg>
+                )}
+              </div>
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={goToNext}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground/5 text-muted-foreground/60 transition-all hover:bg-foreground/10 hover:text-foreground/80"
+              aria-label="Next track"
+              title="Next"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <polygon points="5 4 15 12 5 20 5 4" />
+                <rect x="17" y="4" width="2" height="16" />
+              </svg>
+            </button>
+
+            {/* Track indicator */}
+            <span className="ml-2 text-[10px] text-muted-foreground/40">
+              {currentIndex + 1} / {entries.length}
+            </span>
+          </div>
 
           <Link
             href="/diary"
