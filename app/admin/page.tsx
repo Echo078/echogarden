@@ -121,8 +121,8 @@ export default function AdminPage() {
           <Tabs value={activeTab} onValueChange={setActiveTab}>
 <TabsList className="mb-6">
           <TabsTrigger value="music">Music Specimens ({specimens.length})</TabsTrigger>
-          <TabsTrigger value="blog">Blog Posts ({blogPosts.length})</TabsTrigger>
           <TabsTrigger value="essays">Essays ({essays.length})</TabsTrigger>
+          <TabsTrigger value="fragments">Fragments ({blogPosts.length})</TabsTrigger>
           <TabsTrigger value="messages">Messages ({messages.length})</TabsTrigger>
           </TabsList>
 
@@ -133,9 +133,9 @@ export default function AdminPage() {
               />
             </TabsContent>
 
-            <TabsContent value="blog">
-              <BlogPostsTab 
-                posts={blogPosts} 
+            <TabsContent value="fragments">
+              <FragmentsTab 
+                fragments={blogPosts} 
                 onRefresh={loadData} 
               />
             </TabsContent>
@@ -404,8 +404,8 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
   );
 }
 
-// Blog Posts Tab
-function BlogPostsTab({ posts, onRefresh }: { posts: BlogPost[]; onRefresh: () => void }) {
+// Fragments Tab (short-form writing)
+function FragmentsTab({ fragments, onRefresh }: { fragments: BlogPost[]; onRefresh: () => void }) {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   
@@ -478,15 +478,15 @@ function BlogPostsTab({ posts, onRefresh }: { posts: BlogPost[]; onRefresh: () =
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="font-serif text-lg font-light">Blog Posts</h2>
-        <Button onClick={() => setShowForm(true)}>Add New</Button>
+        <h2 className="font-serif text-lg font-light">Fragments</h2>
+        <Button onClick={() => setShowForm(true)}>New Fragment</Button>
       </div>
 
       {/* Form */}
       {showForm && (
         <div className="mb-6 rounded-lg border border-foreground/10 bg-card/50 p-6">
           <h3 className="mb-4 font-medium">
-            {editingId ? "Edit Post" : "New Post"}
+            {editingId ? "Edit Fragment" : "New Fragment"}
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
@@ -554,31 +554,31 @@ function BlogPostsTab({ posts, onRefresh }: { posts: BlogPost[]; onRefresh: () =
 
       {/* List */}
       <div className="space-y-3">
-        {posts.map((post) => (
+        {fragments.map((fragment) => (
           <div
-            key={post.id}
+            key={fragment.id}
             className="flex items-center justify-between rounded-lg border border-foreground/8 bg-card/30 p-4"
           >
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-medium">{post.title}</h3>
+                <h3 className="font-medium">{fragment.title}</h3>
                 <span className={`rounded px-1.5 py-0.5 text-[10px] ${
-                  post.published 
+                  fragment.published 
                     ? "bg-green-500/20 text-green-700" 
                     : "bg-yellow-500/20 text-yellow-700"
                 }`}>
-                  {post.published ? "Published" : "Draft"}
+                  {fragment.published ? "Published" : "Draft"}
                 </span>
               </div>
               <p className="text-xs text-muted-foreground">
-                {post.date} • /{post.slug}
+                {fragment.date} • /{fragment.slug}
               </p>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => handleEdit(post)}>
+              <Button variant="outline" size="sm" onClick={() => handleEdit(fragment)}>
                 Edit
               </Button>
-              <Button variant="destructive" size="sm" onClick={() => handleDelete(post.id)}>
+              <Button variant="destructive" size="sm" onClick={() => handleDelete(fragment.id)}>
                 Delete
               </Button>
             </div>

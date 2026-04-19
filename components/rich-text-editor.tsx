@@ -10,6 +10,7 @@ import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { common, createLowlight } from "lowlight";
 import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { uploadImageToR2 } from "@/lib/r2";
 
 const lowlight = createLowlight(common);
 
@@ -22,18 +23,23 @@ interface RichTextEditorProps {
 export function RichTextEditor({ content, onChange, placeholder }: RichTextEditorProps) {
   const [showLinkInput, setShowLinkInput] = useState(false);
   const [linkUrl, setLinkUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
   const linkInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
 
   const editor = useEditor({
-    immediatelyRender: false, // Prevent SSR hydration mismatch
+    immediatelyRender: false,
     extensions: [
       StarterKit.configure({
-        codeBlock: false, // We use CodeBlockLowlight instead
+        codeBlock: false,
       }),
       Image.configure({
         HTMLAttributes: {
           class: "rounded-md max-w-full my-4",
         },
+        allowBase64: true,
       }),
       Link.configure({
         openOnClick: false,
@@ -45,7 +51,7 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
         placeholder: placeholder || "Start writing...",
       }),
       TextAlign.configure({
-        types: ["heading", "paragraph"],
+        types: ["heading", "paragraph", "image"],
       }),
       CodeBlockLowlight.configure({
         lowlight,
@@ -59,10 +65,81 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
       attributes: {
         class: "prose prose-sm max-w-none min-h-[300px] focus:outline-none p-4",
       },
+      handleDrop: (view, event, slice, moved) => {
+        if (!moved && event.dataTransfer?.files.length) {
+          const files = Array.from(event.dataTransfer.files);
+          const images = files.filter(file => file.type.startsWith("image/"));
+          if (images.length > 0) {
+            event.preventDefault();
+            images.forEach(file => handleImageUpload(file));
+            return true;
+          }
+        }
+        return false;
+      },
+      handlePaste: (view, event) => {
+        const items = event.clipboardData?.items;
+        if (items) {
+          for (const item of items) {
+            if (item.type.startsWith("image/")) {
+              event.preventDefault();
+              const file = item.getAsFile();
+              if (file) {
+                handleImageUpload(file);
+                return true;
+              }
+            }
+          }
+        }
+        return false;
+      },
     },
   });
 
-  const addImage = useCallback(() => {
+  // Handle image upload
+  const handleImageUpload = useCallback(async (file: File) => {
+    if (!editor) return;
+    
+    setUploading(true);
+    
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      
+      const result = await uploadImageToR2(formData);
+      
+      if (result.success && result.publicUrl) {
+        editor.chain().focus().setImage({ src: result.publicUrl }).run();
+      } else {
+        alert(result.error || "Failed to upload image");
+      }
+    } catch (error) {
+      console.error("Image upload error:", error);
+      alert("Failed to upload image");
+    } finally {
+      setUploading(false);
+    }
+  }, [editor]);
+
+  // Handle file input change
+  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files?.length) {
+      Array.from(files).forEach(file => handleImageUpload(file));
+    }
+    // Reset input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, [handleImageUpload]);
+
+  // Open file picker
+  const openFilePicker = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
+  // Add image from URL
+  const addImageFromUrl = useCallback(() => {
     const url = window.prompt("Enter image URL:");
     if (url && editor) {
       editor.chain().focus().setImage({ src: url }).run();
@@ -73,7 +150,6 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
     if (!editor) return;
 
     if (showLinkInput) {
-      // Apply link
       if (linkUrl) {
         editor
           .chain()
@@ -85,7 +161,6 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
       setShowLinkInput(false);
       setLinkUrl("");
     } else {
-      // Show input
       const previousUrl = editor.getAttributes("link").href;
       setLinkUrl(previousUrl || "");
       setShowLinkInput(true);
@@ -99,6 +174,31 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
     }
   }, [editor]);
 
+  // Drag and drop handlers
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragOver(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragOver(false);
+    
+    const files = e.dataTransfer?.files;
+    if (files?.length) {
+      const images = Array.from(files).filter(file => file.type.startsWith("image/"));
+      images.forEach(file => handleImageUpload(file));
+    }
+  }, [handleImageUpload]);
+
   if (!editor) {
     return (
       <div className="rounded-md border border-foreground/10 bg-background p-4 min-h-[300px] animate-pulse" />
@@ -106,7 +206,35 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
   }
 
   return (
-    <div className="rounded-md border border-foreground/10 bg-background overflow-hidden">
+    <div 
+      ref={editorContainerRef}
+      className={`rounded-md border bg-background overflow-hidden transition-colors ${
+        dragOver 
+          ? "border-primary border-2 bg-primary/5" 
+          : "border-foreground/10"
+      }`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleFileSelect}
+        className="hidden"
+      />
+
+      {/* Upload progress indicator */}
+      {uploading && (
+        <div className="flex items-center gap-2 border-b border-foreground/10 bg-primary/10 px-3 py-2 text-xs text-primary">
+          <div className="h-3 w-3 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+          <span>Uploading image...</span>
+        </div>
+      )}
+
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-1 border-b border-foreground/10 bg-secondary/30 p-2">
         {/* Text formatting */}
@@ -218,7 +346,10 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
               <UnlinkIcon />
             </ToolbarButton>
           )}
-          <ToolbarButton onClick={addImage} title="Add image">
+          <ToolbarButton onClick={openFilePicker} title="Upload image" disabled={uploading}>
+            <UploadIcon />
+          </ToolbarButton>
+          <ToolbarButton onClick={addImageFromUrl} title="Image from URL">
             <ImageIcon />
           </ToolbarButton>
         </ToolbarGroup>
@@ -297,15 +428,29 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
             }}
             className="flex-1 rounded border border-foreground/10 bg-background px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
           />
-          <Button size="sm" onClick={setLink}>Apply</Button>
-          <Button size="sm" variant="ghost" onClick={() => { setShowLinkInput(false); setLinkUrl(""); }}>
+          <Button type="button" size="sm" onMouseDown={(e) => e.preventDefault()} onClick={setLink}>Apply</Button>
+          <Button type="button" size="sm" variant="ghost" onMouseDown={(e) => e.preventDefault()} onClick={() => { setShowLinkInput(false); setLinkUrl(""); editor?.chain().focus().run(); }}>
             Cancel
           </Button>
         </div>
       )}
 
+      {/* Drag overlay */}
+      {dragOver && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-primary/10 pointer-events-none">
+          <div className="rounded-lg bg-background/90 px-6 py-4 shadow-lg">
+            <p className="text-sm font-medium text-primary">Drop image to upload</p>
+          </div>
+        </div>
+      )}
+
       {/* Editor content */}
       <EditorContent editor={editor} />
+
+      {/* Image upload hint */}
+      <div className="border-t border-foreground/5 bg-secondary/10 px-3 py-1.5 text-[10px] text-muted-foreground/50">
+        Drag & drop or paste images to upload. Max 10MB per image.
+      </div>
 
       {/* Editor styles */}
       <style jsx global>{`
@@ -386,7 +531,26 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
         .ProseMirror img {
           max-width: 100%;
           border-radius: 0.5rem;
-          margin: 1rem 0;
+          margin: 1rem auto;
+          display: block;
+        }
+        .ProseMirror img.ProseMirror-selectednode {
+          outline: 2px solid hsl(var(--primary));
+        }
+        .ProseMirror p[style*="text-align: center"] img,
+        .ProseMirror p[style*="text-align:center"] img {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .ProseMirror p[style*="text-align: right"] img,
+        .ProseMirror p[style*="text-align:right"] img {
+          margin-left: auto;
+          margin-right: 0;
+        }
+        .ProseMirror p[style*="text-align: left"] img,
+        .ProseMirror p[style*="text-align:left"] img {
+          margin-left: 0;
+          margin-right: auto;
         }
         .ProseMirror a {
           color: hsl(var(--primary));
@@ -419,9 +583,17 @@ function ToolbarButton({
   title: string;
   children: React.ReactNode;
 }) {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onClick();
+  };
+
   return (
     <button
-      onClick={onClick}
+      type="button"
+      onMouseDown={(e) => e.preventDefault()}
+      onClick={handleClick}
       disabled={disabled}
       title={title}
       className={`flex h-7 w-7 items-center justify-center rounded text-xs transition-colors ${
@@ -518,6 +690,14 @@ const UnlinkIcon = () => (
     <line x1="2" y1="8" x2="5" y2="8" />
     <line x1="16" y1="19" x2="16" y2="22" />
     <line x1="19" y1="16" x2="22" y2="16" />
+  </svg>
+);
+
+const UploadIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <polyline points="17 8 12 3 7 8" />
+    <line x1="12" y1="3" x2="12" y2="15" />
   </svg>
 );
 

@@ -152,3 +152,81 @@ export async function extractKeyFromUrl(url: string): Promise<string | null> {
   if (!url.startsWith(PUBLIC_URL)) return null;
   return url.replace(`${PUBLIC_URL}/`, "");
 }
+
+// Image upload constraints
+const IMAGE_UPLOAD_CONSTRAINTS = {
+  maxSizeBytes: 10 * 1024 * 1024, // 10MB
+  maxSizeMB: 10,
+  allowedTypes: ["image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml"],
+  allowedExtensions: [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"],
+};
+
+/**
+ * Validate image file before upload
+ */
+export async function validateImageFile(
+  file: File
+): Promise<{ valid: boolean; error?: string }> {
+  // Check file size
+  if (file.size > IMAGE_UPLOAD_CONSTRAINTS.maxSizeBytes) {
+    const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+    return {
+      valid: false,
+      error: `Image too large (${sizeMB}MB). Maximum size is ${IMAGE_UPLOAD_CONSTRAINTS.maxSizeMB}MB.`,
+    };
+  }
+
+  // Check MIME type
+  if (!IMAGE_UPLOAD_CONSTRAINTS.allowedTypes.includes(file.type)) {
+    return {
+      valid: false,
+      error: "Invalid image type. Please upload JPG, PNG, GIF, WebP, or SVG.",
+    };
+  }
+
+  return { valid: true };
+}
+
+/**
+ * Upload image to R2
+ */
+export async function uploadImageToR2(
+  formData: FormData
+): Promise<{ success: boolean; publicUrl?: string; error?: string }> {
+  try {
+    const file = formData.get("file") as File;
+    if (!file) {
+      return { success: false, error: "No file provided" };
+    }
+
+    // Validate file before upload
+    const validation = await validateImageFile(file);
+    if (!validation.valid) {
+      return { success: false, error: validation.error };
+    }
+
+    // Generate unique key with timestamp
+    const timestamp = Date.now();
+    const sanitizedFilename = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+    const key = `images/${timestamp}-${sanitizedFilename}`;
+
+    // Convert file to buffer
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: key,
+      Body: buffer,
+      ContentType: file.type,
+    });
+
+    await s3Client.send(command);
+    const publicUrl = `${PUBLIC_URL}/${key}`;
+
+    return { success: true, publicUrl };
+  } catch (error) {
+    console.error("Error uploading image to R2:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Upload failed" };
+  }
+}
