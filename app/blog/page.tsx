@@ -7,7 +7,6 @@ import { translations } from "@/lib/translations";
 import { getBlogPosts, getEssays } from "@/lib/actions";
 import type { BlogPost, Essay } from "@/lib/database.types";
 import { blogEntries as staticBlogEntries } from "@/data/blog";
-import { noteEntries } from "@/data/notes";
 
 // Adapter for display - Fragments (short-form)
 interface DisplayFragment {
@@ -206,85 +205,56 @@ export default function BlogPage() {
                   {lang === "zh" ? "暂无文章..." : "No essays yet..."}
                 </p>
               )}
-
-              {/* Fragments Section (below essays) */}
-              {!loading && fragments.length > 0 && (
-                <div className="mt-12">
-                  <div className="mb-6 flex items-center gap-4">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {blogT.fragments[lang]}
-                    </span>
-                    <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
-                      {totalFragments}
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    {fragments.map((fragment) => {
-                      const [year, month, day] = fragment.date.split("-").map(Number);
-                      const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                      const formattedDate = `${shortMonths[month - 1]} ${day}, ${year}`;
-
-                      return (
-                        <Link key={fragment.id} href={`/blog/${fragment.slug}`} className="group block">
-                          <article className="rounded-lg border border-foreground/6 bg-card/20 p-4 transition-all hover:border-foreground/10 hover:bg-card/40">
-                            <div className="flex items-start justify-between gap-4">
-                              <div className="flex-1">
-                                <h3 className="mb-1 text-sm font-medium text-foreground/90 transition-colors group-hover:text-primary">
-                                  {fragment.title}
-                                </h3>
-                                <p className="line-clamp-1 text-xs text-muted-foreground/60">
-                                  {fragment.excerpt}
-                                </p>
-                              </div>
-                              <time className="flex-shrink-0 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/40">
-                                {formattedDate}
-                              </time>
-                            </div>
-                          </article>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
             </div>
 
-            {/* Right Column: Quiet Notes Rail */}
+            {/* Right Column: Fragments (short-form writing) */}
             <aside className="hidden lg:block lg:flex-1">
               {/* Column Header */}
               <div className="mb-8 flex items-center gap-3">
                 <span className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground/40">
-                  {blogT.notes[lang]}
+                  {blogT.fragments[lang]}
                 </span>
                 <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
+                <span className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground/30">
+                  {totalFragments}
+                </span>
               </div>
 
-              {/* Minimal Notes (static) */}
-              <div className="flex flex-col gap-4">
-                {noteEntries.slice(0, 8).map((note) => {
-                  const [, noteMonth, noteDay] = note.date.split("-").map(Number);
+              {/* Fragments list */}
+              <div className="flex flex-col gap-3">
+                {fragments.map((fragment) => {
+                  const [, fragMonth, fragDay] = fragment.date.split("-").map(Number);
                   const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                  const month = shortMonths[noteMonth - 1];
-                  const day = noteDay;
+                  const month = shortMonths[fragMonth - 1];
+                  const day = fragDay;
 
                   return (
-                    <div 
-                      key={note.id}
-                      className="border-l border-foreground/6 py-1 pl-3 transition-colors hover:border-foreground/15"
+                    <Link 
+                      key={fragment.id}
+                      href={`/blog/${fragment.slug}`}
+                      className="group border-l border-foreground/6 py-1 pl-3 transition-colors hover:border-primary/30"
                     >
                       <time 
-                        dateTime={note.date}
+                        dateTime={fragment.date}
                         className="mb-1 block font-mono text-[8px] uppercase tracking-wider text-muted-foreground/35"
                       >
                         {month} {day}
                       </time>
-                      <p className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground/55">
-                        {note.text.length > 55 ? note.text.slice(0, 55) + '...' : note.text}
+                      <h3 className="mb-0.5 text-[11px] font-medium text-foreground/70 transition-colors group-hover:text-primary">
+                        {fragment.title}
+                      </h3>
+                      <p className="line-clamp-2 text-[10px] leading-relaxed text-muted-foreground/50">
+                        {fragment.excerpt.length > 60 ? fragment.excerpt.slice(0, 60) + '...' : fragment.excerpt}
                       </p>
-                    </div>
+                    </Link>
                   );
                 })}
+                
+                {fragments.length === 0 && (
+                  <p className="text-[10px] italic text-muted-foreground/30">
+                    {lang === "zh" ? "暂无片段..." : "No fragments yet..."}
+                  </p>
+                )}
               </div>
             </aside>
           </div>
