@@ -6,10 +6,13 @@ import type {
   MusicSpecimen, 
   BlogPost, 
   VisitorMessage,
+  Essay,
   MusicSpecimenInsert,
   BlogPostInsert,
+  EssayInsert,
   MusicSpecimenUpdate,
-  BlogPostUpdate
+  BlogPostUpdate,
+  EssayUpdate
 } from "./database.types";
 
 // ============================================
@@ -273,6 +276,122 @@ export async function deleteVisitorMessage(id: string): Promise<{ success: boole
   }
   
   revalidatePath("/");
+  return { success: true };
+}
+
+// ============================================
+// Essays
+// ============================================
+
+export async function getEssays(): Promise<{ data: Essay[] | null; error: string | null }> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("essays")
+    .select("*")
+    .eq("published", true)
+    .order("date", { ascending: false });
+  
+  if (error) {
+    console.error("Error fetching essays:", error);
+    return { data: null, error: error.message };
+  }
+  
+  return { data: data || [], error: null };
+}
+
+export async function getAllEssays(): Promise<{ data: Essay[] | null; error: string | null }> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("essays")
+    .select("*")
+    .order("date", { ascending: false });
+  
+  if (error) {
+    console.error("Error fetching all essays:", error);
+    return { data: null, error: error.message };
+  }
+  
+  return { data: data || [], error: null };
+}
+
+export async function getEssayBySlug(slug: string): Promise<Essay | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("essays")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+  
+  if (error) {
+    console.error("Error fetching essay:", error);
+    return null;
+  }
+  
+  return data;
+}
+
+export async function getFeaturedEssays(): Promise<{ data: Essay[] | null; error: string | null }> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("essays")
+    .select("*")
+    .eq("published", true)
+    .eq("featured", true)
+    .order("date", { ascending: false })
+    .limit(3);
+  
+  if (error) {
+    console.error("Error fetching featured essays:", error);
+    return { data: null, error: error.message };
+  }
+  
+  return { data: data || [], error: null };
+}
+
+export async function createEssay(essay: EssayInsert): Promise<{ success: boolean; error?: string }> {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("essays")
+    .insert(essay);
+  
+  if (error) {
+    console.error("Error creating essay:", error);
+    return { success: false, error: error.message };
+  }
+  
+  revalidatePath("/essays");
+  return { success: true };
+}
+
+export async function updateEssay(id: string, updates: EssayUpdate): Promise<{ success: boolean; error?: string }> {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("essays")
+    .update(updates)
+    .eq("id", id);
+  
+  if (error) {
+    console.error("Error updating essay:", error);
+    return { success: false, error: error.message };
+  }
+  
+  revalidatePath("/essays");
+  return { success: true };
+}
+
+export async function deleteEssay(id: string): Promise<{ success: boolean; error?: string }> {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("essays")
+    .delete()
+    .eq("id", id);
+  
+  if (error) {
+    console.error("Error deleting essay:", error);
+    return { success: false, error: error.message };
+  }
+  
+  revalidatePath("/essays");
   return { success: true };
 }
 

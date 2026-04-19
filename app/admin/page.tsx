@@ -11,18 +11,22 @@ import {
   getMusicSpecimens,
   getAllBlogPosts,
   getAllVisitorMessages,
+  getAllEssays,
   createMusicSpecimen,
   updateMusicSpecimen,
   deleteMusicSpecimen,
   createBlogPost,
   updateBlogPost,
   deleteBlogPost,
+  createEssay,
+  updateEssay,
+  deleteEssay,
   approveVisitorMessage,
   deleteVisitorMessage,
 } from "@/lib/actions";
 import { uploadToR2, validateAudioFile, AUDIO_UPLOAD_CONSTRAINTS } from "@/lib/r2";
 import { RichTextEditor } from "@/components/rich-text-editor";
-import type { MusicSpecimen, BlogPost, VisitorMessage } from "@/lib/database.types";
+import type { MusicSpecimen, BlogPost, VisitorMessage, Essay } from "@/lib/database.types";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -33,6 +37,7 @@ export default function AdminPage() {
   // Data states
   const [specimens, setSpecimens] = useState<MusicSpecimen[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [essays, setEssays] = useState<Essay[]>([]);
   const [messages, setMessages] = useState<VisitorMessage[]>([]);
 
   // Check auth on mount
@@ -56,14 +61,16 @@ export default function AdminPage() {
   }, [router]);
 
   async function loadData() {
-    const [specimensRes, postsRes, messagesRes] = await Promise.all([
+    const [specimensRes, postsRes, essaysRes, messagesRes] = await Promise.all([
       getMusicSpecimens(),
       getAllBlogPosts(),
+      getAllEssays(),
       getAllVisitorMessages(),
     ]);
     
     if (specimensRes.data) setSpecimens(specimensRes.data);
     if (postsRes.data) setBlogPosts(postsRes.data);
+    if (essaysRes.data) setEssays(essaysRes.data);
     if (messagesRes.data) setMessages(messagesRes.data);
   }
 
@@ -111,11 +118,12 @@ export default function AdminPage() {
       <main className="px-6 py-8">
         <div className="mx-auto max-w-6xl">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="mb-6">
-              <TabsTrigger value="music">Music Specimens ({specimens.length})</TabsTrigger>
-              <TabsTrigger value="blog">Blog Posts ({blogPosts.length})</TabsTrigger>
-              <TabsTrigger value="messages">Messages ({messages.length})</TabsTrigger>
-            </TabsList>
+<TabsList className="mb-6">
+          <TabsTrigger value="music">Music Specimens ({specimens.length})</TabsTrigger>
+          <TabsTrigger value="blog">Blog Posts ({blogPosts.length})</TabsTrigger>
+          <TabsTrigger value="essays">Essays ({essays.length})</TabsTrigger>
+          <TabsTrigger value="messages">Messages ({messages.length})</TabsTrigger>
+          </TabsList>
 
             <TabsContent value="music">
               <MusicSpecimensTab 
@@ -131,8 +139,15 @@ export default function AdminPage() {
               />
             </TabsContent>
 
-            <TabsContent value="messages">
-              <MessagesTab 
+<TabsContent value="essays">
+          <EssaysTab
+            essays={essays}
+            onRefresh={loadData}
+          />
+          </TabsContent>
+
+          <TabsContent value="messages">
+          <MessagesTab
                 messages={messages} 
                 onRefresh={loadData} 
               />
@@ -568,6 +583,218 @@ function BlogPostsTab({ posts, onRefresh }: { posts: BlogPost[]; onRefresh: () =
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// Essays Tab
+function EssaysTab({ essays, onRefresh }: { essays: Essay[]; onRefresh: () => void }) {
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  
+  // Form state
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [slug, setSlug] = useState("");
+  const [content, setContent] = useState("");
+  const [tags, setTags] = useState("");
+  const [published, setPublished] = useState(false);
+  const [featured, setFeatured] = useState(false);
+
+  const resetForm = () => {
+    setTitle("");
+    setSubtitle("");
+    setSlug("");
+    setContent("");
+    setTags("");
+    setPublished(false);
+    setFeatured(false);
+    setEditingId(null);
+    setShowForm(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Calculate reading time (rough estimate: 200 words per minute)
+    const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length;
+    const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+    const data = {
+      title,
+      subtitle: subtitle || null,
+      slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      content,
+      tags: tags.split(",").map(t => t.trim()).filter(Boolean),
+      published,
+      featured,
+      reading_time_minutes: readingTime,
+      date: new Date().toISOString().split('T')[0],
+    };
+
+    if (editingId) {
+      await updateEssay(editingId, data);
+    } else {
+      await createEssay(data);
+    }
+
+    resetForm();
+    onRefresh();
+  };
+
+  const handleEdit = (essay: Essay) => {
+    setEditingId(essay.id);
+    setTitle(essay.title);
+    setSubtitle(essay.subtitle || "");
+    setSlug(essay.slug);
+    setContent(essay.content);
+    setTags(essay.tags.join(", "));
+    setPublished(essay.published);
+    setFeatured(essay.featured);
+    setShowForm(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this essay?")) return;
+    await deleteEssay(id);
+    onRefresh();
+  };
+
+  return (
+    <div>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="font-serif text-lg font-light">Essays</h2>
+        {!showForm && (
+          <Button onClick={() => setShowForm(true)}>New Essay</Button>
+        )}
+      </div>
+
+      {/* Form */}
+      {showForm && (
+        <div className="mb-8 rounded-lg border border-foreground/10 bg-card/50 p-6">
+          <h3 className="mb-4 font-medium">
+            {editingId ? "Edit Essay" : "New Essay"}
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="mb-1 block text-xs font-medium">Title *</label>
+                <Input
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  placeholder="Essay title"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium">Slug</label>
+                <Input
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  placeholder="auto-generated-from-title"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-medium">Subtitle</label>
+              <Input
+                value={subtitle}
+                onChange={(e) => setSubtitle(e.target.value)}
+                placeholder="Optional subtitle or description"
+              />
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-medium">Tags (comma separated)</label>
+              <Input
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                placeholder="reflection, music, creativity"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-xs font-medium">Content *</label>
+              <RichTextEditor
+                content={content}
+                onChange={setContent}
+                placeholder="Write your essay..."
+              />
+            </div>
+
+            <div className="flex items-center gap-6">
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={published}
+                  onChange={(e) => setPublished(e.target.checked)}
+                  className="h-4 w-4 rounded border-foreground/20"
+                />
+                Published
+              </label>
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={featured}
+                  onChange={(e) => setFeatured(e.target.checked)}
+                  className="h-4 w-4 rounded border-foreground/20"
+                />
+                Featured
+              </label>
+            </div>
+
+            <div className="flex gap-2">
+              <Button type="submit">Save</Button>
+              <Button type="button" variant="outline" onClick={resetForm}>
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* List */}
+      <div className="space-y-3">
+        {essays.map((essay) => (
+          <div
+            key={essay.id}
+            className="flex items-center justify-between rounded-lg border border-foreground/8 bg-card/30 p-4"
+          >
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="font-medium">{essay.title}</h3>
+                {essay.featured && (
+                  <span className="rounded bg-purple-500/20 px-1.5 py-0.5 text-[10px] text-purple-700">
+                    Featured
+                  </span>
+                )}
+                <span className={`rounded px-1.5 py-0.5 text-[10px] ${
+                  essay.published 
+                    ? "bg-green-500/20 text-green-700" 
+                    : "bg-yellow-500/20 text-yellow-700"
+                }`}>
+                  {essay.published ? "Published" : "Draft"}
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {essay.date} • /{essay.slug} • {essay.reading_time_minutes || 1} min read
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => handleEdit(essay)}>
+                Edit
+              </Button>
+              <Button variant="destructive" size="sm" onClick={() => handleDelete(essay.id)}>
+                Delete
+              </Button>
+            </div>
+          </div>
+        ))}
+        {essays.length === 0 && (
+          <p className="text-sm text-muted-foreground">No essays yet. Create your first essay above.</p>
+        )}
       </div>
     </div>
   );
