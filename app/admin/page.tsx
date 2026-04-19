@@ -21,6 +21,7 @@ import {
   deleteVisitorMessage,
 } from "@/lib/actions";
 import { uploadToR2, validateAudioFile, AUDIO_UPLOAD_CONSTRAINTS } from "@/lib/r2";
+import { RichTextEditor } from "@/components/rich-text-editor";
 import type { MusicSpecimen, BlogPost, VisitorMessage } from "@/lib/database.types";
 
 export default function AdminPage() {
@@ -387,36 +388,10 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
   );
 }
 
-// Simple markdown to HTML renderer for preview
-function renderMarkdownPreview(content: string): string {
-  if (!content) return "";
-  let html = content;
-  html = html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  html = html.replace(/^### (.+)$/gm, '<h3 class="text-base font-medium mt-4 mb-2">$1</h3>');
-  html = html.replace(/^## (.+)$/gm, '<h2 class="text-lg font-medium mt-5 mb-3">$1</h2>');
-  html = html.replace(/^# (.+)$/gm, '<h1 class="text-xl font-medium mt-5 mb-3">$1</h1>');
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre class="bg-foreground/5 rounded p-3 my-3 text-xs overflow-x-auto"><code>$2</code></pre>');
-  html = html.replace(/`([^`]+)`/g, '<code class="bg-foreground/10 px-1 rounded text-xs">$1</code>');
-  html = html.replace(/^&gt; (.+)$/gm, '<blockquote class="border-l-2 border-primary/30 pl-3 my-3 italic text-muted-foreground">$1</blockquote>');
-  html = html.replace(/^- (.+)$/gm, '<li class="ml-4">• $1</li>');
-  html = html.replace(/^\d+\. (.+)$/gm, '<li class="ml-4 list-decimal">$1</li>');
-  html = html.replace(/^---$/gm, '<hr class="my-6 border-foreground/10" />');
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary underline">$1</a>');
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="my-4 rounded max-w-full" />');
-  html = html.split(/\n\n+/).map(block => {
-    if (block.startsWith('<') || block.trim() === '') return block;
-    return `<p class="my-3 leading-relaxed">${block.replace(/\n/g, '<br />')}</p>`;
-  }).join('\n');
-  return html;
-}
-
 // Blog Posts Tab
 function BlogPostsTab({ posts, onRefresh }: { posts: BlogPost[]; onRefresh: () => void }) {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
   
   // Form state
   const [title, setTitle] = useState("");
@@ -435,7 +410,6 @@ function BlogPostsTab({ posts, onRefresh }: { posts: BlogPost[]; onRefresh: () =
     setPublished(false);
     setEditingId(null);
     setShowForm(false);
-    setShowPreview(false);
   };
 
   const handleEdit = (post: BlogPost) => {
@@ -527,51 +501,12 @@ function BlogPostsTab({ posts, onRefresh }: { posts: BlogPost[]; onRefresh: () =
               />
             </div>
             <div>
-              <div className="mb-2 flex items-center justify-between">
-                <label className="text-xs font-medium">Content (Markdown)</label>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-muted-foreground">
-                    Supports: # headings, **bold**, *italic*, `code`, - lists, {">"} quotes, [links](url), ![images](url)
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setShowPreview(!showPreview)}
-                    className="rounded px-2 py-1 text-xs bg-secondary hover:bg-secondary/80"
-                  >
-                    {showPreview ? "Edit" : "Preview"}
-                  </button>
-                </div>
-              </div>
-              
-              {showPreview ? (
-                <div 
-                  className="min-h-[280px] rounded-md border border-foreground/10 bg-background p-4 text-sm prose prose-sm max-w-none"
-                  dangerouslySetInnerHTML={{ __html: renderMarkdownPreview(content) }}
-                />
-              ) : (
-                <textarea
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  rows={12}
-                  placeholder={`# My Post Title
-
-Write your content here using **Markdown**.
-
-## Section Heading
-
-- Bullet point 1
-- Bullet point 2
-
-> A blockquote for emphasis
-
-\`\`\`
-code block
-\`\`\`
-
-[Link text](https://example.com)`}
-                  className="w-full rounded-md border border-foreground/10 bg-background px-3 py-2 text-sm font-mono"
-                />
-              )}
+              <label className="mb-2 block text-xs font-medium">Content</label>
+              <RichTextEditor
+                content={content}
+                onChange={setContent}
+                placeholder="Start writing your post..."
+              />
             </div>
             <div>
               <label className="mb-1 block text-xs font-medium">Tags (comma-separated)</label>
