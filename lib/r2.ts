@@ -65,7 +65,7 @@ export async function deleteFromR2(key: string): Promise<{ success: boolean }> {
 /**
  * Extract key from R2 public URL
  */
-export function extractKeyFromUrl(url: string): string | null {
+export async function extractKeyFromUrl(url: string): Promise<string | null> {
   if (!url.startsWith(PUBLIC_URL)) return null;
   return url.replace(`${PUBLIC_URL}/`, "");
 }

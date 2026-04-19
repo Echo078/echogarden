@@ -33,9 +33,8 @@ export const updates: Update[] = [
 ];
 
 export function formatUpdateDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
+  // Use UTC to avoid server/client timezone hydration mismatch
+  const [year, month, day] = dateString.split("-").map(Number);
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `${months[month - 1]} ${day}`;
 }

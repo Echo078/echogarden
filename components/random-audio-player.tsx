@@ -23,14 +23,21 @@ function toDisplayEntry(specimen: MusicSpecimen): DiaryEntry {
 export function RandomAudioPlayer() {
   const { t, lang } = useLanguage();
   const [entries, setEntries] = useState<DiaryEntry[]>(staticEntries);
-  const [currentEntry, setCurrentEntry] = useState<DiaryEntry>(() => {
-    const randomIndex = Math.floor(Math.random() * staticEntries.length);
-    return staticEntries[randomIndex];
-  });
+  // Start with null to avoid hydration mismatch from Math.random()
+  const [currentEntry, setCurrentEntry] = useState<DiaryEntry | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // Set initial random entry only on client after mount
+  useEffect(() => {
+    setMounted(true);
+    // Select random entry from static entries first
+    const randomIndex = Math.floor(Math.random() * staticEntries.length);
+    setCurrentEntry(staticEntries[randomIndex]);
+  }, []);
 
   // Load specimens from DB on mount
   useEffect(() => {
@@ -104,6 +111,29 @@ export function RandomAudioPlayer() {
   };
 
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
+
+  // Show loading skeleton before hydration
+  if (!mounted || !currentEntry) {
+    return (
+      <div className="relative rounded-xl border border-foreground/8 bg-card/50 backdrop-blur-md p-5 shadow-sm">
+        <div className="animate-pulse">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="h-4 w-32 rounded bg-foreground/10" />
+            <div className="h-4 w-16 rounded bg-foreground/10" />
+          </div>
+          <div className="mb-4">
+            <div className="h-5 w-40 rounded bg-foreground/10 mb-2" />
+            <div className="h-3 w-24 rounded bg-foreground/10" />
+          </div>
+          <div className="h-1 w-full rounded-full bg-foreground/8 mb-4" />
+          <div className="flex items-center justify-between">
+            <div className="h-10 w-10 rounded-full bg-foreground/10" />
+            <div className="h-4 w-24 rounded bg-foreground/10" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative rounded-xl border border-foreground/8 bg-card/50 backdrop-blur-md p-5 shadow-sm">
