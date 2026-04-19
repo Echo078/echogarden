@@ -165,6 +165,7 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Form state
   const [title, setTitle] = useState("");
@@ -172,8 +173,10 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
   const [mood, setMood] = useState("");
   const [specimenType, setSpecimenType] = useState("leaf");
   const [audioFile, setAudioFile] = useState<File | null>(null);
-  const [audioUrl, setAudioUrl] = useState("");
+  const [audioUrl, setAudioUrl] = useState(""); // Original URL from existing specimen
+  const [newUploadedUrl, setNewUploadedUrl] = useState<string | null>(null); // URL after uploading new file
   const [fileError, setFileError] = useState<string | null>(null);
+  const [uploadStatus, setUploadStatus] = useState<"idle" | "uploading" | "success" | "error">("idle");
 
   const resetForm = () => {
     setTitle("");
@@ -182,13 +185,22 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
     setSpecimenType("leaf");
     setAudioFile(null);
     setAudioUrl("");
+    setNewUploadedUrl(null);
     setEditingId(null);
     setShowForm(false);
     setFileError(null);
+    setUploadStatus("idle");
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleFileSelect = async (file: File | null) => {
     setFileError(null);
+    setNewUploadedUrl(null);
+    setUploadStatus("idle");
+    
     if (!file) {
       setAudioFile(null);
       return;
@@ -206,6 +218,16 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
   };
 
   const handleEdit = (specimen: MusicSpecimen) => {
+    // Reset file-related state first
+    setAudioFile(null);
+    setNewUploadedUrl(null);
+    setFileError(null);
+    setUploadStatus("idle");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    
+    // Set specimen data
     setTitle(specimen.title);
     setNote(specimen.note || "");
     setMood(specimen.mood?.join(", ") || "");
@@ -220,20 +242,28 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
     setUploading(true);
 
     try {
-      let finalAudioUrl = audioUrl;
+      // Determine the final audio URL
+      // Priority: newly uploaded URL > newly selected file > existing URL
+      let finalAudioUrl = newUploadedUrl || audioUrl;
 
-      // Upload audio if new file selected
-      if (audioFile) {
+      // Upload audio if new file selected and not already uploaded
+      if (audioFile && !newUploadedUrl) {
+        setUploadStatus("uploading");
         const formData = new FormData();
         formData.append("file", audioFile);
         
+        console.log("[v0] Uploading new audio file:", audioFile.name);
         const uploadResult = await uploadToR2(formData);
         
         if (!uploadResult.success || !uploadResult.publicUrl) {
+          setUploadStatus("error");
           throw new Error(uploadResult.error || "Upload failed");
         }
         
+        console.log("[v0] Upload successful, new URL:", uploadResult.publicUrl);
         finalAudioUrl = uploadResult.publicUrl;
+        setNewUploadedUrl(uploadResult.publicUrl);
+        setUploadStatus("success");
       }
 
       // Validate we have an audio URL
@@ -241,6 +271,8 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
         throw new Error("Please select an audio file");
       }
 
+      console.log("[v0] Saving specimen with audio_url:", finalAudioUrl);
+      
       const data = {
         title,
         note,
@@ -257,10 +289,11 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
         throw new Error(result.error || "Failed to save specimen");
       }
 
+      console.log("[v0] Specimen saved successfully");
       resetForm();
       onRefresh();
     } catch (error) {
-      console.error("Error saving specimen:", error);
+      console.error("[v0] Error saving specimen:", error);
       alert(error instanceof Error ? error.message : "Error saving specimen");
     } finally {
       setUploading(false);
@@ -331,6 +364,7 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
             <div>
               <label className="mb-1 block text-xs font-medium">Audio File</label>
               <input
+                ref={fileInputRef}
                 type="file"
                 accept=".mp3,.m4a,.aac,.ogg,.webm,audio/mpeg,audio/mp4,audio/aac,audio/ogg,audio/webm"
                 onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
@@ -346,22 +380,45 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
                   <li className="text-destructive/70">Not supported: WAV, FLAC, AIFF (too large for web)</li>
                 </ul>
               </div>
+              
               {/* File validation error */}
               {fileError && (
                 <p className="mt-2 rounded-md bg-destructive/10 px-2.5 py-1.5 text-xs text-destructive">
                   {fileError}
                 </p>
               )}
-              {/* Current file indicator */}
-              {audioFile && (
-                <p className="mt-2 text-xs text-green-600">
-                  Selected: {audioFile.name} ({(audioFile.size / (1024 * 1024)).toFixed(1)}MB)
-                </p>
+              
+              {/* Current file status (when editing) */}
+              {editingId && audioUrl && !audioFile && !newUploadedUrl && (
+                <div className="mt-2 rounded-md bg-blue-500/10 px-2.5 py-1.5 text-xs text-blue-700 dark:text-blue-400">
+                  <span className="font-medium">Current file:</span> {audioUrl.split("/").pop()}
+                </div>
               )}
-              {audioUrl && !audioFile && (
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Current: {audioUrl.split("/").pop()}
-                </p>
+              
+              {/* Newly selected file (pending upload) */}
+              {audioFile && !newUploadedUrl && uploadStatus !== "uploading" && (
+                <div className="mt-2 rounded-md bg-yellow-500/10 px-2.5 py-1.5 text-xs text-yellow-700 dark:text-yellow-400">
+                  <span className="font-medium">New file selected:</span> {audioFile.name} ({(audioFile.size / (1024 * 1024)).toFixed(1)}MB)
+                  <br />
+                  <span className="text-[10px]">Will be uploaded on save</span>
+                </div>
+              )}
+              
+              {/* Upload in progress */}
+              {uploadStatus === "uploading" && (
+                <div className="mt-2 flex items-center gap-2 rounded-md bg-yellow-500/10 px-2.5 py-1.5 text-xs text-yellow-700 dark:text-yellow-400">
+                  <div className="h-3 w-3 animate-spin rounded-full border-2 border-yellow-600 border-t-transparent" />
+                  <span>Uploading...</span>
+                </div>
+              )}
+              
+              {/* Upload successful */}
+              {newUploadedUrl && uploadStatus === "success" && (
+                <div className="mt-2 rounded-md bg-green-500/10 px-2.5 py-1.5 text-xs text-green-700 dark:text-green-400">
+                  <span className="font-medium">New file uploaded:</span> {audioFile?.name || newUploadedUrl.split("/").pop()}
+                  <br />
+                  <span className="text-[10px]">This will replace the old file when saved</span>
+                </div>
               )}
             </div>
             <div className="flex gap-2">
