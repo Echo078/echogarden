@@ -196,41 +196,14 @@ export default function BlogPostPage() {
 
         {/* Content */}
         <div 
-          className="prose prose-neutral dark:prose-invert max-w-none blog-content"
+          className="prose prose-neutral dark:prose-invert max-w-none blog-content
+            [&_.image-grid]:grid [&_.image-grid]:gap-2 [&_.image-grid]:my-6
+            [&_.image-grid-2]:grid-cols-2
+            [&_.image-grid-3]:grid-cols-3
+            [&_.image-grid_img]:m-0 [&_.image-grid_img]:w-full [&_.image-grid_img]:h-auto [&_.image-grid_img]:rounded-lg [&_.image-grid_img]:object-cover
+            max-sm:[&_.image-grid]:grid-cols-1"
           dangerouslySetInnerHTML={{ __html: renderContent(post.content || "") }}
         />
-        
-        {/* Image grid responsive styles */}
-        <style jsx global>{`
-          .blog-content .image-grid,
-          .blog-content div[class*="image-grid"] {
-            display: grid;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-          }
-          .blog-content .image-grid-2,
-          .blog-content div[style*="repeat(2"] {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          .blog-content .image-grid-3,
-          .blog-content div[style*="repeat(3"] {
-            grid-template-columns: repeat(3, 1fr);
-          }
-          .blog-content .image-grid img,
-          .blog-content div[class*="image-grid"] img {
-            margin: 0 !important;
-            width: 100%;
-            height: auto;
-            border-radius: 0.5rem;
-            object-fit: cover;
-          }
-          @media (max-width: 640px) {
-            .blog-content .image-grid,
-            .blog-content div[class*="image-grid"] {
-              grid-template-columns: 1fr !important;
-            }
-          }
-        `}</style>
       </article>
     </div>
   );

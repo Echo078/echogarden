@@ -144,41 +144,14 @@ export default function EssayDetailPage() {
               prose-img:rounded-lg
               prose-hr:border-foreground/10
               prose-ul:text-foreground/80 prose-ol:text-foreground/80
-              prose-li:marker:text-primary/50"
+              prose-li:marker:text-primary/50
+              [&_.image-grid]:grid [&_.image-grid]:gap-2 [&_.image-grid]:my-6
+              [&_.image-grid-2]:grid-cols-2
+              [&_.image-grid-3]:grid-cols-3
+              [&_.image-grid_img]:m-0 [&_.image-grid_img]:w-full [&_.image-grid_img]:h-auto [&_.image-grid_img]:rounded-lg [&_.image-grid_img]:object-cover
+              max-sm:[&_.image-grid]:grid-cols-1"
             dangerouslySetInnerHTML={{ __html: essay.content }}
           />
-          
-          {/* Image grid responsive styles */}
-          <style jsx global>{`
-            .essay-content .image-grid,
-            .essay-content div[class*="image-grid"] {
-              display: grid;
-              gap: 0.5rem;
-              margin: 1.5rem 0;
-            }
-            .essay-content .image-grid-2,
-            .essay-content div[style*="repeat(2"] {
-              grid-template-columns: repeat(2, 1fr);
-            }
-            .essay-content .image-grid-3,
-            .essay-content div[style*="repeat(3"] {
-              grid-template-columns: repeat(3, 1fr);
-            }
-            .essay-content .image-grid img,
-            .essay-content div[class*="image-grid"] img {
-              margin: 0 !important;
-              width: 100%;
-              height: auto;
-              border-radius: 0.5rem;
-              object-fit: cover;
-            }
-            @media (max-width: 640px) {
-              .essay-content .image-grid,
-              .essay-content div[class*="image-grid"] {
-                grid-template-columns: 1fr !important;
-              }
-            }
-          `}</style>
 
           {/* Footer navigation */}
           <footer className="mt-16 border-t border-foreground/8 pt-8">
