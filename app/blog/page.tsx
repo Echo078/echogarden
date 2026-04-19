@@ -110,12 +110,12 @@ export default function BlogPage() {
               {!loading && (
                 <div className="flex flex-col gap-6">
                   {blogEntries.map((entry) => {
-                    const date = new Date(entry.date);
-                    const formattedDate = date.toLocaleDateString(locale, {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    });
+                    // Parse date string directly to avoid timezone issues
+                    const [year, month, day] = entry.date.split("-").map(Number);
+                    const monthNames = lang === "zh"
+                      ? ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+                      : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    const formattedDate = `${monthNames[month - 1]} ${day}, ${year}`;
 
                     return (
                       <Link
@@ -198,9 +198,11 @@ export default function BlogPage() {
               {/* Minimal Notes */}
               <div className="flex flex-col gap-4">
                 {noteEntries.slice(0, 8).map((note) => {
-                  const date = new Date(note.date);
-                  const day = date.getDate();
-                  const month = date.toLocaleDateString(locale, { month: "short" });
+                  // Parse date string directly to avoid timezone issues
+                  const [, noteMonth, noteDay] = note.date.split("-").map(Number);
+                  const shortMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  const month = shortMonths[noteMonth - 1];
+                  const day = noteDay;
 
                   return (
                     <div 

@@ -129,9 +129,8 @@ export default function HomePage() {
                 </section>
               </div>
 
-              {/* Right: Recent Updates + Echo Wall */}
-              <div className="space-y-6">
-                {/* Recent Updates */}
+              {/* Right: Recent Updates */}
+              <div>
                 <section className="rounded-xl bg-card/30 p-5 backdrop-blur-sm">
                   <div className="mb-5 flex items-center gap-4">
                     <h2 className="font-serif text-base font-normal text-foreground">
@@ -180,11 +179,11 @@ export default function HomePage() {
                     </Link>
                   </div>
                 </section>
-
-                {/* Echo Wall - Visitor Messages */}
-                <EchoWall />
               </div>
             </div>
+
+            {/* Full-width Echo Wall Section */}
+            <EchoWall />
           </div>
         </div>
 

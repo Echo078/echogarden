@@ -21,6 +21,44 @@ const BUCKET_NAME = process.env.R2_BUCKET_NAME || "";
 const PUBLIC_URL = process.env.R2_PUBLIC_URL || "";
 
 /**
+ * Upload file directly from server action (avoids CORS issues)
+ */
+export async function uploadToR2(
+  formData: FormData
+): Promise<{ success: boolean; publicUrl?: string; error?: string }> {
+  try {
+    const file = formData.get("file") as File;
+    if (!file) {
+      return { success: false, error: "No file provided" };
+    }
+
+    // Generate unique key with timestamp
+    const timestamp = Date.now();
+    const sanitizedFilename = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+    const key = `audio/${timestamp}-${sanitizedFilename}`;
+
+    // Convert file to buffer
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: key,
+      Body: buffer,
+      ContentType: file.type,
+    });
+
+    await s3Client.send(command);
+    const publicUrl = `${PUBLIC_URL}/${key}`;
+
+    return { success: true, publicUrl };
+  } catch (error) {
+    console.error("Error uploading to R2:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Upload failed" };
+  }
+}
+
+/**
  * Generate a presigned URL for uploading a file directly to R2
  */
 export async function getUploadPresignedUrl(

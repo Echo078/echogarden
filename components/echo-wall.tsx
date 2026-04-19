@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/components/language-provider";
 import { getVisitorMessages, submitVisitorMessage } from "@/lib/actions";
 import type { VisitorMessage } from "@/lib/database.types";
@@ -9,6 +9,7 @@ export function EchoWall() {
   const { lang } = useLanguage();
   const [messages, setMessages] = useState<VisitorMessage[]>([]);
   const [loading, setLoading] = useState(true);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   
   // Form state
   const [name, setName] = useState("");
@@ -16,18 +17,21 @@ export function EchoWall() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Auto-scroll state for messages
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
 
   const t = {
     title: lang === "zh" ? "回声墙" : "Echo Wall",
-    subtitle: lang === "zh" ? "来自访客的声音" : "Voices from visitors",
+    subtitle: lang === "zh" ? "来自花园访客的呢喃" : "Whispers from garden visitors",
     yourName: lang === "zh" ? "你的名字" : "Your name",
-    yourMessage: lang === "zh" ? "想说的话" : "Your message",
-    leaveMessage: lang === "zh" ? "留下你的回声" : "Leave your echo",
+    yourMessage: lang === "zh" ? "想说的话..." : "Your message...",
+    leaveEcho: lang === "zh" ? "留下回声" : "Leave an echo",
     send: lang === "zh" ? "发送" : "Send",
     sending: lang === "zh" ? "发送中..." : "Sending...",
-    thankYou: lang === "zh" ? "谢谢你的留言！审核通过后会显示在这里。" : "Thank you! Your message will appear here after review.",
-    noMessages: lang === "zh" ? "还没有留言，成为第一个吧..." : "No messages yet, be the first...",
-    errorMessage: lang === "zh" ? "发送失败，请稍后再试" : "Failed to send, please try again",
+    thankYou: lang === "zh" ? "谢谢！审核通过后会显示在这里。" : "Thank you! It will appear here after review.",
+    noMessages: lang === "zh" ? "雨滴落在玻璃上，等待第一个声音..." : "Rain falls on glass, awaiting the first voice...",
+    anonymous: lang === "zh" ? "匿名" : "Anonymous",
   };
 
   // Load messages on mount
@@ -42,135 +46,290 @@ export function EchoWall() {
     loadMessages();
   }, []);
 
+  // Cycle through messages
+  useEffect(() => {
+    if (messages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [messages.length]);
+
+  // Rain effect on canvas
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * 2;
+      canvas.height = canvas.offsetHeight * 2;
+      ctx.scale(2, 2);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    // Rain drops
+    interface Drop {
+      x: number;
+      y: number;
+      speed: number;
+      length: number;
+      opacity: number;
+    }
+
+    const drops: Drop[] = [];
+    const width = canvas.offsetWidth;
+    const height = canvas.offsetHeight;
+
+    // Initialize drops
+    for (let i = 0; i < 60; i++) {
+      drops.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        speed: 0.8 + Math.random() * 1.2,
+        length: 15 + Math.random() * 25,
+        opacity: 0.1 + Math.random() * 0.2,
+      });
+    }
+
+    // Water droplets on glass effect
+    interface Droplet {
+      x: number;
+      y: number;
+      radius: number;
+      opacity: number;
+    }
+
+    const droplets: Droplet[] = [];
+    for (let i = 0; i < 25; i++) {
+      droplets.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: 2 + Math.random() * 6,
+        opacity: 0.05 + Math.random() * 0.1,
+      });
+    }
+
+    let animationId: number;
+
+    const animate = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw water droplets on glass
+      droplets.forEach((droplet) => {
+        ctx.beginPath();
+        ctx.arc(droplet.x, droplet.y, droplet.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200, 210, 205, ${droplet.opacity})`;
+        ctx.fill();
+        
+        // Subtle highlight
+        ctx.beginPath();
+        ctx.arc(droplet.x - droplet.radius * 0.3, droplet.y - droplet.radius * 0.3, droplet.radius * 0.3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${droplet.opacity * 0.5})`;
+        ctx.fill();
+      });
+
+      // Draw falling rain
+      drops.forEach((drop) => {
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x + 1, drop.y + drop.length);
+        ctx.strokeStyle = `rgba(180, 195, 190, ${drop.opacity})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Move drop
+        drop.y += drop.speed;
+
+        // Reset drop when it falls off screen
+        if (drop.y > height) {
+          drop.y = -drop.length;
+          drop.x = Math.random() * width;
+        }
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) return;
+    if (!message.trim()) return;
 
     setSubmitting(true);
     setError(null);
 
-    const result = await submitVisitorMessage(name.trim(), message.trim());
+    const result = await submitVisitorMessage(
+      name.trim() || t.anonymous,
+      message.trim()
+    );
     
     if (result.success) {
       setSubmitted(true);
       setName("");
       setMessage("");
-      // Reset after a few seconds
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 4000);
     } else {
-      setError(t.errorMessage);
+      setError(lang === "zh" ? "发送失败，请重试" : "Failed to send, please try again");
     }
     
     setSubmitting(false);
   };
 
-  // Format date for display
+  // Format date
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString(lang === "zh" ? "zh-CN" : "en-US", {
-      month: "short",
-      day: "numeric",
-    });
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return lang === "zh" ? `${month}月${day}日` : `${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][month-1]} ${day}`;
   };
 
+  const visibleMessages = messages.slice(0, 5);
+  const currentMessage = messages[currentMessageIndex];
+
   return (
-    <section className="rounded-xl border border-foreground/8 bg-card/30 p-5 backdrop-blur-sm">
-      {/* Header */}
-      <div className="mb-5">
-        <h2 className="mb-1 font-serif text-base font-normal text-foreground">
-          {t.title}
-        </h2>
-        <p className="text-[10px] text-muted-foreground/60">
-          {t.subtitle}
-        </p>
-      </div>
-
-      {/* Messages */}
-      <div className="mb-5 max-h-40 space-y-3 overflow-y-auto pr-1">
-        {loading && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground/50">
-            <div className="h-3 w-3 animate-spin rounded-full border border-primary/30 border-t-primary" />
-            <span>{lang === "zh" ? "加载中..." : "Loading..."}</span>
-          </div>
-        )}
-
-        {!loading && messages.length === 0 && (
-          <p className="text-xs italic text-muted-foreground/40">
-            {t.noMessages}
-          </p>
-        )}
-
-        {!loading && messages.map((msg) => (
-          <div
-            key={msg.id}
-            className="border-l-2 border-foreground/8 pl-3 transition-colors hover:border-primary/25"
-          >
-            <div className="mb-0.5 flex items-baseline gap-2">
-              <span className="text-xs font-medium text-foreground/80">
-                {msg.name}
-              </span>
-              <span className="font-mono text-[8px] text-muted-foreground/40">
-                {formatDate(msg.created_at)}
-              </span>
-            </div>
-            <p className="text-[11px] leading-relaxed text-muted-foreground/70">
-              {msg.message}
+    <section className="relative mt-8 overflow-hidden rounded-2xl border border-foreground/10">
+      {/* Rainy glass background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] via-primary/[0.03] to-foreground/[0.02]" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 h-full w-full opacity-70"
+      />
+      
+      {/* Content */}
+      <div className="relative flex flex-col gap-6 p-6 md:flex-row md:items-start md:gap-10 md:p-8">
+        
+        {/* Left: Messages display */}
+        <div className="flex-1">
+          {/* Header */}
+          <div className="mb-5">
+            <h2 className="mb-1 font-serif text-lg font-light text-foreground">
+              {t.title}
+            </h2>
+            <p className="text-xs text-muted-foreground/60">
+              {t.subtitle}
             </p>
           </div>
-        ))}
-      </div>
 
-      {/* Divider */}
-      <div className="mb-4 h-px bg-foreground/6" />
+          {/* Message carousel */}
+          <div className="min-h-[100px]">
+            {loading && (
+              <div className="flex items-center gap-2 text-xs text-muted-foreground/50">
+                <div className="h-3 w-3 animate-spin rounded-full border border-primary/30 border-t-primary" />
+                <span>{lang === "zh" ? "加载中..." : "Loading..."}</span>
+              </div>
+            )}
 
-      {/* Form */}
-      {submitted ? (
-        <div className="rounded-lg bg-primary/10 p-3 text-center">
-          <p className="text-xs text-primary">
-            {t.thankYou}
-          </p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <p className="text-[10px] text-muted-foreground/50">
-            {t.leaveMessage}
-          </p>
+            {!loading && messages.length === 0 && (
+              <p className="text-sm italic text-muted-foreground/40">
+                {t.noMessages}
+              </p>
+            )}
 
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={t.yourName}
-              maxLength={30}
-              className="w-24 shrink-0 rounded-md border border-foreground/10 bg-background/50 px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground/40 focus:border-primary/30 focus:outline-none focus:ring-1 focus:ring-primary/20"
-              required
-            />
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder={t.yourMessage}
-              maxLength={150}
-              className="flex-1 rounded-md border border-foreground/10 bg-background/50 px-2.5 py-1.5 text-xs text-foreground placeholder:text-muted-foreground/40 focus:border-primary/30 focus:outline-none focus:ring-1 focus:ring-primary/20"
-              required
-            />
+            {!loading && messages.length > 0 && currentMessage && (
+              <div
+                key={currentMessage.id}
+                className="animate-in fade-in slide-in-from-bottom-2 duration-500"
+              >
+                <div className="mb-3 rounded-lg border border-foreground/5 bg-card/30 p-4 backdrop-blur-sm">
+                  <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+                    &ldquo;{currentMessage.message}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground/50">
+                    <span className="font-medium">{currentMessage.name}</span>
+                    <span className="text-foreground/10">•</span>
+                    <span>{formatDate(currentMessage.created_at)}</span>
+                  </div>
+                </div>
+                
+                {/* Message indicators */}
+                {messages.length > 1 && (
+                  <div className="flex items-center justify-center gap-1.5">
+                    {visibleMessages.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentMessageIndex(idx)}
+                        className={`h-1 rounded-full transition-all ${
+                          idx === currentMessageIndex
+                            ? "w-4 bg-primary/40"
+                            : "w-1 bg-foreground/10 hover:bg-foreground/20"
+                        }`}
+                        aria-label={`Go to message ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
+        </div>
 
-          {error && (
-            <p className="text-[10px] text-red-500">{error}</p>
-          )}
+        {/* Right: Form */}
+        <div className="w-full md:w-72">
+          <div className="rounded-xl border border-foreground/8 bg-card/40 p-4 backdrop-blur-sm">
+            <p className="mb-3 text-xs font-medium text-foreground/70">
+              {t.leaveEcho}
+            </p>
 
-          <button
-            type="submit"
-            disabled={submitting || !name.trim() || !message.trim()}
-            className="w-full rounded-md bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {submitting ? t.sending : t.send}
-          </button>
-        </form>
-      )}
+            {submitted ? (
+              <div className="rounded-lg bg-primary/10 p-3 text-center">
+                <svg 
+                  className="mx-auto mb-2 h-5 w-5 text-primary"
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <p className="text-xs text-primary/80">{t.thankYou}</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder={t.yourName}
+                  maxLength={30}
+                  className="w-full rounded-lg border border-foreground/8 bg-background/50 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/40 focus:border-primary/30 focus:outline-none"
+                />
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder={t.yourMessage}
+                  maxLength={200}
+                  rows={3}
+                  className="w-full resize-none rounded-lg border border-foreground/8 bg-background/50 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/40 focus:border-primary/30 focus:outline-none"
+                  required
+                />
+
+                {error && (
+                  <p className="text-xs text-red-500">{error}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting || !message.trim()}
+                  className="w-full rounded-lg bg-primary/15 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/25 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {submitting ? t.sending : t.send}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
