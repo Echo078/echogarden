@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { BotanicalBackground } from "@/components/botanical-background";
 import { useLanguage } from "@/components/language-provider";
 import { getEssayBySlug } from "@/lib/actions";
 import type { Essay } from "@/lib/database.types";
@@ -45,9 +44,8 @@ export default function EssayDetailPage() {
 
   if (!essay) {
     return (
-      <div className="relative min-h-screen bg-background">
-        <BotanicalBackground />
-        <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6">
+      <div className="min-h-screen bg-background">
+        <div className="flex min-h-screen flex-col items-center justify-center px-6">
           <h1 className="mb-4 font-serif text-2xl text-foreground">
             {lang === "zh" ? "文章未找到" : "Essay Not Found"}
           </h1>
@@ -68,10 +66,8 @@ export default function EssayDetailPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-background">
-      <BotanicalBackground />
-
-      <div className="relative z-10">
+    <div className="min-h-screen bg-background">
+      <div>
         {/* Header */}
         <header className="border-b border-foreground/8 bg-background/60 backdrop-blur-md">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">

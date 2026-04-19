@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BotanicalBackground } from "@/components/botanical-background";
 import { useLanguage } from "@/components/language-provider";
 import { getEssays } from "@/lib/actions";
 import type { Essay } from "@/lib/database.types";
@@ -35,10 +34,8 @@ export default function EssaysPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-background">
-      <BotanicalBackground />
-
-      <div className="relative z-10">
+    <div className="min-h-screen bg-background">
+      <div>
         {/* Header */}
         <header className="border-b border-foreground/8 bg-background/60 backdrop-blur-md">
           <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">

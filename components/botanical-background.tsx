@@ -18,7 +18,8 @@ export function BotanicalBackground() {
     const resizeCanvas = () => {
       const dpr = window.devicePixelRatio || 1;
       width = window.innerWidth;
-      height = document.documentElement.scrollHeight;
+      // Use viewport height for fixed canvas, not scroll height
+      height = window.innerHeight;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
@@ -27,20 +28,20 @@ export function BotanicalBackground() {
       initializeElements();
     };
 
-    // More visible colors
-    const stemColor = "rgba(75, 100, 70, 0.5)";
+    // More visible colors - increased opacity for lush garden feel
+    const stemColor = "rgba(75, 100, 70, 0.65)";
     const leafColors = [
-      "rgba(80, 115, 75, 0.45)",
-      "rgba(70, 105, 65, 0.48)",
-      "rgba(90, 120, 85, 0.42)",
-      "rgba(65, 100, 62, 0.46)",
+      "rgba(80, 115, 75, 0.6)",
+      "rgba(70, 105, 65, 0.62)",
+      "rgba(90, 120, 85, 0.58)",
+      "rgba(65, 100, 62, 0.6)",
     ];
     const flowerColors = [
-      "rgba(220, 190, 175, 0.55)",  // soft cream
-      "rgba(210, 170, 180, 0.52)",  // soft rose
-      "rgba(190, 180, 205, 0.50)",  // soft lavender
-      "rgba(215, 200, 165, 0.53)",  // soft yellow
-      "rgba(200, 175, 190, 0.50)",  // soft pink
+      "rgba(220, 190, 175, 0.7)",  // soft cream
+      "rgba(210, 170, 180, 0.68)",  // soft rose
+      "rgba(190, 180, 205, 0.65)",  // soft lavender
+      "rgba(215, 200, 165, 0.7)",  // soft yellow
+      "rgba(200, 175, 190, 0.65)",  // soft pink
     ];
 
     interface Stem {
@@ -110,40 +111,40 @@ export function BotanicalBackground() {
     const initializeElements = () => {
       stems = [];
       
-      // Create more stems distributed across different layers
-      const stemCount = Math.floor(width / 70) + 8;
+      // Create more stems distributed across different layers - increased density
+      const stemCount = Math.floor(width / 50) + 12;
       
       for (let i = 0; i < stemCount; i++) {
         const layer = Math.floor(Math.random() * 3); // 0, 1, or 2
-        const x = (i / stemCount) * width + (Math.random() - 0.5) * 100;
+        const x = (i / stemCount) * width + (Math.random() - 0.5) * 80;
         
-        // Different heights based on layer
+        // Different heights based on layer - taller to fill viewport
         const baseHeight = layer === 0 
-          ? 150 + Math.random() * 200 
+          ? height * 0.25 + Math.random() * height * 0.2 
           : layer === 1 
-            ? 200 + Math.random() * 300 
-            : 280 + Math.random() * 350;
+            ? height * 0.35 + Math.random() * height * 0.25 
+            : height * 0.45 + Math.random() * height * 0.35;
         
-        // Create leaves along the stem
+        // Create leaves along the stem - more leaves for lush look
         const leaves: Leaf[] = [];
-        const leafCount = 2 + Math.floor(Math.random() * 5);
+        const leafCount = 3 + Math.floor(Math.random() * 6);
         for (let j = 0; j < leafCount; j++) {
           leaves.push({
-            offsetY: 0.15 + (j / leafCount) * 0.65,
+            offsetY: 0.1 + (j / leafCount) * 0.7,
             side: j % 2 === 0 ? -1 : 1,
-            size: (layer === 2 ? 20 : 12) + Math.random() * 18,
+            size: (layer === 2 ? 22 : 14) + Math.random() * 20,
             angle: (Math.random() - 0.5) * 0.6,
             color: leafColors[Math.floor(Math.random() * leafColors.length)],
           });
         }
 
-        // More flowers
-        const hasFlower = Math.random() > 0.3;
+        // More flowers - 75% have flowers
+        const hasFlower = Math.random() > 0.25;
         const flower: Flower | null = hasFlower ? {
-          size: (layer === 2 ? 12 : 8) + Math.random() * 14,
+          size: (layer === 2 ? 14 : 10) + Math.random() * 16,
           petalCount: 5 + Math.floor(Math.random() * 4),
           color: flowerColors[Math.floor(Math.random() * flowerColors.length)],
-          innerColor: "rgba(200, 180, 130, 0.5)",
+          innerColor: "rgba(200, 180, 130, 0.6)",
         } : null;
 
         stems.push({
@@ -513,18 +514,9 @@ export function BotanicalBackground() {
 
     draw();
 
-    const resizeObserver = new ResizeObserver(() => {
-      const newHeight = document.documentElement.scrollHeight;
-      if (Math.abs(newHeight - height) > 100) {
-        resizeCanvas();
-      }
-    });
-    resizeObserver.observe(document.body);
-
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationId);
-      resizeObserver.disconnect();
     };
   }, []);
 
