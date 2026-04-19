@@ -2,7 +2,7 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Image from "@tiptap/extension-image";
+import ImageResize from "tiptap-extension-resize-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
@@ -34,8 +34,9 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
     extensions: [
       StarterKit.configure({
         codeBlock: false,
+        // Disable built-in extensions we're replacing with custom ones
       }),
-      Image.configure({
+      ImageResize.configure({
         HTMLAttributes: {
           class: "rounded-md max-w-full my-4",
         },
@@ -536,6 +537,32 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
         }
         .ProseMirror img.ProseMirror-selectednode {
           outline: 2px solid hsl(var(--primary));
+        }
+        /* Image resize styles */
+        .ProseMirror .image-resizer {
+          display: inline-flex;
+          position: relative;
+          flex-grow: 0;
+        }
+        .ProseMirror .image-resizer .resize-trigger {
+          position: absolute;
+          right: -6px;
+          bottom: -6px;
+          opacity: 0;
+          transition: opacity 0.2s ease;
+          width: 12px;
+          height: 12px;
+          background: hsl(var(--primary));
+          border: 2px solid hsl(var(--background));
+          border-radius: 50%;
+          cursor: nwse-resize;
+        }
+        .ProseMirror .image-resizer:hover .resize-trigger,
+        .ProseMirror .image-resizer.is-resizing .resize-trigger {
+          opacity: 1;
+        }
+        .ProseMirror .image-resizer img {
+          cursor: default;
         }
         .ProseMirror p[style*="text-align: center"] img,
         .ProseMirror p[style*="text-align:center"] img {
