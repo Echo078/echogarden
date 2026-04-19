@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -417,6 +417,53 @@ function FragmentsTab({ fragments, onRefresh }: { fragments: BlogPost[]; onRefre
   const [tags, setTags] = useState("");
   const [published, setPublished] = useState(false);
 
+  // Auto-save state
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const autoSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Auto-save effect for editing existing fragments
+  useEffect(() => {
+    if (!editingId || !title) return;
+
+    // Clear previous timer
+    if (autoSaveTimer.current) {
+      clearTimeout(autoSaveTimer.current);
+    }
+
+    // Set status to indicate pending save
+    setSaveStatus("idle");
+
+    // Auto-save after 2 seconds of no changes
+    autoSaveTimer.current = setTimeout(async () => {
+      setSaveStatus("saving");
+      
+      const data = {
+        title,
+        slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+        excerpt,
+        content,
+        tags: tags.split(",").map(t => t.trim()).filter(Boolean),
+        published,
+      };
+
+      const result = await updateBlogPost(editingId, data);
+      
+      if (result.success) {
+        setSaveStatus("saved");
+        setLastSaved(new Date());
+      } else {
+        setSaveStatus("error");
+      }
+    }, 2000);
+
+    return () => {
+      if (autoSaveTimer.current) {
+        clearTimeout(autoSaveTimer.current);
+      }
+    };
+  }, [editingId, title, slug, excerpt, content, tags, published]);
+
   const resetForm = () => {
     setTitle("");
     setSlug("");
@@ -426,6 +473,8 @@ function FragmentsTab({ fragments, onRefresh }: { fragments: BlogPost[]; onRefre
     setPublished(false);
     setEditingId(null);
     setShowForm(false);
+    setSaveStatus("idle");
+    setLastSaved(null);
   };
 
   const handleEdit = (post: BlogPost) => {
@@ -485,9 +534,33 @@ function FragmentsTab({ fragments, onRefresh }: { fragments: BlogPost[]; onRefre
       {/* Form */}
       {showForm && (
         <div className="mb-6 rounded-lg border border-foreground/10 bg-card/50 p-6">
-          <h3 className="mb-4 font-medium">
-            {editingId ? "Edit Fragment" : "New Fragment"}
-          </h3>
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="font-medium">
+              {editingId ? "Edit Fragment" : "New Fragment"}
+            </h3>
+            {editingId && (
+              <div className="flex items-center gap-2 text-xs">
+                {saveStatus === "saving" && (
+                  <span className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-yellow-500" />
+                    Saving...
+                  </span>
+                )}
+                {saveStatus === "saved" && lastSaved && (
+                  <span className="flex items-center gap-1.5 text-green-600">
+                    <div className="h-2 w-2 rounded-full bg-green-500" />
+                    Saved {lastSaved.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                )}
+                {saveStatus === "error" && (
+                  <span className="flex items-center gap-1.5 text-red-600">
+                    <div className="h-2 w-2 rounded-full bg-red-500" />
+                    Save failed
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div>
@@ -603,6 +676,56 @@ function EssaysTab({ essays, onRefresh }: { essays: Essay[]; onRefresh: () => vo
   const [published, setPublished] = useState(false);
   const [featured, setFeatured] = useState(false);
 
+  // Auto-save state
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const autoSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Auto-save effect for editing existing essays
+  useEffect(() => {
+    if (!editingId || !title) return;
+
+    if (autoSaveTimer.current) {
+      clearTimeout(autoSaveTimer.current);
+    }
+
+    setSaveStatus("idle");
+
+    autoSaveTimer.current = setTimeout(async () => {
+      setSaveStatus("saving");
+      
+      const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length;
+      const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+      const data = {
+        title,
+        subtitle: subtitle || null,
+        slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+        content,
+        tags: tags.split(",").map(t => t.trim()).filter(Boolean),
+        published,
+        featured,
+        reading_time_minutes: readingTime,
+        date: new Date().toISOString().split('T')[0],
+      };
+
+      const result = await updateEssay(editingId, data);
+      
+      if (result.success) {
+        setSaveStatus("saved");
+        setLastSaved(new Date());
+      } else {
+        setSaveStatus("error");
+      }
+    }, 2000);
+
+    return () => {
+      if (autoSaveTimer.current) {
+        clearTimeout(autoSaveTimer.current);
+      }
+    };
+  }, [editingId, title, subtitle, slug, content, tags, published, featured]);
+
   const resetForm = () => {
     setTitle("");
     setSubtitle("");
@@ -613,6 +736,8 @@ function EssaysTab({ essays, onRefresh }: { essays: Essay[]; onRefresh: () => vo
     setFeatured(false);
     setEditingId(null);
     setShowForm(false);
+    setSaveStatus("idle");
+    setLastSaved(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -674,9 +799,33 @@ function EssaysTab({ essays, onRefresh }: { essays: Essay[]; onRefresh: () => vo
       {/* Form */}
       {showForm && (
         <div className="mb-8 rounded-lg border border-foreground/10 bg-card/50 p-6">
-          <h3 className="mb-4 font-medium">
-            {editingId ? "Edit Essay" : "New Essay"}
-          </h3>
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="font-medium">
+              {editingId ? "Edit Essay" : "New Essay"}
+            </h3>
+            {editingId && (
+              <div className="flex items-center gap-2 text-xs">
+                {saveStatus === "saving" && (
+                  <span className="flex items-center gap-1.5 text-muted-foreground">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-yellow-500" />
+                    Saving...
+                  </span>
+                )}
+                {saveStatus === "saved" && lastSaved && (
+                  <span className="flex items-center gap-1.5 text-green-600">
+                    <div className="h-2 w-2 rounded-full bg-green-500" />
+                    Saved {lastSaved.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                )}
+                {saveStatus === "error" && (
+                  <span className="flex items-center gap-1.5 text-red-600">
+                    <div className="h-2 w-2 rounded-full bg-red-500" />
+                    Save failed
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>

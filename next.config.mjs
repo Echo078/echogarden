@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  serverActions: {
+    bodySizeLimit: '10mb', // Allow larger image uploads
+  },
 }
 
 export default nextConfig

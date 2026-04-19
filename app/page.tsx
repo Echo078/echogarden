@@ -60,11 +60,11 @@ export default function HomePage() {
             <div className="grid items-start gap-10 md:grid-cols-5 md:gap-12">
               {/* Left: Welcome Text */}
               <div className="md:col-span-3">
-                <header className="rounded-xl bg-background/60 p-6 backdrop-blur-md md:bg-transparent md:p-0 md:backdrop-blur-none">
-                  <p className="mb-4 text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+                <header className="rounded-xl bg-background/70 p-6 backdrop-blur-lg md:bg-background/50 md:p-6 md:backdrop-blur-md">
+                  <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.2em] text-foreground/60">
                     {t("home.tagline")}
                   </p>
-                  <h1 className="mb-4 font-serif text-2xl font-light tracking-tight text-foreground md:text-3xl">
+                  <h1 className="mb-5 font-serif text-2xl font-normal tracking-tight text-foreground md:text-3xl">
                     <TypingText 
                       text={t("home.welcome")} 
                       typingSpeed={70}
@@ -72,7 +72,7 @@ export default function HomePage() {
                       pauseDuration={3000}
                     />
                   </h1>
-                  <p className="max-w-md text-sm leading-relaxed text-foreground/75">
+                  <p className="max-w-md text-[15px] leading-[1.7] text-foreground/85">
                     {t("home.description")}
                   </p>
                 </header>
@@ -101,24 +101,24 @@ export default function HomePage() {
                     <div className="h-px flex-1 bg-foreground/10" aria-hidden="true" />
                   </div>
 
-                  {/* 3-column grid with glass cards */}
+                  {/* 3-column grid with glass cards - improved readability */}
                   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     {gardenPages.map((page) => (
                       <Link
                         key={page.href}
                         href={page.href}
-                        className="group rounded-lg border border-foreground/8 bg-card/40 p-4 backdrop-blur-sm transition-all hover:border-primary/20 hover:bg-card/60 hover:shadow-sm"
+                        className="group rounded-lg border border-foreground/10 bg-card/50 p-4 backdrop-blur-md transition-all hover:border-primary/25 hover:bg-card/70 hover:shadow-md"
                       >
-                        <h3 className="mb-2 font-serif text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+                        <h3 className="mb-2 font-serif text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
                           {page.title}
                         </h3>
-                        <ul className="space-y-1">
+                        <ul className="space-y-1.5">
                           {page.points.map((point, i) => (
                             <li
                               key={i}
-                              className="flex items-center gap-2 text-[10px] text-muted-foreground/60"
+                              className="flex items-center gap-2 text-[11px] text-foreground/60"
                             >
-                              <span className="h-px w-2 bg-current opacity-50" />
+                              <span className="h-px w-2 bg-current opacity-60" />
                               {point}
                             </li>
                           ))}
@@ -131,24 +131,24 @@ export default function HomePage() {
 
               {/* Right: Recent Updates */}
               <div>
-                <section className="rounded-xl bg-card/30 p-5 backdrop-blur-sm">
+                <section className="rounded-xl bg-card/50 p-5 backdrop-blur-md">
                   <div className="mb-5 flex items-center gap-4">
-                    <h2 className="font-serif text-base font-normal text-foreground">
+                    <h2 className="font-serif text-base font-semibold text-foreground">
                       {t("home.recentUpdates")}
                     </h2>
-                    <div className="h-px flex-1 bg-foreground/8 lg:hidden" aria-hidden="true" />
+                    <div className="h-px flex-1 bg-foreground/10 lg:hidden" aria-hidden="true" />
                   </div>
 
                   <div className="space-y-4">
                     {recentUpdates.map((update) => (
                       <div
                         key={update.id}
-                        className="border-l-2 border-foreground/10 pl-4 transition-colors hover:border-primary/30"
+                        className="border-l-2 border-foreground/15 pl-4 transition-colors hover:border-primary/40"
                       >
-                        <p className="mb-1 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/50">
+                        <p className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground/50">
                           {formatUpdateDate(update.date)}
                         </p>
-                        <p className="text-xs leading-relaxed text-foreground/70">
+                        <p className="text-[13px] leading-relaxed text-foreground/80">
                           {update.content}
                         </p>
                       </div>

@@ -118,12 +118,13 @@ export function BotanicalBackground() {
         const layer = Math.floor(Math.random() * 3); // 0, 1, or 2
         const x = (i / stemCount) * width + (Math.random() - 0.5) * 80;
         
-        // Different heights based on layer - taller to fill viewport
+        // Different heights based on layer - controlled height, grounded in lower portion
+        // Plants rise from bottom, staying mostly in the lower 40% of viewport
         const baseHeight = layer === 0 
-          ? height * 0.25 + Math.random() * height * 0.2 
+          ? height * 0.12 + Math.random() * height * 0.08 
           : layer === 1 
-            ? height * 0.35 + Math.random() * height * 0.25 
-            : height * 0.45 + Math.random() * height * 0.35;
+            ? height * 0.18 + Math.random() * height * 0.12 
+            : height * 0.25 + Math.random() * height * 0.15;
         
         // Create leaves along the stem - more leaves for lush look
         const leaves: Leaf[] = [];

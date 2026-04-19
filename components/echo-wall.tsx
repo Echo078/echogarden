@@ -57,12 +57,12 @@ export function EchoWall() {
   const danmuMessages = useMemo<DanmuMessage[]>(() => {
     if (messages.length === 0) return [];
     
-    const numRows = 2; // 2 horizontal lanes for compact height
+    const numRows = 3; // 3 horizontal lanes
     return messages.map((msg, index) => ({
       ...msg,
       row: index % numRows,
-      speed: 28 + Math.random() * 18, // 28-46 seconds to cross
-      delay: (index * 3) + Math.random() * 2, // Stagger start times
+      speed: 30 + Math.random() * 20, // 30-50 seconds to cross
+      delay: (index * 4) + Math.random() * 3, // Stagger start times
     }));
   }, [messages]);
 
@@ -96,13 +96,14 @@ export function EchoWall() {
     }
 
     const particles: FogParticle[] = [];
-    for (let i = 0; i < 15; i++) {
+    // Reduced fog particles and positioned them lower to not obscure header
+    for (let i = 0; i < 10; i++) {
       particles.push({
         x: Math.random() * width,
-        y: Math.random() * height,
-        radius: 30 + Math.random() * 60,
-        speed: 0.05 + Math.random() * 0.1,
-        opacity: 0.02 + Math.random() * 0.03,
+        y: height * 0.3 + Math.random() * height * 0.7, // Keep fog in lower 70%
+        radius: 25 + Math.random() * 40,
+        speed: 0.04 + Math.random() * 0.08,
+        opacity: 0.015 + Math.random() * 0.02, // Reduced opacity
         phase: Math.random() * Math.PI * 2,
       });
     }
@@ -195,8 +196,8 @@ export function EchoWall() {
       {/* Split layout: Left = Danmu Wall, Right = Input Form */}
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
         
-        {/* Left: Animated Message Wall with Mist - compact horizontal strip */}
-        <div className="relative flex-1 lg:flex-[2] overflow-hidden rounded-lg border border-foreground/[0.06] bg-gradient-to-r from-foreground/[0.01] via-primary/[0.02] to-foreground/[0.01]" style={{ minHeight: "120px", maxHeight: "140px" }}>
+        {/* Left: Animated Message Wall with Mist */}
+        <div className="relative flex-1 lg:flex-[2] overflow-hidden rounded-xl border border-foreground/[0.06] bg-gradient-to-r from-foreground/[0.01] via-primary/[0.02] to-foreground/[0.01]" style={{ minHeight: "200px" }}>
           {/* Canvas fog effect */}
           <canvas
             ref={canvasRef}
@@ -207,15 +208,15 @@ export function EchoWall() {
           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none" />
 
-          {/* Header */}
-          <div className="relative z-[5] px-4 pt-2.5 pb-1">
-            <p className="text-[8px] uppercase tracking-wider text-muted-foreground/40">
+          {/* Header - Whispers title with better visibility */}
+          <div className="relative z-[15] px-5 pt-4 pb-2">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-foreground/60 drop-shadow-sm">
               {t.subtitle}
             </p>
           </div>
 
-          {/* Danmu area - floating messages - compact */}
-          <div className="relative h-20 overflow-hidden">
+          {/* Danmu area - floating messages */}
+          <div className="relative h-36 overflow-hidden">
             {loading && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="flex items-center gap-2 text-[10px] text-muted-foreground/40">
@@ -235,8 +236,8 @@ export function EchoWall() {
 
             {/* Floating danmu messages */}
             {!loading && danmuMessages.map((msg) => {
-              const rowHeight = 32;
-              const topOffset = 4 + (msg.row * rowHeight);
+              const rowHeight = 38;
+              const topOffset = 8 + (msg.row * rowHeight);
               
               return (
                 <div
