@@ -196,25 +196,33 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
     }
   };
 
-  const handleFileSelect = async (file: File | null) => {
+  const handleFileSelect = (file: File | null) => {
+    console.log("[v0] handleFileSelect called with:", file?.name || "null");
     setFileError(null);
     setNewUploadedUrl(null);
     setUploadStatus("idle");
     
     if (!file) {
+      console.log("[v0] handleFileSelect - no file, clearing state");
       setAudioFile(null);
       return;
     }
     
-    // Validate file before setting
-    const validation = await validateAudioFile(file);
-    if (!validation.valid) {
-      setFileError(validation.error || "Invalid file");
-      setAudioFile(null);
-      return;
-    }
-    
+    // Set the file immediately - don't wait for async validation
+    console.log("[v0] handleFileSelect - setting audioFile immediately");
     setAudioFile(file);
+    
+    // Then validate asynchronously and show error if needed (but don't clear the file)
+    validateAudioFile(file).then((validation) => {
+      if (!validation.valid) {
+        console.log("[v0] handleFileSelect - validation failed:", validation.error);
+        setFileError(validation.error || "Invalid file");
+        // Note: We keep the file set so user can see what they selected
+        // The submit handler will also validate and reject if needed
+      } else {
+        console.log("[v0] handleFileSelect - validation passed");
+      }
+    });
   };
 
   const handleEdit = (specimen: MusicSpecimen) => {
@@ -241,13 +249,25 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
     e.preventDefault();
     setUploading(true);
 
+    // Debug: log all relevant state at submit time
+    console.log("[v0] handleSubmit - editingId:", editingId);
+    console.log("[v0] handleSubmit - audioFile:", audioFile?.name || "null");
+    console.log("[v0] handleSubmit - audioUrl:", audioUrl || "empty");
+    console.log("[v0] handleSubmit - newUploadedUrl:", newUploadedUrl || "null");
+
     try {
       // Determine the final audio URL
-      // Priority: newly uploaded URL > newly selected file > existing URL
+      // Priority: newly uploaded URL > newly selected file (will upload) > existing URL
       let finalAudioUrl = newUploadedUrl || audioUrl;
 
       // Upload audio if new file selected and not already uploaded
       if (audioFile && !newUploadedUrl) {
+        // Validate file first
+        const validation = await validateAudioFile(audioFile);
+        if (!validation.valid) {
+          setFileError(validation.error || "Invalid file");
+          throw new Error(validation.error || "Invalid audio file");
+        }
         setUploadStatus("uploading");
         const formData = new FormData();
         formData.append("file", audioFile);
@@ -268,7 +288,8 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
 
       // Validate we have an audio URL
       if (!finalAudioUrl) {
-        throw new Error("Please select an audio file");
+        console.log("[v0] No finalAudioUrl - checking state: audioFile=", audioFile?.name, "audioUrl=", audioUrl, "newUploadedUrl=", newUploadedUrl);
+        throw new Error("Please select an audio file. Make sure to choose a file before saving.");
       }
 
       console.log("[v0] Saving specimen with audio_url:", finalAudioUrl);
