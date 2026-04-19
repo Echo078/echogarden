@@ -6,6 +6,7 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { AUDIO_UPLOAD_CONSTRAINTS } from "./audio-constants";
 
 // Initialize S3 client for Cloudflare R2
 const s3Client = new S3Client({
@@ -19,16 +20,6 @@ const s3Client = new S3Client({
 
 const BUCKET_NAME = process.env.R2_BUCKET_NAME || "";
 const PUBLIC_URL = process.env.R2_PUBLIC_URL || "";
-
-// Audio upload constraints
-export const AUDIO_UPLOAD_CONSTRAINTS = {
-  maxSizeBytes: 25 * 1024 * 1024, // 25MB
-  maxSizeMB: 25,
-  allowedTypes: ["audio/mpeg", "audio/mp3", "audio/mp4", "audio/m4a", "audio/aac", "audio/ogg", "audio/webm"],
-  allowedExtensions: [".mp3", ".m4a", ".aac", ".ogg", ".webm"],
-  recommendedFormat: "MP3 or M4A",
-  notAllowed: [".wav", ".flac", ".aiff"], // Explicitly not supported due to size
-};
 
 /**
  * Validate audio file before upload

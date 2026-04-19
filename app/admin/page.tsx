@@ -24,7 +24,8 @@ import {
   approveVisitorMessage,
   deleteVisitorMessage,
 } from "@/lib/actions";
-import { uploadToR2, validateAudioFile, AUDIO_UPLOAD_CONSTRAINTS } from "@/lib/r2";
+import { uploadToR2, validateAudioFile } from "@/lib/r2";
+import { AUDIO_UPLOAD_CONSTRAINTS } from "@/lib/audio-constants";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import type { MusicSpecimen, BlogPost, VisitorMessage, Essay } from "@/lib/database.types";
 

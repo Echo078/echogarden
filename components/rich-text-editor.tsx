@@ -25,6 +25,7 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
   const linkInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
+    immediatelyRender: false, // Prevent SSR hydration mismatch
     extensions: [
       StarterKit.configure({
         codeBlock: false, // We use CodeBlockLowlight instead
