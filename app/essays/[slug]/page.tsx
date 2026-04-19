@@ -131,7 +131,7 @@ export default function EssayDetailPage() {
 
           {/* Content */}
           <div 
-            className="prose prose-sm max-w-none
+            className="essay-content prose prose-sm max-w-none
               prose-headings:font-serif prose-headings:font-light prose-headings:text-foreground
               prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
               prose-p:text-foreground/80 prose-p:leading-relaxed
@@ -147,6 +147,38 @@ export default function EssayDetailPage() {
               prose-li:marker:text-primary/50"
             dangerouslySetInnerHTML={{ __html: essay.content }}
           />
+          
+          {/* Image grid responsive styles */}
+          <style jsx global>{`
+            .essay-content .image-grid,
+            .essay-content div[class*="image-grid"] {
+              display: grid;
+              gap: 0.5rem;
+              margin: 1.5rem 0;
+            }
+            .essay-content .image-grid-2,
+            .essay-content div[style*="repeat(2"] {
+              grid-template-columns: repeat(2, 1fr);
+            }
+            .essay-content .image-grid-3,
+            .essay-content div[style*="repeat(3"] {
+              grid-template-columns: repeat(3, 1fr);
+            }
+            .essay-content .image-grid img,
+            .essay-content div[class*="image-grid"] img {
+              margin: 0 !important;
+              width: 100%;
+              height: auto;
+              border-radius: 0.5rem;
+              object-fit: cover;
+            }
+            @media (max-width: 640px) {
+              .essay-content .image-grid,
+              .essay-content div[class*="image-grid"] {
+                grid-template-columns: 1fr !important;
+              }
+            }
+          `}</style>
 
           {/* Footer navigation */}
           <footer className="mt-16 border-t border-foreground/8 pt-8">

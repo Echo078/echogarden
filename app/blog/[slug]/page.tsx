@@ -7,10 +7,16 @@ import { getBlogPostBySlug } from "@/lib/actions";
 import { useLanguage } from "@/components/language-provider";
 import type { BlogPost } from "@/lib/database.types";
 
-// Simple markdown renderer
-function renderMarkdown(content: string): string {
+// Content renderer - handles both HTML (from Tiptap) and markdown
+function renderContent(content: string): string {
   if (!content) return "";
   
+  // Check if content is already HTML (from Tiptap editor)
+  if (content.trim().startsWith("<")) {
+    return content;
+  }
+  
+  // Otherwise, treat as markdown
   let html = content;
   
   // Escape HTML
@@ -190,9 +196,41 @@ export default function BlogPostPage() {
 
         {/* Content */}
         <div 
-          className="prose prose-neutral dark:prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content || "") }}
+          className="prose prose-neutral dark:prose-invert max-w-none blog-content"
+          dangerouslySetInnerHTML={{ __html: renderContent(post.content || "") }}
         />
+        
+        {/* Image grid responsive styles */}
+        <style jsx global>{`
+          .blog-content .image-grid,
+          .blog-content div[class*="image-grid"] {
+            display: grid;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+          }
+          .blog-content .image-grid-2,
+          .blog-content div[style*="repeat(2"] {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .blog-content .image-grid-3,
+          .blog-content div[style*="repeat(3"] {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          .blog-content .image-grid img,
+          .blog-content div[class*="image-grid"] img {
+            margin: 0 !important;
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            object-fit: cover;
+          }
+          @media (max-width: 640px) {
+            .blog-content .image-grid,
+            .blog-content div[class*="image-grid"] {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
       </article>
     </div>
   );
