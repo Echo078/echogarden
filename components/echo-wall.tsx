@@ -61,8 +61,8 @@ export function EchoWall() {
     return messages.map((msg, index) => ({
       ...msg,
       row: index % numRows,
-      speed: 30 + Math.random() * 20, // 30-50 seconds to cross
-      delay: (index * 4) + Math.random() * 3, // Stagger start times
+      speed: 15 + Math.random() * 10, // 15-25 seconds to cross (faster)
+      delay: (index * 2) + Math.random() * 2, // Shorter stagger
     }));
   }, [messages]);
 
