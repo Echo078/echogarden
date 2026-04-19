@@ -8,7 +8,6 @@ import type {
   VisitorMessage,
   MusicSpecimenInsert,
   BlogPostInsert,
-  VisitorMessageInsert,
   MusicSpecimenUpdate,
   BlogPostUpdate
 } from "./database.types";
@@ -17,7 +16,7 @@ import type {
 // Music Specimens (Diary Entries)
 // ============================================
 
-export async function getMusicSpecimens(): Promise<MusicSpecimen[]> {
+export async function getMusicSpecimens(): Promise<{ data: MusicSpecimen[] | null; error: string | null }> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("music_specimens")
@@ -26,10 +25,10 @@ export async function getMusicSpecimens(): Promise<MusicSpecimen[]> {
   
   if (error) {
     console.error("Error fetching music specimens:", error);
-    return [];
+    return { data: null, error: error.message };
   }
   
-  return data || [];
+  return { data: data || [], error: null };
 }
 
 export async function getMusicSpecimenById(id: string): Promise<MusicSpecimen | null> {
@@ -102,25 +101,35 @@ export async function deleteMusicSpecimen(id: string): Promise<{ success: boolea
 // Blog Posts
 // ============================================
 
-export async function getBlogPosts(includeUnpublished = false): Promise<BlogPost[]> {
+export async function getBlogPosts(): Promise<{ data: BlogPost[] | null; error: string | null }> {
   const supabase = await createClient();
-  let query = supabase
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("published", true)
+    .order("date", { ascending: false });
+  
+  if (error) {
+    console.error("Error fetching blog posts:", error);
+    return { data: null, error: error.message };
+  }
+  
+  return { data: data || [], error: null };
+}
+
+export async function getAllBlogPosts(): Promise<{ data: BlogPost[] | null; error: string | null }> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
     .order("date", { ascending: false });
   
-  if (!includeUnpublished) {
-    query = query.eq("published", true);
-  }
-  
-  const { data, error } = await query;
-  
   if (error) {
-    console.error("Error fetching blog posts:", error);
-    return [];
+    console.error("Error fetching all blog posts:", error);
+    return { data: null, error: error.message };
   }
   
-  return data || [];
+  return { data: data || [], error: null };
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
@@ -190,7 +199,7 @@ export async function deleteBlogPost(id: string): Promise<{ success: boolean; er
 // Visitor Messages (Echo Wall)
 // ============================================
 
-export async function getApprovedMessages(): Promise<VisitorMessage[]> {
+export async function getVisitorMessages(): Promise<{ data: VisitorMessage[] | null; error: string | null }> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("visitor_messages")
@@ -200,13 +209,13 @@ export async function getApprovedMessages(): Promise<VisitorMessage[]> {
   
   if (error) {
     console.error("Error fetching messages:", error);
-    return [];
+    return { data: null, error: error.message };
   }
   
-  return data || [];
+  return { data: data || [], error: null };
 }
 
-export async function getAllMessages(): Promise<VisitorMessage[]> {
+export async function getAllVisitorMessages(): Promise<{ data: VisitorMessage[] | null; error: string | null }> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("visitor_messages")
@@ -215,17 +224,17 @@ export async function getAllMessages(): Promise<VisitorMessage[]> {
   
   if (error) {
     console.error("Error fetching all messages:", error);
-    return [];
+    return { data: null, error: error.message };
   }
   
-  return data || [];
+  return { data: data || [], error: null };
 }
 
-export async function submitMessage(message: VisitorMessageInsert): Promise<{ success: boolean; error?: string }> {
+export async function submitVisitorMessage(name: string, message: string): Promise<{ success: boolean; error?: string }> {
   const supabase = await createClient();
   const { error } = await supabase
     .from("visitor_messages")
-    .insert({ ...message, approved: false });
+    .insert({ name, message, approved: false });
   
   if (error) {
     console.error("Error submitting message:", error);
@@ -235,7 +244,7 @@ export async function submitMessage(message: VisitorMessageInsert): Promise<{ su
   return { success: true };
 }
 
-export async function approveMessage(id: string): Promise<{ success: boolean; error?: string }> {
+export async function approveVisitorMessage(id: string): Promise<{ success: boolean; error?: string }> {
   const supabase = await createClient();
   const { error } = await supabase
     .from("visitor_messages")
@@ -251,7 +260,7 @@ export async function approveMessage(id: string): Promise<{ success: boolean; er
   return { success: true };
 }
 
-export async function deleteMessage(id: string): Promise<{ success: boolean; error?: string }> {
+export async function deleteVisitorMessage(id: string): Promise<{ success: boolean; error?: string }> {
   const supabase = await createClient();
   const { error } = await supabase
     .from("visitor_messages")
@@ -281,20 +290,6 @@ export async function getUser() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   return user;
-}
-
-export async function signIn(email: string, password: string) {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  
-  if (error) {
-    return { success: false, error: error.message };
-  }
-  
-  return { success: true, user: data.user };
 }
 
 export async function signOut() {

@@ -2,23 +2,54 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { diaryEntries } from "@/data/diary";
 import { useLanguage } from "@/components/language-provider";
+import { getMusicSpecimens } from "@/lib/actions";
+import type { MusicSpecimen } from "@/lib/database.types";
+import { diaryEntries as staticEntries, type DiaryEntry } from "@/data/diary";
+
+// Adapter to convert DB specimen to DiaryEntry format
+function toDisplayEntry(specimen: MusicSpecimen): DiaryEntry {
+  return {
+    id: specimen.id,
+    date: specimen.date,
+    title: specimen.title,
+    note: specimen.note || "",
+    mood: specimen.mood || [],
+    audioFile: specimen.audio_url,
+    specimen: (specimen.specimen_type as DiaryEntry["specimen"]) || "leaf",
+  };
+}
 
 export function RandomAudioPlayer() {
   const { t, lang } = useLanguage();
-  const [currentEntry, setCurrentEntry] = useState(() => {
-    const randomIndex = Math.floor(Math.random() * diaryEntries.length);
-    return diaryEntries[randomIndex];
+  const [entries, setEntries] = useState<DiaryEntry[]>(staticEntries);
+  const [currentEntry, setCurrentEntry] = useState<DiaryEntry>(() => {
+    const randomIndex = Math.floor(Math.random() * staticEntries.length);
+    return staticEntries[randomIndex];
   });
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // Load specimens from DB on mount
+  useEffect(() => {
+    async function loadSpecimens() {
+      const result = await getMusicSpecimens();
+      if (result.data && result.data.length > 0) {
+        const dbEntries = result.data.map(toDisplayEntry);
+        setEntries(dbEntries);
+        // Update current entry to one from DB
+        const randomIndex = Math.floor(Math.random() * dbEntries.length);
+        setCurrentEntry(dbEntries[randomIndex]);
+      }
+    }
+    loadSpecimens();
+  }, []);
+
   const loadRandom = () => {
-    const randomIndex = Math.floor(Math.random() * diaryEntries.length);
-    setCurrentEntry(diaryEntries[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * entries.length);
+    setCurrentEntry(entries[randomIndex]);
     setIsPlaying(false);
     setProgress(0);
     if (audioRef.current) {

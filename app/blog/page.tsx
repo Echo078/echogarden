@@ -1,15 +1,62 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { blogEntries } from "@/data/blog";
-import { noteEntries } from "@/data/notes";
 import { useLanguage } from "@/components/language-provider";
 import { translations } from "@/lib/translations";
+import { getBlogPosts } from "@/lib/actions";
+import type { BlogPost } from "@/lib/database.types";
+import { blogEntries as staticBlogEntries } from "@/data/blog";
+import { noteEntries } from "@/data/notes";
+
+// Adapter for display
+interface DisplayBlogEntry {
+  id: string;
+  date: string;
+  title: string;
+  excerpt: string;
+  slug: string;
+  tags?: string[];
+}
+
+function toDisplayEntry(post: BlogPost): DisplayBlogEntry {
+  return {
+    id: post.id,
+    date: post.date,
+    title: post.title,
+    excerpt: post.excerpt || "",
+    slug: post.slug,
+    tags: post.tags || [],
+  };
+}
 
 export default function BlogPage() {
   const { lang, t } = useLanguage();
   const blogT = translations.blog;
   const locale = lang === "zh" ? "zh-CN" : "en-US";
+
+  const [blogEntries, setBlogEntries] = useState<DisplayBlogEntry[]>(
+    staticBlogEntries.map(e => ({
+      id: e.id,
+      date: e.date,
+      title: e.title,
+      excerpt: e.excerpt,
+      slug: e.slug,
+      tags: e.tags,
+    }))
+  );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadPosts() {
+      const result = await getBlogPosts();
+      if (result.data && result.data.length > 0) {
+        setBlogEntries(result.data.map(toDisplayEntry));
+      }
+      setLoading(false);
+    }
+    loadPosts();
+  }, []);
 
   const totalBlogEntries = blogEntries.length;
   const totalNotes = noteEntries.length;
@@ -51,81 +98,91 @@ export default function BlogPage() {
                 </span>
               </div>
 
-              {/* Blog Entries as Soft Archive Cards */}
-              <div className="flex flex-col gap-6">
-                {blogEntries.map((entry) => {
-                  const date = new Date(entry.date);
-                  const formattedDate = date.toLocaleDateString(locale, {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  });
+              {/* Loading state */}
+              {loading && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                  <span>{lang === "zh" ? "加载中..." : "Loading..."}</span>
+                </div>
+              )}
 
-                  return (
-                    <Link
-                      key={entry.id}
-                      href={`/blog/${entry.slug}`}
-                      className="group block"
-                    >
-                      <article className="rounded-lg border border-foreground/8 bg-card/40 p-5 shadow-sm backdrop-blur-sm transition-all hover:border-foreground/12 hover:bg-card/60 hover:shadow-md md:p-6">
-                        {/* Date */}
-                        <time 
-                          dateTime={entry.date}
-                          className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/50"
-                        >
-                          {formattedDate}
-                        </time>
+              {/* Blog Entries */}
+              {!loading && (
+                <div className="flex flex-col gap-6">
+                  {blogEntries.map((entry) => {
+                    const date = new Date(entry.date);
+                    const formattedDate = date.toLocaleDateString(locale, {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    });
 
-                        {/* Title */}
-                        <h2 className="mb-2.5 font-serif text-lg font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-xl">
-                          {entry.title}
-                        </h2>
+                    return (
+                      <Link
+                        key={entry.id}
+                        href={`/blog/${entry.slug}`}
+                        className="group block"
+                      >
+                        <article className="rounded-lg border border-foreground/8 bg-card/40 p-5 shadow-sm backdrop-blur-sm transition-all hover:border-foreground/12 hover:bg-card/60 hover:shadow-md md:p-6">
+                          {/* Date */}
+                          <time 
+                            dateTime={entry.date}
+                            className="mb-3 block font-mono text-[10px] uppercase tracking-wider text-muted-foreground/50"
+                          >
+                            {formattedDate}
+                          </time>
 
-                        {/* Excerpt */}
-                        <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground/80">
-                          {entry.excerpt}
-                        </p>
+                          {/* Title */}
+                          <h2 className="mb-2.5 font-serif text-lg font-normal leading-snug text-foreground transition-colors group-hover:text-primary md:text-xl">
+                            {entry.title}
+                          </h2>
 
-                        {/* Footer */}
-                        <div className="flex items-center justify-between gap-4">
-                          {entry.tags && entry.tags.length > 0 && (
-                            <div className="flex flex-wrap gap-1.5">
-                              {entry.tags.slice(0, 2).map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="rounded-full bg-secondary/30 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground/60"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                          
-                          <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
-                            <span className="font-serif italic">{blogT.read[lang]}</span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="9"
-                              height="9"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              aria-hidden="true"
-                              className="transition-transform group-hover:translate-x-0.5"
-                            >
-                              <path d="M5 12h14" />
-                              <path d="m12 5 7 7-7 7" />
-                            </svg>
-                          </span>
-                        </div>
-                      </article>
-                    </Link>
-                  );
-                })}
-              </div>
+                          {/* Excerpt */}
+                          <p className="mb-4 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground/80">
+                            {entry.excerpt}
+                          </p>
+
+                          {/* Footer */}
+                          <div className="flex items-center justify-between gap-4">
+                            {entry.tags && entry.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-1.5">
+                                {entry.tags.slice(0, 2).map((tag) => (
+                                  <span
+                                    key={tag}
+                                    className="rounded-full bg-secondary/30 px-2 py-0.5 text-[9px] uppercase tracking-wider text-muted-foreground/60"
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                            
+                            <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground/40 transition-all group-hover:gap-2 group-hover:text-primary/70">
+                              <span className="font-serif italic">{blogT.read[lang]}</span>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="9"
+                                height="9"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                                className="transition-transform group-hover:translate-x-0.5"
+                              >
+                                <path d="M5 12h14" />
+                                <path d="m12 5 7 7-7 7" />
+                              </svg>
+                            </span>
+                          </div>
+                        </article>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Right Column: Quiet Notes Rail */}
@@ -138,7 +195,7 @@ export default function BlogPage() {
                 <div className="h-px flex-1 bg-foreground/5" aria-hidden="true" />
               </div>
 
-              {/* Minimal Notes as Archive Slips */}
+              {/* Minimal Notes */}
               <div className="flex flex-col gap-4">
                 {noteEntries.slice(0, 8).map((note) => {
                   const date = new Date(note.date);
@@ -150,15 +207,12 @@ export default function BlogPage() {
                       key={note.id}
                       className="border-l border-foreground/6 py-1 pl-3 transition-colors hover:border-foreground/15"
                     >
-                      {/* Date marker */}
                       <time 
                         dateTime={note.date}
                         className="mb-1 block font-mono text-[8px] uppercase tracking-wider text-muted-foreground/35"
                       >
                         {month} {day}
                       </time>
-
-                      {/* Fragment */}
                       <p className="line-clamp-2 text-[11px] leading-relaxed text-muted-foreground/55">
                         {note.text.length > 55 ? note.text.slice(0, 55) + '...' : note.text}
                       </p>

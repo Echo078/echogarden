@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BotanicalBackground } from "@/components/botanical-background";
 import { RandomAudioPlayer } from "@/components/random-audio-player";
 import { TypingText } from "@/components/typing-text";
+import { EchoWall } from "@/components/echo-wall";
 import { updates, formatUpdateDate } from "@/data/updates";
 import { useLanguage } from "@/components/language-provider";
 import { translations } from "@/lib/translations";
@@ -128,8 +129,9 @@ export default function HomePage() {
                 </section>
               </div>
 
-              {/* Right: Recent Updates */}
-              <div>
+              {/* Right: Recent Updates + Echo Wall */}
+              <div className="space-y-6">
+                {/* Recent Updates */}
                 <section className="rounded-xl bg-card/30 p-5 backdrop-blur-sm">
                   <div className="mb-5 flex items-center gap-4">
                     <h2 className="font-serif text-base font-normal text-foreground">
@@ -178,6 +180,9 @@ export default function HomePage() {
                     </Link>
                   </div>
                 </section>
+
+                {/* Echo Wall - Visitor Messages */}
+                <EchoWall />
               </div>
             </div>
           </div>
