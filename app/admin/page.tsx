@@ -24,8 +24,8 @@ import {
   approveVisitorMessage,
   deleteVisitorMessage,
 } from "@/lib/actions";
-import { uploadToR2, validateAudioFile } from "@/lib/r2";
-import { AUDIO_UPLOAD_CONSTRAINTS } from "@/lib/audio-constants";
+import { uploadToR2 } from "@/lib/r2";
+import { AUDIO_UPLOAD_CONSTRAINTS, validateAudioFileClient } from "@/lib/audio-constants";
 import { RichTextEditor } from "@/components/rich-text-editor";
 import type { MusicSpecimen, BlogPost, VisitorMessage, Essay } from "@/lib/database.types";
 
@@ -208,21 +208,17 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
       return;
     }
     
-    // Set the file immediately - don't wait for async validation
-    console.log("[v0] handleFileSelect - setting audioFile immediately");
-    setAudioFile(file);
+    // Validate using client-side function (not a server action)
+    const validation = validateAudioFileClient(file);
+    if (!validation.valid) {
+      console.log("[v0] handleFileSelect - validation failed:", validation.error);
+      setFileError(validation.error || "Invalid file");
+      setAudioFile(null);
+      return;
+    }
     
-    // Then validate asynchronously and show error if needed (but don't clear the file)
-    validateAudioFile(file).then((validation) => {
-      if (!validation.valid) {
-        console.log("[v0] handleFileSelect - validation failed:", validation.error);
-        setFileError(validation.error || "Invalid file");
-        // Note: We keep the file set so user can see what they selected
-        // The submit handler will also validate and reject if needed
-      } else {
-        console.log("[v0] handleFileSelect - validation passed");
-      }
-    });
+    console.log("[v0] handleFileSelect - validation passed, setting audioFile");
+    setAudioFile(file);
   };
 
   const handleEdit = (specimen: MusicSpecimen) => {
@@ -262,8 +258,8 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
 
       // Upload audio if new file selected and not already uploaded
       if (audioFile && !newUploadedUrl) {
-        // Validate file first
-        const validation = await validateAudioFile(audioFile);
+        // Validate file first (client-side validation)
+        const validation = validateAudioFileClient(audioFile);
         if (!validation.valid) {
           setFileError(validation.error || "Invalid file");
           throw new Error(validation.error || "Invalid audio file");
