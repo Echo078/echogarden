@@ -268,10 +268,17 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
         const formData = new FormData();
         formData.append("file", audioFile);
         
-        console.log("[v0] Uploading new audio file:", audioFile.name);
-        const uploadResult = await uploadToR2(formData);
+        console.log("[v0] Uploading new audio file via API route:", audioFile.name, "size:", (audioFile.size / (1024 * 1024)).toFixed(2), "MB");
         
-        if (!uploadResult.success || !uploadResult.publicUrl) {
+        // Use API route instead of server action to bypass body size limit
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+        
+        const uploadResult = await uploadResponse.json();
+        
+        if (!uploadResponse.ok || !uploadResult.success || !uploadResult.publicUrl) {
           setUploadStatus("error");
           throw new Error(uploadResult.error || "Upload failed");
         }
