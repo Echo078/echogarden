@@ -28,29 +28,21 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 export async function POST(request: NextRequest) {
   try {
-    console.log("[API/upload] Received upload request");
-    console.log("[API/upload] R2_ENDPOINT:", R2_ENDPOINT ? "set" : "NOT SET");
-    console.log("[API/upload] R2_BUCKET_NAME:", R2_BUCKET_NAME ? "set" : "NOT SET");
-    
     // Parse the multipart form data
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
 
     if (!file) {
-      console.log("[API/upload] No file in request");
       return NextResponse.json(
         { success: false, error: "No file provided" },
         { status: 400 }
       );
     }
 
-    console.log("[API/upload] File received:", file.name, "Size:", (file.size / (1024 * 1024)).toFixed(2), "MB", "Type:", file.type);
-
     // Check file size
     if (file.size > MAX_FILE_SIZE) {
-      console.log("[API/upload] File too large:", file.size);
       return NextResponse.json(
-        { success: false, error: `File too large. Maximum size is 50MB.` },
+        { success: false, error: `File too large (${(file.size / (1024 * 1024)).toFixed(1)}MB). Maximum size is 50MB.` },
         { status: 400 }
       );
     }
@@ -59,8 +51,6 @@ export async function POST(request: NextRequest) {
     const timestamp = Date.now();
     const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
     const key = `audio/${timestamp}-${originalName}`;
-
-    console.log("[API/upload] Uploading to R2 with key:", key);
 
     // Convert file to buffer
     const arrayBuffer = await file.arrayBuffer();
@@ -77,7 +67,6 @@ export async function POST(request: NextRequest) {
     await s3Client.send(command);
 
     const publicUrl = `${R2_PUBLIC_URL}/${key}`;
-    console.log("[API/upload] Upload successful:", publicUrl);
 
     return NextResponse.json({
       success: true,

@@ -256,39 +256,25 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
         }
         setUploadStatus("uploading");
         
-        // Step 1: Get presigned URL from our API
-        const presignResponse = await fetch("/api/upload/presign", {
+        // Upload via API route (server-side upload to R2)
+        const formData = new FormData();
+        formData.append("file", audioFile);
+        
+        const uploadResponse = await fetch("/api/upload", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            filename: audioFile.name,
-            contentType: audioFile.type || "audio/mpeg",
-          }),
+          body: formData,
         });
         
-        const presignResult = await presignResponse.json();
+        const uploadResult = await uploadResponse.json();
         
-        if (!presignResponse.ok || !presignResult.success) {
+        if (!uploadResponse.ok || !uploadResult.success || !uploadResult.publicUrl) {
           setUploadStatus("error");
-          throw new Error(presignResult.error || "Failed to get upload URL");
+          const errorMsg = uploadResult.error || `Upload failed: ${uploadResponse.statusText}`;
+          throw new Error(errorMsg);
         }
         
-        // Step 2: Upload directly to R2 using presigned URL (bypasses server entirely)
-        const r2UploadResponse = await fetch(presignResult.uploadUrl, {
-          method: "PUT",
-          headers: {
-            "Content-Type": audioFile.type || "audio/mpeg",
-          },
-          body: audioFile,
-        });
-        
-        if (!r2UploadResponse.ok) {
-          setUploadStatus("error");
-          throw new Error(`Upload to storage failed: ${r2UploadResponse.statusText}`);
-        }
-        
-        finalAudioUrl = presignResult.publicUrl;
-        setNewUploadedUrl(presignResult.publicUrl);
+        finalAudioUrl = uploadResult.publicUrl;
+        setNewUploadedUrl(uploadResult.publicUrl);
         setUploadStatus("success");
       }
 
@@ -316,8 +302,8 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
       resetForm();
       onRefresh();
     } catch (error) {
-      console.error("[v0] Error saving specimen:", error);
-      alert(error instanceof Error ? error.message : "Error saving specimen");
+      const message = error instanceof Error ? error.message : "Error saving specimen";
+      alert(message);
     } finally {
       setUploading(false);
     }
