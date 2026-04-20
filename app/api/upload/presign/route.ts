@@ -27,7 +27,10 @@ const MAX_FILE_SIZE = 100 * 1024 * 1024;
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { fileName, fileType, fileSize } = body;
+    // Support both naming conventions
+    const fileName = body.fileName || body.filename;
+    const fileType = body.fileType || body.contentType;
+    const fileSize = body.fileSize;
 
     if (!fileName || !fileType) {
       return NextResponse.json(
@@ -74,16 +77,14 @@ export async function POST(request: NextRequest) {
       ? `${PUBLIC_URL_BASE}/${key}`
       : `https://${BUCKET_NAME}.r2.cloudflarestorage.com/${key}`;
 
-    console.log("[v0] Generated presigned URL for:", key);
-
     return NextResponse.json({
       success: true,
-      presignedUrl,
-      publicUrl,
+      uploadUrl: presignedUrl, // The presigned URL for PUT upload
+      publicUrl,               // The final public URL after upload
       key,
     });
   } catch (error) {
-    console.error("[v0] Error generating presigned URL:", error);
+    console.error("Error generating presigned URL:", error);
     return NextResponse.json(
       { success: false, error: "Failed to generate upload URL" },
       { status: 500 }

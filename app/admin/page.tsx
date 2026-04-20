@@ -197,13 +197,11 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
   };
 
   const handleFileSelect = (file: File | null) => {
-    console.log("[v0] handleFileSelect called with:", file?.name || "null");
     setFileError(null);
     setNewUploadedUrl(null);
     setUploadStatus("idle");
     
     if (!file) {
-      console.log("[v0] handleFileSelect - no file, clearing state");
       setAudioFile(null);
       return;
     }
@@ -211,13 +209,11 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
     // Validate using client-side function (not a server action)
     const validation = validateAudioFileClient(file);
     if (!validation.valid) {
-      console.log("[v0] handleFileSelect - validation failed:", validation.error);
       setFileError(validation.error || "Invalid file");
       setAudioFile(null);
       return;
     }
     
-    console.log("[v0] handleFileSelect - validation passed, setting audioFile");
     setAudioFile(file);
   };
 
@@ -245,12 +241,6 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
     e.preventDefault();
     setUploading(true);
 
-    // Debug: log all relevant state at submit time
-    console.log("[v0] handleSubmit - editingId:", editingId);
-    console.log("[v0] handleSubmit - audioFile:", audioFile?.name || "null");
-    console.log("[v0] handleSubmit - audioUrl:", audioUrl || "empty");
-    console.log("[v0] handleSubmit - newUploadedUrl:", newUploadedUrl || "null");
-
     try {
       // Determine the final audio URL
       // Priority: newly uploaded URL > newly selected file (will upload) > existing URL
@@ -265,37 +255,47 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
           throw new Error(validation.error || "Invalid audio file");
         }
         setUploadStatus("uploading");
-        const formData = new FormData();
-        formData.append("file", audioFile);
         
-        console.log("[v0] Uploading new audio file via API route:", audioFile.name, "size:", (audioFile.size / (1024 * 1024)).toFixed(2), "MB");
-        
-        // Use API route instead of server action to bypass body size limit
-        const uploadResponse = await fetch("/api/upload", {
+        // Step 1: Get presigned URL from our API
+        const presignResponse = await fetch("/api/upload/presign", {
           method: "POST",
-          body: formData,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            filename: audioFile.name,
+            contentType: audioFile.type || "audio/mpeg",
+          }),
         });
         
-        const uploadResult = await uploadResponse.json();
+        const presignResult = await presignResponse.json();
         
-        if (!uploadResponse.ok || !uploadResult.success || !uploadResult.publicUrl) {
+        if (!presignResponse.ok || !presignResult.success) {
           setUploadStatus("error");
-          throw new Error(uploadResult.error || "Upload failed");
+          throw new Error(presignResult.error || "Failed to get upload URL");
         }
         
-        console.log("[v0] Upload successful, new URL:", uploadResult.publicUrl);
-        finalAudioUrl = uploadResult.publicUrl;
-        setNewUploadedUrl(uploadResult.publicUrl);
+        // Step 2: Upload directly to R2 using presigned URL (bypasses server entirely)
+        const r2UploadResponse = await fetch(presignResult.uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": audioFile.type || "audio/mpeg",
+          },
+          body: audioFile,
+        });
+        
+        if (!r2UploadResponse.ok) {
+          setUploadStatus("error");
+          throw new Error(`Upload to storage failed: ${r2UploadResponse.statusText}`);
+        }
+        
+        finalAudioUrl = presignResult.publicUrl;
+        setNewUploadedUrl(presignResult.publicUrl);
         setUploadStatus("success");
       }
 
       // Validate we have an audio URL
       if (!finalAudioUrl) {
-        console.log("[v0] No finalAudioUrl - checking state: audioFile=", audioFile?.name, "audioUrl=", audioUrl, "newUploadedUrl=", newUploadedUrl);
         throw new Error("Please select an audio file. Make sure to choose a file before saving.");
       }
-
-      console.log("[v0] Saving specimen with audio_url:", finalAudioUrl);
       
       const data = {
         title,
@@ -313,7 +313,6 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
         throw new Error(result.error || "Failed to save specimen");
       }
 
-      console.log("[v0] Specimen saved successfully");
       resetForm();
       onRefresh();
     } catch (error) {
