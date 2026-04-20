@@ -444,10 +444,17 @@ function MusicSpecimensTab({ specimens, onRefresh }: { specimens: MusicSpecimen[
                   <span className="text-[10px]">This will replace the old file when saved</span>
                 </div>
               )}
+              
+              {/* Upload error */}
+              {uploadStatus === "error" && (
+                <div className="mt-2 rounded-md bg-red-500/10 px-2.5 py-1.5 text-xs text-red-700 dark:text-red-400">
+                  <span className="font-medium">Upload failed.</span> Please try again.
+                </div>
+              )}
             </div>
             <div className="flex gap-2">
               <Button type="submit" disabled={uploading || !!fileError}>
-                {uploading ? "Uploading..." : "Save"}
+                {uploading ? (uploadStatus === "uploading" ? "Uploading file..." : "Saving...") : "Save Specimen"}
               </Button>
               <Button type="button" variant="outline" onClick={resetForm}>
                 Cancel
