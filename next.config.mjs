@@ -7,7 +7,7 @@ const nextConfig = {
     unoptimized: true,
   },
   serverActions: {
-    bodySizeLimit: '10mb', // Allow larger image uploads
+    bodySizeLimit: '50mb', // Allow larger audio/image uploads
   },
 }
 
