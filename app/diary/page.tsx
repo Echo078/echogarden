@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { SpecimenCard } from "@/components/specimen-card";
 import { useLanguage } from "@/components/language-provider";
 import { getMusicSpecimens } from "@/lib/actions";
@@ -25,7 +26,7 @@ function groupByMonth(entries: DiaryEntry[], locale: string): Map<string, DiaryE
   const groups = new Map<string, DiaryEntry[]>();
 
   entries.forEach((entry) => {
-    const date = new Date(entry.date);
+    const date = new Date(`${entry.date.slice(0, 10)}T12:00:00`);
     const monthKey = date.toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
@@ -49,11 +50,16 @@ export default function DiaryPage() {
 
   useEffect(() => {
     async function loadSpecimens() {
-      const result = await getMusicSpecimens();
-      if (result.data && result.data.length > 0) {
-        setEntries(result.data.map(toDisplayEntry));
+      try {
+        if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+          const result = await getMusicSpecimens();
+          if (result.data) setEntries(result.data.map(toDisplayEntry));
+        }
+      } catch {
+        // Preserve the honest empty state if the live archive is unavailable.
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     loadSpecimens();
   }, []);
@@ -91,6 +97,11 @@ export default function DiaryPage() {
           </div>
         </div>
       </header>
+
+      <div className="mx-auto max-w-6xl px-6 pb-8 md:px-0">
+        <Link href="/music" className="text-sm text-primary underline underline-offset-4">{lang === "zh" ? "查看钢琴演奏与音乐制作作品 →" : "Explore piano performances & music production →"}</Link>
+      </div>
+      {!loading && entries.length === 0 && <div className="mx-auto max-w-6xl px-6 pb-12 text-sm leading-7 text-muted-foreground">{lang === "zh" ? "暂未发布声音标本。演奏视频与录音作品可在 Music 页面查看。" : "No sound specimens have been published here yet. Performance videos and recording projects are available in Music."}</div>}
 
       {/* Loading state */}
       {loading && (

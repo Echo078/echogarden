@@ -1,0 +1,28 @@
+export const musicWorks = [
+  {
+    id: "distance-de-fee",
+    title: "Distance de Fée",
+    composer: "Toru Takemitsu",
+    date: "April 2025",
+    performers: "Yolanda Tapia — piano · Roan Ma — violin",
+    credit: "Recording, mixing & mastering — Echo Chen",
+    context: "DMU313 final project · EJB130, Faculty of Music, University of Toronto",
+    description: "Recorded with a six-microphone setup, this production focused on spatial realism, tone color and the dialogue between piano and violin. Post-production included detailed editing, phase alignment, EQ and reverberation design.",
+    image: "/portfolio/music-production/01.jpg",
+    url: "https://soundcloud.com/echo-chen-294419588/distance-de-fe-e",
+    documentation: "https://docs.google.com/document/d/1KENOf1c-EavilsAMSnt_9ya92vPZGWplETAf1eUsljY/edit?usp=sharing",
+  },
+  {
+    id: "improvisation-in-a-flat",
+    title: "Improvisation in A-Flat",
+    composer: "Shawn Boulet",
+    date: "February 2025",
+    performers: "Shawn Boulet — piano",
+    credit: "Recording — Echo & UofT Faculty of Music students · Mixing & mastering — Echo Chen",
+    context: "Faculty of Music, University of Toronto",
+    description: "A piano improvisation captured through a multi-microphone setup. The final mix combines close-mic clarity with ambient warmth, with detailed post-production shaping the spatial character of the recording.",
+    image: "/portfolio/music-production/02.jpg",
+    url: "https://soundcloud.com/echo-chen-294419588/improvisation-in-a-flat",
+    documentation: "https://docs.google.com/document/d/1G12xI6NmFXhGg4bRq5lDqk2F4jqORGCE8LSHiXDexjk/edit?usp=sharing",
+  },
+] as const;

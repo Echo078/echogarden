@@ -10,7 +10,7 @@ const navItems = [
   { labelKey: "nav.about", href: "/about" },
   { labelKey: "nav.research", href: "/research" },
   { labelKey: "nav.projects", href: "/projects" },
-  { labelKey: "nav.musicSpecimens", href: "/diary" },
+  { labelKey: "nav.music", href: "/music" },
   { labelKey: "nav.blog", href: "/blog" },
   { labelKey: "nav.knowledge", href: "/knowledge" },
   { labelKey: "nav.cv", href: "/cv" },
@@ -23,6 +23,19 @@ export function GlobalNavbar() {
   const { theme, toggleTheme, isDusk } = useTheme();
   const { lang, toggleLang, isZh, t } = useLanguage();
   const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -53,7 +66,7 @@ export function GlobalNavbar() {
   return (
     <header 
       className={`sticky top-0 z-50 w-full transition-transform duration-300 ease-out ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
+        (isVisible || menuOpen) ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       {/* Background with dewy morning atmosphere */}
@@ -180,7 +193,7 @@ export function GlobalNavbar() {
         </Link>
 
         {/* Navigation Items */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
             const label = t(item.labelKey);
             const isActive = pathname === item.href || 
@@ -191,6 +204,7 @@ export function GlobalNavbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={`relative px-2.5 py-1.5 text-[13px] transition-all ${
                   isCV
                     ? isActive
@@ -287,8 +301,11 @@ export function GlobalNavbar() {
 
         {/* Mobile menu button */}
         <button
-          className="flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-secondary/50 hover:text-foreground md:hidden"
-          aria-label="Open menu"
+          className="flex h-9 w-9 items-center justify-center rounded-md text-foreground/70 transition-colors hover:bg-secondary/50 hover:text-foreground lg:hidden"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label={menuOpen ? (isZh ? "关闭菜单" : "Close menu") : (isZh ? "打开菜单" : "Open menu")}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -306,6 +323,20 @@ export function GlobalNavbar() {
           </svg>
         </button>
       </nav>
+      {menuOpen && (
+        <nav id="mobile-navigation" aria-label={isZh ? "手机导航" : "Mobile navigation"} className="relative border-t border-foreground/10 bg-background px-6 pb-5 pt-3 shadow-sm lg:hidden">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-2">
+            {navItems.map((item) => {
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} aria-current={active ? "page" : undefined} className={`rounded-md px-3 py-3 text-sm ${active ? "bg-primary/10 text-primary" : "text-foreground/75 hover:bg-secondary/50"}`}>{t(item.labelKey)}</Link>;
+            })}
+          </div>
+          <div className="mx-auto mt-3 flex max-w-6xl gap-3 border-t border-foreground/10 pt-4">
+            <button onClick={toggleLang} className="rounded-md border border-foreground/15 px-4 py-2 text-sm" aria-label={isZh ? "Switch to English" : "切换到中文"}>{isZh ? "English" : "中文"}</button>
+            <button onClick={toggleTheme} className="rounded-md border border-foreground/15 px-4 py-2 text-sm">{isZh ? (isDusk ? "日间模式" : "日暮模式") : (isDusk ? "Day mode" : "Dusk mode")}</button>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }

@@ -6,6 +6,7 @@ export const translations = {
     about: { en: "About", zh: "关于" },
     research: { en: "Research", zh: "研究" },
     projects: { en: "Projects", zh: "作品" },
+    music: { en: "Music", zh: "音乐" },
     musicSpecimens: { en: "Music Specimens", zh: "声音标本" },
     blog: { en: "Blog", zh: "随笔" },
     knowledge: { en: "Knowledge", zh: "知识库" },

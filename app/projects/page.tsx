@@ -17,7 +17,7 @@ const domainColors: Record<string, string> = {
 const projectTypeColors: Record<string, string> = {
   course: "bg-secondary/40 text-muted-foreground/70",
   hackathon: "bg-secondary/40 text-muted-foreground/70",
-  personal: "bg-secondary/40 text-muted-foreground/70",
+  project: "bg-secondary/40 text-muted-foreground/70",
   research: "bg-secondary/40 text-muted-foreground/70",
 };
 
@@ -115,12 +115,13 @@ export default function ProjectsPage() {
           <div className="rounded-lg border border-foreground/10 bg-card/40 px-5 py-4">
             <div className="flex flex-col gap-3">
               {/* Domain Row */}
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4">
                 <span className="w-16 shrink-0 text-xs font-medium text-foreground">{projectsT.filterDomain[lang]}</span>
                 <div className="flex flex-wrap gap-2">
                   {domains.map((domain) => (
                     <button
                       key={domain.id}
+                      aria-pressed={activeDomains.includes(domain.id)}
                       onClick={() => toggleDomain(domain.id)}
                       className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-all ${
                         activeDomains.includes(domain.id)
@@ -136,12 +137,13 @@ export default function ProjectsPage() {
               </div>
 
               {/* Type Row */}
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4">
                 <span className="w-16 shrink-0 text-xs font-medium text-foreground">{projectsT.filterType[lang]}</span>
                 <div className="flex flex-wrap gap-2">
                   {projectTypes.map((type) => (
                     <button
                       key={type.id}
+                      aria-pressed={activeTypes.includes(type.id)}
                       onClick={() => toggleType(type.id)}
                       className={`flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium transition-all ${
                         activeTypes.includes(type.id)
@@ -157,12 +159,13 @@ export default function ProjectsPage() {
               </div>
 
               {/* Skills Row */}
-              <div className="flex items-start gap-4">
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:gap-4">
                 <span className="w-16 shrink-0 pt-1 text-xs font-medium text-foreground">{projectsT.filterSkills[lang]}</span>
-                <div className="flex flex-1 flex-wrap gap-1.5">
+                <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
                   {usedSkills.map((skill) => (
                     <button
                       key={skill}
+                      aria-pressed={activeSkills.includes(skill)}
                       onClick={() => toggleSkill(skill)}
                       className={`rounded-md px-2 py-1 text-[10px] font-medium uppercase tracking-wider transition-all ${
                         activeSkills.includes(skill)
@@ -193,7 +196,7 @@ export default function ProjectsPage() {
       <section className="px-6 py-12 md:px-12 md:py-16">
         <div className="mx-auto max-w-6xl">
           {/* Results count */}
-          <div className="mb-8 flex items-center gap-4">
+          <div aria-live="polite" className="mb-8 flex items-center gap-4">
             <h2 className="font-serif text-base font-normal italic text-muted-foreground">
               {hasActiveFilters ? projectsT.filteredResults[lang] : projectsT.allProjects[lang]}
             </h2>
@@ -209,32 +212,23 @@ export default function ProjectsPage() {
               const projectTypeInfo = projectTypes.find((t) => t.id === project.projectType);
 
               return (
-                <article
+                <Link
+                  href={`/projects/${project.id}`}
                   key={project.id}
                   className="group flex flex-col rounded-lg border border-foreground/8 bg-card/40 p-5 transition-all hover:border-foreground/12 hover:bg-card/60 hover:shadow-md"
                 >
-                  {/* Visual marker area */}
-                  <div className="mb-4 flex h-24 items-center justify-center rounded-md bg-secondary/20">
-                    <div className="flex gap-2">
-                      {project.domains.map((domain) => {
-                        const domainInfo = domains.find((d) => d.id === domain);
-                        return (
-                          <span
-                            key={domain}
-                            className="text-2xl opacity-30"
-                            title={domainInfo?.name}
-                          >
-                            {domainInfo?.icon}
-                          </span>
-                        );
-                      })}
-                    </div>
+                  <div className="mb-4 flex h-40 items-center justify-center overflow-hidden rounded-md bg-secondary/20">
+                    {project.image ? (
+                      <img src={project.image} alt={project.title} width={640} height={400} loading="lazy" className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105" />
+                    ) : (
+                      <span className="font-serif text-3xl text-primary/40" aria-hidden="true">◈</span>
+                    )}
                   </div>
 
                   {/* Header */}
-                  <div className="mb-2 flex items-center gap-2">
+                  <div className="mb-2 flex flex-wrap items-center gap-2">
                     <span className="font-mono text-[10px] text-muted-foreground/50">
-                      {project.year}
+                      {project.period}
                     </span>
                     <span className="text-muted-foreground/30">·</span>
                     <span className={`rounded px-1.5 py-0.5 text-[9px] uppercase tracking-wider ${projectTypeColors[project.projectType]}`}>
@@ -304,7 +298,7 @@ export default function ProjectsPage() {
                       <path d="m12 5 7 7-7 7" />
                     </svg>
                   </div>
-                </article>
+                </Link>
               );
             })}
           </div>
@@ -325,7 +319,7 @@ export default function ProjectsPage() {
           )}
 
           {/* Footer */}
-          <footer className="mt-20 flex items-center justify-center gap-6 text-xs uppercase tracking-widest text-muted-foreground/40">
+          <footer className="mt-20 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs uppercase tracking-widest text-muted-foreground/40">
             <span>{projectsT.crossDisciplinary[lang]}</span>
             <span className="h-px w-10 bg-foreground/10" aria-hidden="true" />
             <span>{t("home.established")}</span>

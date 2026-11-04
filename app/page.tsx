@@ -31,9 +31,9 @@ export default function HomePage() {
       points: translations.gardenPages.projects.points[lang],
     },
     {
-      href: "/diary",
-      title: translations.gardenPages.musicSpecimens.title[lang],
-      points: translations.gardenPages.musicSpecimens.points[lang],
+      href: "/music",
+      title: lang === "zh" ? "音乐" : "Music",
+      points: lang === "zh" ? ["钢琴演奏", "录音、混音与母带制作"] : ["Piano performance", "Recording, mixing & mastering"],
     },
     {
       href: "/blog",

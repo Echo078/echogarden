@@ -38,20 +38,23 @@ export function RandomAudioPlayer() {
   useEffect(() => {
     setMounted(true);
     // Select random index from static entries first
-    const randomIndex = Math.floor(Math.random() * staticEntries.length);
+    const randomIndex = staticEntries.length ? Math.floor(Math.random() * staticEntries.length) : 0;
     setCurrentIndex(randomIndex);
   }, []);
 
   // Load specimens from DB on mount
   useEffect(() => {
     async function loadSpecimens() {
-      const result = await getMusicSpecimens();
-      if (result.data && result.data.length > 0) {
-        const dbEntries = result.data.map(toDisplayEntry);
-        setEntries(dbEntries);
-        // Update to random index from DB entries
-        const randomIndex = Math.floor(Math.random() * dbEntries.length);
-        setCurrentIndex(randomIndex);
+      try {
+        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return;
+        const result = await getMusicSpecimens();
+        if (result.data && result.data.length > 0) {
+          const dbEntries = result.data.map(toDisplayEntry);
+          setEntries(dbEntries);
+          setCurrentIndex(Math.floor(Math.random() * dbEntries.length));
+        }
+      } catch {
+        // The music collection remains available when the live diary is offline.
       }
     }
     loadSpecimens();
@@ -128,6 +131,17 @@ export function RandomAudioPlayer() {
   };
 
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
+
+  if (mounted && !currentEntry) {
+    return (
+      <div className="relative rounded-xl border border-foreground/8 bg-card/50 p-5 shadow-sm backdrop-blur-md">
+        <p className="mb-4 text-[11px] uppercase tracking-widest text-muted-foreground">{lang === "zh" ? "音乐收藏" : "The music collection"}</p>
+        <h2 className="mb-3 font-serif text-xl">{lang === "zh" ? "从舞台到录音室" : "From stage to studio"}</h2>
+        <p className="mb-6 text-sm leading-7 text-muted-foreground">{lang === "zh" ? "钢琴演奏、录音、混音与母带制作，收录真实演奏视频与录音作品。" : "Piano performances and recordings, with listening links and notes on recording, mixing and mastering."}</p>
+        <Link href="/music" className="text-xs text-primary underline underline-offset-4">{lang === "zh" ? "探索音乐 →" : "Explore music →"}</Link>
+      </div>
+    );
+  }
 
   // Show loading skeleton before hydration
   if (!mounted || !currentEntry) {

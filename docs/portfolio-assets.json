@@ -1,0 +1,534 @@
+[
+  {
+    "page": "music-production",
+    "source": "https://lh3.googleusercontent.com/docsubipk/AP9E6xVd6CyPEmaR5jpv1ozm_7GUPneLRviqTJKEjKpqxTMbPTyAutChutnkXuPFAHHJCWy3SDIIVdWV5UpXRfCk26ZLeHFR3ReMwoUtT06-G7Unz_FYFEkBV8T4_aSxk64b0SBgPJ7iVg",
+    "path": "/portfolio/music-production/01.jpg",
+    "width": 500,
+    "height": 500
+  },
+  {
+    "page": "music-production",
+    "source": "https://lh3.googleusercontent.com/docsubipk/AP9E6xVueKMjPUQNwiaM57pT9pxvbVvG_6D83DzSUggVMEGfBGbxCFoVWzm9vAbcJkgElFIEkjtvolST6ZWP3kYppvEEZcpClsgu6-IbfLtq4coOmtHng6vWrYJwlqWBqatw1fQuFPPuV3w",
+    "path": "/portfolio/music-production/02.jpg",
+    "width": 500,
+    "height": 500
+  },
+  {
+    "page": "piano-performance",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72ueiIxiz_gc6qiEXkpEhUM3vGw4r3L6cSzfuxuK7626NDhVurNakUDyivr5Ovf11nWNSV_epauVSZDyrltep2XW6zhz6ZuDCrx6Jer3JlTbkYsyQEI2S4hqT9W1SHMlkCGv44sPGrGp_FK0oix9G3dum8DJ_ty8NxK9YzzH9puFpEChoRv1TcJD43v41qoG58g9EIUlsE82-43FI760BtolWurF1RNNtjnFuPXUOFc=w1280",
+    "path": "/portfolio/piano-performance/01.jpg",
+    "width": 1280,
+    "height": 1945
+  },
+  {
+    "page": "piano-performance",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sA0S3otGgy3xbchC3WB2-VtjIVkIBUWaec6_9L_1D3wTJUyQ60ScjXQ_BU9A4aXE4rm3PlCcWkplJNW5Fou0NMR2RnrkmVuhjwVBKXiSe0IEpnPcPyYh657iv0lOxioBXGNujNemFMyNLfOF6zauuSSlRu03oGDJLvdnNRBLMF6C_lXEu8PwcU5IeFnm_qPBnN_4UhTXW1LT8VlcF1VCN6WoknKPlg9l2qHxJ5=w1280",
+    "path": "/portfolio/piano-performance/02.jpg",
+    "width": 1280,
+    "height": 1936
+  },
+  {
+    "page": "acoustics",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sXH8V4rlDVSES7RD8pgwLULMhz4IgfdRrfr0HQAhoFwNBs8OnKAZ-t-VAtxzCwr8wxqtu1_nK0ddt6J5f5fyhFte-2vE4jpuz5iBOEBAWyYcgQhUDaEs02bJjROla4uc9_v1gSa2AAuULm9ff76vHDG_wuWj7hRZHKyDItffuiKAkEM5jYE0oueuX0QwXqte5Lue--8W7xSYwlKJBMrmrSa766-g8SDOzhaUbMzpY=w1280",
+    "path": "/portfolio/acoustics/01.png",
+    "width": 1280,
+    "height": 662
+  },
+  {
+    "page": "deep-learning",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sorWfpG0M4yO_CJCCtIiAwmRxPLMY3qCqLJ3tbewDMI2RtACqADeNmLEn_0rG4RNpNm6gC7vXwWutb4CmjBft7Ddtoy-lWpkZOpYG8M6XooBMaGH3wVwxJXZYgmGajt5V3yY2YTOsF9OOpAl8bGn-61NkkRx6l8mV-d_o2V8EBHtwYD96n-iYsE8n_Prt33vzE3iFgs5L4RFotYiogk5hFOyALaSzwSdZHMcsmhDU=w1280",
+    "path": "/portfolio/deep-learning/01.png",
+    "width": 1280,
+    "height": 711
+  },
+  {
+    "page": "music-genius",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vS_YEacho7WeFkPz3azTfjPWYOK-HTSV7AqErfhmvGoa_gtJmA7jQW-I6pQjA3bkpNRb1N30opfXRpoyLjCnyCQ4CH4474A-hC0cg176JBFOW6DvwAjriE-ObKbexmP18DLc8h-47SJvsRid3MLwd0yYyN7drUogmBBdM7Q79fB_NcbcLRTfzYgb_a9jF_0fICP1kHULDXQqGNiY2H6iGgexjmf9557Df1cpBUzTE=w1280",
+    "path": "/portfolio/music-genius/01.png",
+    "width": 1110,
+    "height": 271
+  },
+  {
+    "page": "music-genius",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vfO98c5Gx3iDVe5hKzSCRV0g6yhSIrSPzoYcXgk4LwydlAOlJLtkdFQ6B4cSeZ3ecl9yPsjfNgeFjjb_xMZbiwgi1I6RuhioQmKmJwh6ZtCmhrszcq87kJBDXF7WUS5hLBrGLtmOiNfKKU6q5bsMoeKhLVIVMByj36T2VmGkPeyPN3LN4Rf3WBuU0OhxwF2hpJ3TmH34BFWbLJqt9hfUL5U7hqhU1A05u7j8ISm0w=w1280",
+    "path": "/portfolio/music-genius/02.png",
+    "width": 1280,
+    "height": 480
+  },
+  {
+    "page": "music-genius",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72ssEJmPS9lLQhluX8p0VQTNzlHHcv6t_NuUBz6Z8tEBicGMHksiVfHyGboKxZ65EIWJdH2-S6l3MlGi0X83g4IUezgu4m3Y6BBdLgp1cOWeMryAPmgNIyzgmRJYr_VKlrpg54OiyzrphFT3IOf-zyTNA0s0rZUhQC8px385K1DI4XA08zGd07bvXAFhZi5GAtCetFJ0xJe1DbPd00rUSRIQUX_BN0PW7kkeh-1nQCI=w1280",
+    "path": "/portfolio/music-genius/03.png",
+    "width": 1280,
+    "height": 576
+  },
+  {
+    "page": "music-genius",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72ujtmWrf8zTJFsOptZhtBh18TYEbwuExJuhMHuveADAjcIYCaFLaPVuxLTM_Aqnk8okALJMKpJsqAsrKfia5WdrC7QD42dOZaizag2rNBpxsZ76ltl4Hes35W_YuzVIEdJWLkRtroyf2BjUyl_27UIGKtY0jjJqni4Pw1ozFIRSq80pWyE5E0CYbvWwtFw8IwO2zm6MwyypQ2ap8HV3BYgbD7_-u0ZdSalAoJ17kN8=w1280",
+    "path": "/portfolio/music-genius/04.png",
+    "width": 1050,
+    "height": 454
+  },
+  {
+    "page": "music-genius",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tPKlvaihmjSgm9eyEiQdykwkt0fJM1Hd2KLRU5DlSgHcq9nUl9LABlTfFpq6qQsXsWLb7BMZFf-FfxLu5yWVPNSclG_IwJaajBQuTmDC2kysbZYvAeqkZFSLz7CcKenPh0IG8eL0osaVSE8wHFrfg2djs6KQsJ9s6E-aWvoqT1EuFmPdFGD-q_nJ8Vcl7Y9B5i7DF6SRtf9eeDZP8jkq413s52l9QxzmRQd7HkIag=w1280",
+    "path": "/portfolio/music-genius/05.png",
+    "width": 1218,
+    "height": 618
+  },
+  {
+    "page": "music-genius",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tjU4ITUvhJbgbPBXsPNCIKsSXtR0UaPvy-VXnlMMvwek6nZxGkUBYQ4vmryFbePZtqPEEm6L-Ih9SkQXyFQd_Ag2IWyVOTO9JifSteq-MO0IGDTQOZosgPyDxizQtThWdB65s1lOokuBn2bjG51fBahJYGVsBfx3L5N7XmeX3EvGJ8ZNCJdjMfuXXiD-0jsIrQ1_hKSflaT-Svi42O4EA6c3_EcIuyyrSFPZJh=w1280",
+    "path": "/portfolio/music-genius/06.png",
+    "width": 924,
+    "height": 270
+  },
+  {
+    "page": "music-genius",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vZ93sXJ_v3Y7PjAKkVmLDkGHTcetoM8kVTvrqPj4ERVEgoj4JgRbJuJf0331BQiFCemPF61xb7V7H3RBk6gG1bOH8exizHQ1QTet45GCL_W-q2zYBIcgIcTOIvEEuilyD-l7JEGkWPmmcXf79up9BFmP2Uj8qMRel6OBHq9kGbdfi3CMiG_SFXxm4LWNFRI8qo06FWMbMzvaTiMSARWp5OQtO9nthl28qA4ZyB=w1280",
+    "path": "/portfolio/music-genius/07.png",
+    "width": 783,
+    "height": 344
+  },
+  {
+    "page": "hardware-analog",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vgqGNRivVDlFMiBZoLt-zixH_I4oT8mP_BYeW7DSODjnjDAXctZiDydbcvAlnJ2Q_WK3MNqyBS0k-h4wN0bP7fTzgVkmFNMzHixwppUOI1awKtq0FQtvC6G_ICG-MdGiN4BaP_EOr-PFal5SrSHI_RJpMrWvtc07WDddNWDAAIqreeQa0CxGO7mwTYLVSiiFkasl77Bo1769Xb24X5rguIclA47Eo5U588rPsVHY0=w1280",
+    "path": "/portfolio/hardware-analog/01.png",
+    "width": 1280,
+    "height": 976
+  },
+  {
+    "page": "hardware-analog",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vBZL_41Mbh1jyFUxjXtWpOwjJzidA3_F75i_qUoROZOgTu5h7Wn5bZh5A0L2dVFXJ7nKYlFthVnkU9AAEsCvrdm8D6hdLPfc8yGalxnG8pwz3aB4HK107vWwkOoJ0EDy4JVzLPvOyrOeoj0O1oU0J9UIeugroRSxyDV7Tvegscs7362BduxN3io_lidqj1zrgDhZfJZFaJAqxCnHawavweOiUyLTAR_gk7Sj9RkWQ=w1280",
+    "path": "/portfolio/hardware-analog/02.jpg",
+    "width": 1276,
+    "height": 1103
+  },
+  {
+    "page": "hardware-analog",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72smrH3bF9L1icy8tqX_-BgKfJqrLjYjRnIx6gJOxqmvghvyKn8ojJUN9c929pPROuPCpoJf24WszBO4_KSFGDQL11mCFoTm9gTtpGws4X2zaJR20yJjdGBuhlD6w6k4TrHzd3QPyVn0qg8gUL-H6_ru63PiTGUo1iFEKr8fuSMC7v7_rITTQ_-gbJwS6OYfhysQvjfcws6gOOsdvY3dJhbcomMlVRwqNynuljDu5ho=w1280",
+    "path": "/portfolio/hardware-analog/03.png",
+    "width": 1280,
+    "height": 994
+  },
+  {
+    "page": "harmony-hacker",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72v4TWrk_sIxVstnnNkgDMa8IRkaibgMooOXANFjA-nyEP9OYWvxeZteIRWU4CgtcDdvRDD7mKCHa1o6QKDdK7jRbat5UEhWcReVuH94aYQV54oy_BmlDtNABRm4FNfFsIMG6DblxHco-i0iEwmV51hmJAN9QAVkkWtYqsyD_b3tidu_EvILnYRLvvMux-wnlt4S8htKKnJY7zKoFqA2VJBelUjUI6nlDcfR-r6r12k=w1280",
+    "path": "/portfolio/harmony-hacker/01.png",
+    "width": 1280,
+    "height": 994
+  },
+  {
+    "page": "harmony-hacker",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72ssHIVuFtWK9DLtGvchz6IQr6JoTb4upf32OglviRquUYQF3m36-z3qQ7ngF_HOUg5ewBtcOx4uaQHydS_6DQra76bSHt6b2GHdO1YODHljSviOR9_xRaMj_Y01W1XBCMvt-3ti7JICeFXMmmQ1oKeOVQlQV9Jtu5KVC9friV56rnlb-2dqpIPzOcKMAbkv50vAYQM_FHY4evz05vM15joGC3aZLUzC_HcvZkUN=w1280",
+    "path": "/portfolio/harmony-hacker/02.png",
+    "width": 1197,
+    "height": 758
+  },
+  {
+    "page": "harmony-hacker",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vHhfWaZiN9iLqqQz2P_xPFUIz2zthhdTRVpK0UBrFDw_ar7dQaR14119fUDH815gp_OSFYRxc96s0CpJSRpd3iNsZC-7CaxlQZkJB2TfWdC9orvROOA3gu3K-wD2b3NpHNBPb6FPh1m6XyTLLUbjRAJNFNunPHnvhNgRVqQIBm9IAKupFCdLWIjAXMcqaXg8a79wjujBx9ypwPcKIDPp_pAzBHX55v4Dar1kYaFE0=w1280",
+    "path": "/portfolio/harmony-hacker/03.png",
+    "width": 1280,
+    "height": 705
+  },
+  {
+    "page": "pa-flrtrx",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tffJrYe_8kwcW7fDQBxxFQlclrtPoPyYVoGwjNsKiz4UwUnQ69uqIkhjY81h24b2R18qS3X85l3TeFJVedkSEfVeRs81CV3cDNPIkoeRTe-Bqws6GhbWmLMdLjtflFwJ-vOyxFpRwoRKBQmCcI24SIKrBWrP8R0A7WFtdqujENC006w0m7YYi_yomvIjW_kwwEIGcMjyt1NbavMLZxCgqVAv-nmBGwAcYMRLg7=w1280",
+    "path": "/portfolio/pa-flrtrx/01.png",
+    "width": 1280,
+    "height": 692
+  },
+  {
+    "page": "pa-flrtrx",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72szqAuwfVa0BroeoIyWMwDV2C4BCYBp38BWxP0xV4gF3BYW_lJ7drgG9Vw6zaedOKWl35whLEi5f1tUxihhY5Ql3_9wQHtO_QKp5APhwKQDkrGJ0MscDJQoYRvJbX8weqEhXNqd01_ix8_bn7Ecc1H0R5xoYt13oAMvRJm5kUGU4O2yQguo0o9PGoQAq2xlt2FOgi_pQ-XEzxLugAoDA6BxVeWxAquVoq14IRxp=w1280",
+    "path": "/portfolio/pa-flrtrx/02.jpg",
+    "width": 1280,
+    "height": 346
+  },
+  {
+    "page": "pa-flrtrx",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vcBoUhVw0oZHreNtokRvef4Ao02CGogZzUDswlyRFUY5bAA7aaaEKcjucDVci7b2JLmvcc1oCdy5bP3cf5PWgj8LnjrGCkm1onl2Ry_aIjzTsDWbSiuh2rRvcqkh9CjV-lKXpb0RzcmvHSb2QI84MC2GPmeo6nqSceoDpjaGGkbHxDHQuOBJ94vrpuDW3OsG9-ZB0aOwLHkOePMIEjFL1dQ0Hpl0zM6v9zbsQ8ZOE=w1280",
+    "path": "/portfolio/pa-flrtrx/03.png",
+    "width": 1280,
+    "height": 556
+  },
+  {
+    "page": "pa-flrtrx",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sE5LegnypP_W2Rk5btGhICJi694k6na8VzyWXBtld2XuuQGPF11KGpmdnWNqlPvUzG6BWiWeOsBz7VtDGy_hCAkr7sZqkUJup4tC0cStUMdEZBHPmtmIndqGKSInxPZacz7QloIEjmdktet9ytaPPrHrotoWcgePMfGdCNZuGp06WvoLtEnGIjA08Wm-Rv67Bsrq5E_jEvT9Jv8Gc3SILLSQ4ViIhjYzHsFiRZrkQ=w1280",
+    "path": "/portfolio/pa-flrtrx/04.png",
+    "width": 1280,
+    "height": 593
+  },
+  {
+    "page": "design-overview",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vlsGjvYahzSRMlwt0f2WbFqDQ8JUB7Dsgsz3d7g09ahuZ42Rqw7G9rt8lMpmi_nKc7tydxrTybjoGK47xRKrS4u_56mtPn-mhdfF99bNxa-69DQEQS9IaB4M2qa8UVx-LSAf7zgI0x6X5H5z88r5woHyOTru5woZZ0g7wz6sAuFV61tXaqr8iQhgYcW8IbhcsMQ3VmI2bYHgut2gq_ggFhaMU7vvZpfoCMbBUg=w1280",
+    "path": "/portfolio/design-overview/01.png",
+    "width": 1096,
+    "height": 762
+  },
+  {
+    "page": "design-overview",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72s4Kp2m-vhIskSTIfYFQ7u7Hc8u_W9VzcynUjNTYup2mqI2SNXne36JOok8bcsIpJEGs-Kcnz9nx3FDWIUIkiY2sQKm1M6iYonG12kfSBBd8UcBpMvkEwbPTYAWq0eFJanKQWWPR910U8qOguNPINNsv7nFgIh7V-sc8GWgVbQnchceImgsckUonZwBVxE_T8zIfObtr94iAmccIxO3MlW_ItQPPFT9ZyaOFGDHJuE=w1280",
+    "path": "/portfolio/design-overview/02.png",
+    "width": 1264,
+    "height": 740
+  },
+  {
+    "page": "design-overview",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tcnYHGenATbP8c_qRaGzmmdFXIoHKo0FdOIiDEPqy_B2FWj9jSLjwJ7jBegmTCuWXxljZCEx8r5X2-bRzXWHsIe9PtRkasxMBGH1qsF2xY4vL8w49o_QPwZm4Yh0AjVyfRUwEybnW6EZYRE_H_xsZGRM9eclYOWSQC4RGzUr9Lo_H4WNuxV6drSceXewXANFNFVdtvCMVF9X2OsBMBVdHMSCLBB4oqyx0fMoi12sY=w1280",
+    "path": "/portfolio/design-overview/03.png",
+    "width": 1280,
+    "height": 592
+  },
+  {
+    "page": "design-overview",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sH-jWL237L799f1KdAf0vRXYxF8f0_-u2ddoavCcdju0S_TG52hfw-ahkAQQZj6iXaO3w3O6c_fNXqCBW3hwRUduJYQkNoBwu39zepuJFgX6rD0cuTulGX55Ga2HROeeDxJw_Uzsxu_3RYiXlp5AAvXge75c6cMgeG-hbTH4U2PIFFbxS8GSgf2LeCLXHH7W5Gf-BkJdjQrCkEuS4QiccbgFkDJKsuqnv4GDuE9p8=w1280",
+    "path": "/portfolio/design-overview/04.png",
+    "width": 1280,
+    "height": 372
+  },
+  {
+    "page": "design-overview",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uWJSNM5mbzJXyFtcyP36JYkQ2oSr0_rs5yBiyaL_xZvGIhgYIpFeVKkjEktj55l62rycnGO4YEGz5c7sPFbFWxyRN58W5wwsJd_2SqLPK8BVJ8wGmy04iQFv-vEwXlE_Om0ATKL3SbHN1L0ihDyjDD3ppToLQf9HRHGeWJrd7V8r-caJtQEpiu5RUpUjZd_jrI7DvhLOW-UqdPrKLU8vhP7w1Tu0LMbUv7rfQcgfA=w1280",
+    "path": "/portfolio/design-overview/05.png",
+    "width": 1280,
+    "height": 571
+  },
+  {
+    "page": "hardware-design",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uOrl_-NrcmEcjUwR5FvauqczTrn2Lwh20F6-iX68yNbcUCZ2_ScLO1NUqE4znUI7svcES0nFRztzZBA5pu4JKMrCDlcjOw-eH-KOH9U7R3sk6NZmRrh8D87LpPkEpVyZJPnZQb44hzqEbGZe7I-pdsOxjqrUzaytWRvcMXwPGZugKmzHLDrCSPTgWcgguc3T7WuY5qpHorOJpb40OlEh3bwIr22dFElWmi088-akc=w1280",
+    "path": "/portfolio/hardware-design/01.png",
+    "width": 1181,
+    "height": 576
+  },
+  {
+    "page": "hardware-design",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uMqTqfJYz74OA3WnWFYpVRtNkL7zcQh3T7Ks6g681r8craDojzpAIU30AKzSUiBtoUcH8G1Zc6cc8en_3KV9NAZgUE6fpboEimP3rElTj024XRmRK45nv0OpcBzMGwA38Mob7GQtvSPBP-xmobTTw-WWPbjuL114k2Ve8H-d-MrTpkeDLx1cebrBPuUkQVBuCk5A6u7_TFDVnr2qfK7sd13FmV3kw_RYRJMdY1=w1280",
+    "path": "/portfolio/hardware-design/02.png",
+    "width": 1176,
+    "height": 574
+  },
+  {
+    "page": "hardware-design",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tutzrPQLfkX8YRmygUCmVAExECscCmWb1aMhnTF-xsFwHT2mAS0h6P2-L-s9Q9nvUaXIGpK_rj0cGt75oH7f3WSTM-YcJMonxCfxC3wYeiwMyMDGNwv72tBAZjw8LQyCEK-0QlxsY0uC0XEc9XdSvhf3FdORL-3M0kPV9YdDQ3r5pP9h68JMFl_543IvNKbcBACB2If_Y_gibLB1nNSN--hzsU-0omoE0Lr5xX=w1280",
+    "path": "/portfolio/hardware-design/03.png",
+    "width": 1280,
+    "height": 541
+  },
+  {
+    "page": "hardware-design",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vz9THyRbRkPBChyQPdLpRfoEU5G2EvrB0tAw5evvC2GQaubDD_I2e9Je2eeT-6qbdrZy0BumnUzlNqFsz7-SAgXaBgOgsMKf3El7KK49REZ_2tUC8TrzMTBGThwfEw-r98MzKIyf3rEPGSYJ7QKPWfHDfgC4ht2AbR3Nhw9hIZXm08UD5ADof-8Il9x9-qFIA1y8pSA1xCwrpL4d2taGL_9K1KehgwscNTNW5uj0w=w1280",
+    "path": "/portfolio/hardware-design/04.png",
+    "width": 1150,
+    "height": 576
+  },
+  {
+    "page": "hardware-design",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72ugQR6gNlxgdVHTfGKUAXEVgQADi-eKQUZ0vHVf6GgYa4a6MInS1GnL-x5idG-DAVJceMErTSUUn-VPh9_0C7GbMxafVQRnqWUqWvXlfphTFexh1ap6wjFc29aCEQf_XrEdDdRi5Rg0-qBftwgqUKqLa0J8O4bM4MXaRlzRkp_NyPxWzyw8Qi0R04BtvbFeeLmkz6rVnx8l8IpdJf2nbLE9uTg1zQ65mO1geAiN2fA=w1280",
+    "path": "/portfolio/hardware-design/05.png",
+    "width": 1280,
+    "height": 641
+  },
+  {
+    "page": "hardware-design",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72s6ofbZe32pyP_C6VeOE4c1K0xhvEIq01kYFIGVV-RuOu6NFTr0VeKfwj1-npBmakLcq44v4iLskiS2cbj4oxfzH_2CVs9CmSDoXRNFsSzXhR95YAniyRZCOcQM9nay1ywbTtRXIEHugw9SJGHXdMPNJbjcSsglHtCo_LXsB517a5Vbt8Ona5Vi2iBNlDBwTUrcmtHyL2MpVIvT-VHEi0hiDPXq5YhRa1aSZMf-s0E=w1280",
+    "path": "/portfolio/hardware-design/06.png",
+    "width": 1280,
+    "height": 663
+  },
+  {
+    "page": "next-step",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72s_flYUtf0500iXIhIoLSJ4b7OpYhBN2UtIe7vqlHKpbxynbV8w_gyfWcswSMFrW6id2hBRsRY-rsVAUx9Uh3uBBmdaO9S3W4erQJBm-3p6cWPPlzKoq-Q4G2zYYWXE9Jef1kSADT6nhQWwQBpC2O-pCB9Eu__jcY1ZJ4jmxnUvoc45Rjv0EDbIhTwlkGgiRTU2ytXcdorlufEPFsc-5bcj8ZqpRadUMFsqsY3j67w=w1280",
+    "path": "/portfolio/next-step/01.png",
+    "width": 1280,
+    "height": 598
+  },
+  {
+    "page": "next-step",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uZwI2meYOCaKiTS_V1u5jxh3lH8NEjKGbINGim2W1l7IxOLHB8zCxp11PTUs-zhu73jUX6ZUPA5O1a84uUXLRgbNoC8aSzhyZwagSDLmWwVGNpIkghcMCrJ98FdRe43xvXPmVbhO5blR0mJd3h-H3peSgBpdi6USxxKkHREabzfzgc-3xUMhhhYA23lpFK9nVI4g9PlSfEXSARLbebPBBZ9Sl0LoR5h0IUFyrZxJs=w1280",
+    "path": "/portfolio/next-step/02.png",
+    "width": 1280,
+    "height": 585
+  },
+  {
+    "page": "next-step",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tpQtVoRysVgr74ZJYG6md_ZP-RtagUKSNQapoWvVXMnNaUmitsg4ih0mAU9dMDB7de6Z4TBjhg0pLZHTX6nsLoutao4SP9dTLlxSWZjSoYctfapSFrnn5GIclv0rg6pjTaC0a3wn89FR7_MIVYN3K-KeUZmGtXgXVpijX0NTdEFxJZjjnzgTyg6EHPOeEcFTdEE8FamZFSWJxJvuQX07PpyqIag2KJTfZpT6oJbok=w1280",
+    "path": "/portfolio/next-step/03.png",
+    "width": 1280,
+    "height": 664
+  },
+  {
+    "page": "next-step",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sOkTEgLlHWNBI7hpMs9jGq_z60F809kF63M3F0QFyUJue179DZ3Jx1brMZVJMAIJ2kv3ItRgu2I82Thf1pG6O5QJP-qQnC-3AHOOQPBWt-1Ab_kKIkcukHfn9WplGsFVUe-bPQt8Ywmv0-0RbzE_X94X_y9d24nOg70EuWCq-3D3MBTC5eiS1ZrndpD6xVRSCBvp2Sp7O_6OeaRY9OhrluzY62oMgQF49BvTbR=w1280",
+    "path": "/portfolio/next-step/04.png",
+    "width": 1280,
+    "height": 615
+  },
+  {
+    "page": "next-step",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72v8J9dzW19caoshoqVOZOGsaIh-sW2xaf3IQFMnbz5yj7DgiwyBMV8CxWv9VPlsDI2Y1lxxu8Y1IQJIveAJ8tuD6H-ZVGFo6K_YUrzbA2csR8yI8EnzjszzsKYAIB1bw-0X1s1CChuP9FyG_J97QSHIfq8koqLlk1_qydK3xerumyjXjwmdRf_yOCUD-WkcdIamoO_XkFUYmaEp6KqKsqp-Xwswjc8Ucg6f0rc3opo=w1280",
+    "path": "/portfolio/next-step/05.png",
+    "width": 1280,
+    "height": 662
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uoMNyaeH27CyybBjEr7Ers85NBDVN_5K5fwq9ba4IwEoUAVXhEgH5IzB-24ElFiRDreZev8sU8GbCoYClnvxDod9kew40PJWAaz8v7R4tLfkaZNSUlvprFjbuIljrVcXYLDeUe6eRfveMIBExCjy6F7mJalE3luD5XY2DN7WAB3YHI9YqDNVwiSDS3-bI8NQj4_iTB_GkYKQPOOt6UL1NfjAlOpwfzn_j1hl8csg4=w1280",
+    "path": "/portfolio/schematic-simulation/01.png",
+    "width": 1112,
+    "height": 723
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72thYZj7u-iooVDzPnoplkrvrCFuM-Rg__VdzMTIMf41VnKCjq7gg3jMSsNjP8_BZCIW8QGGp4YBRqdPB77z_PFKPoFpgJRRgINCQ1o2lB-pmXhXFcrkv0HL-JsDKklvri9MbnI-aKB5waheUc-Gm4kIV2JsHm_OmGaIsvvkAmQUm_N_JFShvu6Hfy9rRC_4l8opnTxRmhfMyHMd2IG-blfilE-y7AbMtn-u0N6-pWQ=w1280",
+    "path": "/portfolio/schematic-simulation/02.png",
+    "width": 1280,
+    "height": 570
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tCx7vUGUU9a1m064lXfm-N_GsON1av0nGLC53fGHpXcC2OFna9aTLjxjDP7M-E49lwYz9NUgB2t6HNxTvgKZmDu2ZQlmBnyrpIx2nNE4fVhuoxH89BjAOH-kA7-eJWDP3bubwhwVzbRNOb4nIZqAuI37z5q1O08RESoprp24FknGO3L4D4Qwq_kSBIVyHyTNMoOn5yUYxHuexMyn0_-DThkd7wa-Q9FWdEF9Ys=w1280",
+    "path": "/portfolio/schematic-simulation/03.png",
+    "width": 1096,
+    "height": 559
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72u1RDdDhyp5UXi8w9klK70NcJBtmIN60LTA3ba1daJy6bxEHFgCmo0y3HYazkKZjTrXv_Lkm_jCOLbijlmOUFhRK_wYmhNddxwdwQJ3oANwL1r7w3SBKTB46YS0FzpwjgV6lpY9ue-jJTM47XH-RFCke7L20MTxod7XZjNNdNpyms_K4g8i4xwBxZLZmllqtahE5SqC8iMkoUqZTId1-kHubfMxg1LIs0VnxWWtH0E=w1280",
+    "path": "/portfolio/schematic-simulation/04.png",
+    "width": 1056,
+    "height": 471
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tSwwQDOLHaON6rGan2f5zytfPi1SR-aIZoJEG7lOxGQ2-uK8AWFgpZ02SAe8mShYFZWvoQongRjknp1CsTlQJSImEn0WS-_vjeroBwwTbVaeoHswlqNToDto5CprFkhcuqr8nS5y38wDM_9DUu8eM2UH4TXSU6xZKOCBpnYRknyfNrF9YKQjA_1zk4fp0O1dgHfOiPUFFhOameJDwpIhIHbmz80E4uVcG9Mw_2h20=w1280",
+    "path": "/portfolio/schematic-simulation/05.png",
+    "width": 1144,
+    "height": 526
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tN6DSjrLe6H6dMFhfCigunBhk5pgL8CcQ2ofwRNKYS0BTPMNCxeENWf7ANYu8JC5-FcmXpFExWiJVGfCHeyRxXDFIWmw78Rk8YnDO54SiJDF8XHF6omAN75gD3rlCwL_QR5RHkpOBopvWo41TE44YsWhYSYP5K3EM55O7sZzC9wg2VrX-5QaY8CUW-aoLiLijwZKcEoo_hMSmLLCIuvPIphpGtn-CqvNu7PTb4iOw=w1280",
+    "path": "/portfolio/schematic-simulation/06.png",
+    "width": 1280,
+    "height": 653
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tALj5MLHhmHVJ_1t_u8QK7vme50Yn5I6kiG858byYZXA2oyswv15UI0Kh68xXxebmW84qBBHm5sgkeLw5fz8IuEz5xyGSL-4mnbiO-fNVYih2hikzLhajIaV1iiqH5MFBISxoAxIbHJPdPcwGmx96NbHfB78U54SbhhrMUfgXz-9hwrkZa-6qtFoqPCnpWwsaCb64_PzQUUR9OwrSF9xKXZz1a2BwIznePiMZI=w1280",
+    "path": "/portfolio/schematic-simulation/07.png",
+    "width": 1280,
+    "height": 591
+  },
+  {
+    "page": "schematic-simulation",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72v5y888fDVcLbfF7b4H8gfSQWkkZd8X4jac8IEI5d3oYJ5kPZqN80WrdjX2qZ_L1lNaHEcjNFHlJYqfyyyewOQfqhgquxTw10EL49MjXDyjtv_Ue_IZH-43bCnTNn6kUVL6-Bn7eRaRN2L65Beh5IjBIgvfOLwlP7njr95gL2AzvKT_uInjDgyZ71veBP34XynUKkoxQs_2rrFMD6KOavj_ruuCQ-s14XCtRHLiwJU=w1280",
+    "path": "/portfolio/schematic-simulation/08.png",
+    "width": 1156,
+    "height": 534
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uMj5koeWyWxlagUkFW-YtqLQnRXMbvH2ma_pYpHvC0c7i5UrWnOCFiCaaEF-eYfZkVvIoIO2YHTnlaBY9ISd4H5qEIrDcdNnEuT8ur5X3nkEoQBVs3ptR08unwJFprCX8IhUG_-FLAF276-TCLraxFSvb930m6jlkJx8lE7zNcY5Ewbkwy5itZpE60H3-m8zEuqCCUh4tmblxbbgmGK0F-TJSm_OP5JzfXzw=w1280",
+    "path": "/portfolio/testing/01.png",
+    "width": 1280,
+    "height": 796
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tUBPBdvAj7VfmyszNRSrIh6Q56FIjXzqlsAPNsZ5eyskN9gdxnUmoGaRt_83oape8VpBpvxkZAcixE1P9d4MTDBUWwn_NLlN_PHKuLqOfQwYzdmHXd8Mks4BIx7cSSbMeE2FFrLva9hiQm8_TiyBJDph3X9_fKnR0_Yj2vAyFOwowL6ouCvinOJtsIC1sgOilP7dT_x4yFlrKXD97_5Kgf3s5QZ4yZ5PT32E1Ji_g=w1280",
+    "path": "/portfolio/testing/02.png",
+    "width": 1280,
+    "height": 616
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72t7josE6pBXWCS4UKqkIjQ20dDdnVYxdpguOmdgQmyANpgJtUO7yusX_G_rIWw5wH55feGRDLQ_n5SaGJXiFqOkFp6r9EJQ-bhsbYZiAy8ik_ZQB0mb5wmWzohL4tSmcpDfjDSRKRQH_wtmVemPxZHlMKIJbHmaxYNsl8i9D-XkVSrScsPQ_vSwSX3dgtVJo45em3_iEeIX_E1hgAQrtZ6b-qAuMVaF2CvytftEjZI=w1280",
+    "path": "/portfolio/testing/03.jpg",
+    "width": 1280,
+    "height": 960
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72svir8GIMoX97r9Iqaod4yh_XAMxMEijPvuQbvjjfhEPtZUFnx3m8rjZYZuyYeQcq5bX3w6rZ44KT_6jn52DdQKHXvYaAoCyZIn5zYNHA-t-fejEuJoGmoxEZKxCtDW8-z3S16Gxtl7JpK-6huBzP1h9BIJOGYojqYxXGwbw69n80TihFKPNJlTjUYh0UmymaS7GWD7eLLq_hCG2rVdcNxFmILKS03PqQbb6Tweq_g=w1280",
+    "path": "/portfolio/testing/04.png",
+    "width": 1280,
+    "height": 595
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uVne-V07xe27WahrakniHZxLw-aHBm_73romiF6Qqcx8rtpLSTDM453oYlesm5vN9Eyc0NG-RpUwSTAGJ2OioQR6vwJkRTNcDpy1cLF8WNUW_A7vOMuI3TLx2QEn0pIwc-ea_dfcLf82hpZGwVQf0Bj89UltLg7xg2TlvLICc-_ZFiNcbkgFQf4ti73tlqvAOIRcjpIA66mR-w2bdE-pOKBcQaxBLlvUt8RxA5qDo=w1280",
+    "path": "/portfolio/testing/05.png",
+    "width": 1280,
+    "height": 669
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72u3PYRgg-iKAevl_3KD2Bgku8kBxwCmt3nOGmsCnLuU_oTraQorS7eIR60v9jYamqoZAgXjtKkGHSdtLMHibECWGGXSWNQcj3JD1FXdaY213ewzP1PuhuzxTCbyP8JQvViEscoqYesZnoaT0uaNMDhvC-bgebZAbKr4ttn_3fSpZb8_kfTDMC8kafWdPuYXxJNkrwtNeNaGgGnIX9UQtSZ7DwlmkeAraUW1Mc8TkhA=w1280",
+    "path": "/portfolio/testing/06.png",
+    "width": 1280,
+    "height": 630
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uTI4LRvR8qLj_bpQGzZf9AFLEvFPwl_5Q4O6dH8zpUsXkOWfkhn3YQztXewPrDXCRpL0-sjUjlBzJwccKzcQUUxXSb8kmrhk4SAtZg-lydO6YQ3W0M9rk2zhLnWEY1ayy0CyLFtQECyc8MaZGQGawUwh5N30vd5wxUhaS9ACjd70Pn7coRiC5mBTnAeUE=w1280",
+    "path": "/portfolio/testing/07.jpg",
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "page": "testing",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72v2b3LbTbd_10zLfEwD91vcxCbtOPiA0knKAV-wDFMyrXH0wmDsSiEgpJFvfswjohr03rj3X4z7u1RiUHZe97lVWMD_TxfahxLlZTn4RU3EWC6OTrIqOHu3xScUN1zVNmsFqsuSts3cLS9gEcq3w6lrodpfeH7S3_6vSUFGTy1U9UuxTAC3BEvJFja4pOp08rbbPcPUyjYr6EN0e9tljK70W6kKCmsh4LzIIU6M=w1280",
+    "path": "/portfolio/testing/08.png",
+    "width": 1270,
+    "height": 644
+  },
+  {
+    "page": "soul-manager",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tK3FhZmwYQGANjmzbd5BoTaMjLP5IKg9oTOnW_-DKI4-BU-nPzgZxuZYPodTIWf73QKSZlHVTvWAMI7PcyN0JAaCYkRtfAKRDF4IqEQGX1VZDnCbCuJ4mR-B9PbJ-6PiLsx7XP2eFSdIYWEjjwhnKkHD2pn_bMX1tZQTZ7QIEFS-f5plHUXxmbinL4t-t6iCPGEq69L9UAcCVm9D_ZG7RgRSXaSo7PqIkZFzC_97Q=w1280",
+    "path": "/portfolio/soul-manager/01.jpg",
+    "width": 1276,
+    "height": 1103
+  },
+  {
+    "page": "ghostless-halloween-arcade-shooter-game",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72v9WkaIIzazFN3YimyaaabL6fX20gWUaLRsbQ84FFoCr50usukNC5XkhD59WgmE_21k-VlH0HaXGy2jkT8XBra3usLrj2zW5pzuq0BMhMO4PhnsiRmpiEqP7bNMy66xmlCJbvtH4ypDMFvyUDBPecB5yor71044giYCdwGmHz2La4nalvc7oCFqbz8qjkLR3Pj37m0OtGRDOlb0kZHtJMOgdsQswj6mroloTlHN=w1280",
+    "path": "/portfolio/ghostless-halloween-arcade-shooter-game/01.png",
+    "width": 1280,
+    "height": 536
+  },
+  {
+    "page": "mechanical-hardware",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72swXtf9Ixhi0IEgMiY7pxvq3-SMsJf1nli89_3l-fg6SplGelX_FXDALjYkqunmsYEG7pU_eoy6DM3_t5s8FNWXU1VCB6mx68Ha3StqDsN0gXYMWR55RbMiXYnqpkyjxktpiMjMNjny0e3iFrSJ5aWKH7WCuay5HQsUR-yUtvGfEwGy-RnCA4ud5N1qhK5JoFtXMN9U8vfrYxdOixxTik6-P6Jpr12cenh9pnnn=w1280",
+    "path": "/portfolio/mechanical-hardware/01.png",
+    "width": 1280,
+    "height": 519
+  },
+  {
+    "page": "mechanical-hardware",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72slc3p1933OYz2hG6tc8_-bV2jUL-FcbIwFQ6IAnXjbEV47mPNk_apHvOqxqL6IK31j1d83_8tsHdiJWV1Vi6_DVibj73yBPNOFuJ38KvgQP9zWB_2PDoaVKcVSE7WaKjnFAwRfFsPTpq6LN4WR-40tPOlSlL00SB2-lk4y-bzVP1xHBwxU2sgtg3gwwXDOECApFaMUOGNvSYCE3W4OJ--N527kpQdPdj3OLvZ4=w1280",
+    "path": "/portfolio/mechanical-hardware/02.jpg",
+    "width": 1000,
+    "height": 652
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sEJgp6A-TVTwqPdbGisBSdNSMiDuStTeojnKHVIQEiQHr6WHJ0bw7R1SIruIhC0x_l6TyUtGOMfshtti-oZ5FOEDvOaTFPBhNFLw6oXduhVEqcweh3widDxBOil8V9MsBrmC0I3_QpyonUUxNr7Xp2KQc8hgoFi7LcnavgG7SY08-RkuJt2h0Xyvos6tq1UWxNzJf2RTQPwGGvWftIMYmwFyAx1EJ-K0YnnfTKwmE=w1280",
+    "path": "/portfolio/5gw-tsticks/01.png",
+    "width": 892,
+    "height": 1202
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tNmP0n2pOyrLIoZwt-i-yaxHA3mQYYBgw7L2C_NagNDNywDTivQ_RaHtKka7lb_cAlyJ1aB0zjUsKGJM5xdknaAlRDOndX0KHpbDoANB2ZzYv5v8wXGFphKiueLVYoWBjziicJXKmQZ--WBFVxlEHYlpTy6ERmjAcSUySXsem6KmVxoiwF8L60ZUe5eWMaHSin54bKFmWG7wUWRMCNKdb_f8H_Fd04FGq34sujRio=w1280",
+    "path": "/portfolio/5gw-tsticks/02.png",
+    "width": 876,
+    "height": 1136
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72u8ZqCizfbsvNouU9rLQODOkWfPPSQ1bQ0dmydWkNKzymw9XREYZmCDteXQ0FOOPHEoXAVpB3rJcI7W2l5hKERw22PTzV6-nseBDxW5fWkI00EhxOPxmJAf1nBfW28wiMI5hsU781otmq3cla9_4cok2xX21qKDhjNikwJD0tzziBSBGUyiot1e6YX7Bc6EI2NUocsflSvjZH7wHwtRK9d8M15SJ4SkJWVt_GLa0Io=w1280",
+    "path": "/portfolio/5gw-tsticks/03.png",
+    "width": 1256,
+    "height": 642
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vOIVDtmkNBQ3YkSHH8_UwL_JZOXhzC6Xa7EpGrYDqBEEx3xsmGSwgC8puo6hDT5Xp5wW0b11YA628ID4jCH1zhz_K2OF9qjskGJwh-qvkiyTGwz11quZSFVee-0dsDn9jr9QMHJWKW6KkJMl5otuakobI0I9ZdSsqKTJAmuBqJG5AckdOyg7WcCUJbkxETMTVRj7rGidAtz7z4JDVVgWlTjRNeTcqEvWYNZgzV=w1280",
+    "path": "/portfolio/5gw-tsticks/04.png",
+    "width": 1280,
+    "height": 815
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uJlxcsFO3eLj2ATj0GUi2oFnq7VDcoP3PbWP05WdeURVcPecgrzGGNwK5d7sbMKTLGqFurgv0cXsHAL5UkrHu-rGMijL_22YLJzP-Ho9qcN5H8YrGdQlAe7RuI_qB0P_E44QO20qWqLRTlFn6UUFYKPhDCqcjkrNPcBdOif4OUaUYRWMFTOhYnJ5f1eJ_vHAYaFcm3otT1Q9u4ld_6GXAVm_TwhO4euLI2LEpgP58=w1280",
+    "path": "/portfolio/5gw-tsticks/05.png",
+    "width": 1068,
+    "height": 990
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72t1USg0cxi67VZRszEPgcFzWnXPImQ7j_d61cmZA5vBEL7DpLiWbOrhYSZojnLj8L7071a1SVhCu7yU3GqUNpDsz34EJ2Kfy7i5W5kQ5CI_RiqAaDf52VknFa25gqPCD9JEUpSHRADJ0i3DckJFunPHYG62_O3B9p6TZkW2FGYENbvAzU7mTZfclWwrHSUHYHwBgs1BOiLYDPvqEC7Vl1lSzwyzA9193D9vKwNV1fQ=w1280",
+    "path": "/portfolio/5gw-tsticks/06.png",
+    "width": 1082,
+    "height": 593
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uMrj6mMDuKqY9vb5q0hbs45M512441eENBqbNcFBLhQBF8FaDjleVj38_WVGHAtfZmGf2e6LBsXL44cSwTxFjLuD-8PgDwEeUpAfSelGEog_9dqhx5GJ6zxaUJlIW16Ufs3bw90aMsMHBf8A9dL7dlCnG95yhAslKGgSIS-OPOE3QFMK0HROkrEgl4f0P_QsQt5_cVEhc1HrRMsXXvftJk6wp78tGD3apq3FJWcjo=w1280",
+    "path": "/portfolio/5gw-tsticks/07.png",
+    "width": 1076,
+    "height": 585
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tlJoa1KAfxYq5Y6gFy8MxBfF8YOu7MgJ6IlLI6SP59Wtw1TdKLRAL--VN0Bv_pZIqoPC0QZtnUj0qzH6I9w8pUdcGj2Pov0qkGj8c7j5mOSstsq98M0HOcZkUzl_1JnnVhHhM6aVF2gnuCcdv_SLfLw7jZQn0aT_hzMUJm1HfJwNaQqImJzk534YLWmnZd0Tc81I5Q9NpS3BFhlH-UxDWL1ReuITH9eWcqUXgS=w1280",
+    "path": "/portfolio/5gw-tsticks/08.png",
+    "width": 933,
+    "height": 618
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uReExNEi_Vy1loYfcRxyG49gVzWnlO1ZnuDGPUz2gB-sMsls9w7rIjf3Ye734L2lMJdJJvmewrLkn5Yg7LP2GGittG0zVjXK09buavDj9qCsiikwEDS0nVFto85jkTotDXqs-SOpt7wGe-VTpvtAvX5DybwDONLBsrd4zPcFu43Tr2lAyyymO6CXOkTjjHk0EI1uYSiEWJpX_0RDsYmwCl4a3pn_51TrAMngUr=w1280",
+    "path": "/portfolio/5gw-tsticks/09.png",
+    "width": 1158,
+    "height": 676
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72v7SG4RIMuRXJniwSFoHMgNG4FgtGgRX0C6dvpTtDbWB1jjjhdDqWDV6_FpPLhKeMCuBUfmfO6-1ohozKsOfh_cciE_sCBPdpdhYn23TYw1fRBT13cxKG3vMqB4vy1rkOCFGEcaxDm3KWOe-TWjIVG_Zr6i-rwZWdpRV0zBgGTvET1EGoSxEOwQL8-J-ZEtd1ObIEMwXatHX6C4EMh3DmyKrB3hOsNe0Sil0tSSDLQ=w1280",
+    "path": "/portfolio/5gw-tsticks/10.png",
+    "width": 1044,
+    "height": 604
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72vUh8l1wipHpICJ_V1srwDyQjRSTArIOWDg56NYsNGW_RSrIgPZhk1zkuicXBDb2C1MIuMYLyH9rGEbL9DK4PQhujseHczaKsCyJ9FTXAUiPQG0LRZ5devg4ivuM7oZfEeFHmyTWdDCHen3WA5Dmo0F0ROh55bWfhh4L00BoeihvKQDddNp679C2HWNzwJeKmnF6PUcL5k2ccnM4yyEcD6G_Xkp1tow3lZzf6lsLy8=w1280",
+    "path": "/portfolio/5gw-tsticks/11.png",
+    "width": 1280,
+    "height": 654
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72sIO3zFMmPP04ZwT6pW646d0hIcR92bsvBfCJXjyPj0Lof_rkFkeEUlk51YhunTqxUJ-TKce-EtJ9YQUg6rowHd2BhDLI5DdGw3GNWq6yHOuvKhT39G-FcCFMAsEB6xwQZGK78hFrOEwzfogdJmKnlwa1rChFqE0V9IlQKuvFDxlS5ZGyoORUxcqLeRd2o2IbWRgldB1yLAx7fCiz5tfkSWDxKyhazesasta_JV=w1280",
+    "path": "/portfolio/5gw-tsticks/12.png",
+    "width": 1123,
+    "height": 504
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72s2sekLQ-LgLvf1xO6tt-JncDdSz0iMT2Vpp6skCEmy9vwqsr2DP8bDRDJt4IJPhicP_RV8wujq5D7LCKDw6pGeYQEpLCviNijBHgC5_WfYPZ8ziZKqe7QZOfl63pCH2fpa8JxKmm3flmIH1u9ckSWqUE6JF0KMw_C3qIU8EXGthriqXXydow4K0SXLSKesLgGdb8sVJN51FUf17j9IkGyQmVav5Ti0fh0oVo1PlyU=w1280",
+    "path": "/portfolio/5gw-tsticks/13.png",
+    "width": 1280,
+    "height": 706
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72uC97MdMvl4DeLgyaG46NEi1FmYXjUtSyA5E8pwjXDQ8G-6INQBcgqLur6ZwMbxao36deTHHCBXz8K3llRw0N1hhaoJeoX1fgu9P-FxKrAGg_zCd64VEFw0gyKRnkV_-FL1iiEET9BAwuAG-FFkx9YEGmdXECMCXpD4s6gTQg80st7GS9ryUWlKCUTsvzth858DGHq5c62mpVk5bInx-WWx6OXKpEin1Bl5uHBCtek=w1280",
+    "path": "/portfolio/5gw-tsticks/14.png",
+    "width": 1280,
+    "height": 857
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tV4nsTQfahZk1j68x5Empfp2QdYBEyTbSosj6-bRANE6FqBkQt__Wr9gZZ97xuY2awye13WZk5dGVWdfGhVcGbqlH5MaV1aLcKVusRIAQchBL9vSbEmit3iGSEOaOMUh0DUb-BWjVFVy1AaQGt_MGVr56k64aA3tYFJ_5jFLGH7FpUwE5OEJBCBQj1qKXyxn_We_RrdFIWF0zut1ugmJkkwOMBUyta66Vfc6reQig=w1280",
+    "path": "/portfolio/5gw-tsticks/15.png",
+    "width": 960,
+    "height": 506
+  },
+  {
+    "page": "5gw-tsticks",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72s_CN-60ewCu2EWbV4tvMlyPL5NzvUj7tmRtl5IGOcfhIJXh-2Iaa790Bjpb9HCBXRo61C8pRtNumZoOxIIeK2MsDL8ta2YPZKmRFmQtfCJz0ydBEHgFhh3vGgjgyK6lgg-ItyXjAuc8yHg0J2RTQQjLED5nwGQMpEY6Prn8bkVh9VNTZqakfvV8-kagke3NmsnHRp4-6aPx387hKrNu6j2cyaSl5hLzpc_lU5W=w1280",
+    "path": "/portfolio/5gw-tsticks/16.png",
+    "width": 1168,
+    "height": 578
+  },
+  {
+    "page": "helispin",
+    "source": "https://sites.google.com/sitesv-images-rt/AMxu72tbh3ZNfcpz6JgPF1eQuR2_5_6IcrRUTDsG81NaoYamb--NnR6o2ERQ3TQhlk7U65yw3dG8YpbsrQciva9zVwHCgeEaXzhi-7Bj4nfKK1Y0XzcQFtYanjidSJIV2HkUr2lPx3i93JKJvCjnGPKx5Q_laIaoHAV8iQfDnJ69oqMrHd7yGN24GvKVzUbCKfillefY3TyCixOG-ofRik1uh0GhzyqJZDDhcOty1uZI=w1280",
+    "path": "/portfolio/helispin/01.jpg",
+    "width": 1000,
+    "height": 651
+  }
+]

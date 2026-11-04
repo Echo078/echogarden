@@ -1,0 +1,1159 @@
+{
+  "echos-music": {
+    "title": "Echo's Music",
+    "sourceUrl": "https://sites.google.com/view/helloecho/echos-music",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Piano Performance"
+      },
+      {
+        "type": "paragraph",
+        "text": "With over 16 years of classical piano training, I am currently pursuing a Music Performance minor at the University of Toronto’s Faculty of Music, alongside my studies in Electrical Engineering. My passion lies in the expressive worlds of Romantic and contemporary piano music, where emotion meets innovation."
+      },
+      {
+        "type": "paragraph",
+        "text": "Click below to explore some of my past performances and discover the pieces I’m currently working on—each one a step in my continuing journey as both an engineer and a musician."
+      },
+      {
+        "type": "heading",
+        "text": "Music Production"
+      },
+      {
+        "type": "paragraph",
+        "text": "Driven by a deep curiosity for how communication systems apply to sound and music, I’ve explored this intersection through coursework in music recording and acoustics. These experiences led me to work as an audio engineer in a professional studio environment, where I gained hands-on experience in mixing, recording, and mastering contemporary classical music. I also deepened my understanding of critical listening and music perception—essential skills for both creative and technical audio work."
+      },
+      {
+        "type": "paragraph",
+        "text": "As a student member of the Audio Engineering Society (AES), I actively participate in events with enthusiasm and connecting with industry professionals to broaden my knowledge and stay engaged with the evolving world of audio technology."
+      }
+    ]
+  },
+  "music-production": {
+    "title": "From Waveform to Emotion...",
+    "sourceUrl": "https://sites.google.com/view/helloecho/echos-music/music-production",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/portfolio/music-production/01.jpg",
+        "alt": "From Waveform to Emotion... — From Waveform to Emotion..., source figure 1",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "type": "paragraph",
+        "text": "Distance de Fée by Toru Takemitsu, performed by Yolanda Tapia (piano) and Roan Ma (violin), is a delicate and atmospheric work that I had the privilege of recording, mixing, and mastering as my final project for DMU313. Captured in room EJB130 at UofT Faculty of Music using a carefully designed six-microphone setup, the production focused on preserving spatial realism, tone color, and emotional subtlety—highlighting the piece’s ethereal textures and expressive dialogue between instruments. The post-production process involved detailed editing, phase alignment, EQ sculpting, and reverberation design to bring the performance to life."
+      },
+      {
+        "type": "paragraph",
+        "text": "🎧 Listen to the final mix on SoundCloud by clicking the left image and view the full recording documentation here for an in-depth look at session planning, mic choices, and mixing strategies."
+      },
+      {
+        "type": "paragraph",
+        "text": "--------  April, 2025"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-production/02.jpg",
+        "alt": "From Waveform to Emotion... — From Waveform to Emotion..., source figure 2",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "type": "paragraph",
+        "text": "Improvisation in A-Flat is a piano work performed by sound designer and composer Shawn Boulet, recorded by Echo and students from the Faculty of Music at the University of Toronto. The piece captures a dynamic and spatially rich improvisation through a multi-microphone setup and detailed post-production work. Mixed and mastered by me, the final track blends close-mic clarity with ambient warmth, evoking the sensation of sound echoing through an open valley."
+      },
+      {
+        "type": "paragraph",
+        "text": "🎧 Listen on SoundCloud by clicking the left image and access the full recording documentation here to explore the session setup, mic choices, and detailed mixing techniques."
+      },
+      {
+        "type": "paragraph",
+        "text": "--------  February, 2025"
+      }
+    ]
+  },
+  "piano-performance": {
+    "title": "On the Journey of Sound & Soul...",
+    "sourceUrl": "https://sites.google.com/view/helloecho/echos-music/piano-performance",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/portfolio/piano-performance/01.jpg",
+        "alt": "On the Journey of Sound & Soul... — On the Journey of Sound & Soul..., source figure 1",
+        "width": 1280,
+        "height": 1945
+      },
+      {
+        "type": "paragraph",
+        "text": "I began classical piano training at the age of four, and what started as a childhood hobby has grown into an inseparable part of my identity. Now pursuing a Music Performance minor at the University of Toronto alongside my studies in Electrical Engineering, I’ve come to see piano not just as a technical pursuit, but as a powerful language of emotion and connection."
+      },
+      {
+        "type": "paragraph",
+        "text": "Over the years, my perspective has evolved—from focusing on precision and technique to embracing the deeper artistry of performance: how to express myself, interpret the composer’s intentions, and invite the audience into each piece’s emotional world. My foundational technique was shaped by studying the works of Bach, Mozart, Haydn, and Liszt—pieces that trained my discipline, touch, and sense of phrasing."
+      },
+      {
+        "type": "paragraph",
+        "text": "This page is a window into my musical journey—featuring past performances, ongoing projects, and the pieces that continue to shape my growth as both a pianist and a storyteller through sound."
+      },
+      {
+        "type": "paragraph",
+        "text": "Currently, I’m exploring a diverse repertoire, including:"
+      },
+      {
+        "type": "paragraph",
+        "text": "\"Numa Ame\" by Chinese composer Zhang Zhao, a poetic and contemporary piece filled with delicate textures and subtle colors,"
+      },
+      {
+        "type": "paragraph",
+        "text": "Franz Schubert’s Six Moments Musicaux, a series of lyrical miniatures that demand both sensitivity and nuance,"
+      },
+      {
+        "type": "paragraph",
+        "text": "And several Mozart sonatas, including KV 309, K 485, and K 331—each one revealing a different side of his clarity, charm, and emotional depth."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/piano-performance/02.jpg",
+        "alt": "On the Journey of Sound & Soul... — On the Journey of Sound & Soul..., source figure 2",
+        "width": 1280,
+        "height": 1936
+      },
+      {
+        "type": "youtube",
+        "videoId": "QoyciVdkIsc",
+        "title": "PMU299 Numa Ame - Side Video"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is an unpublished recording of my performance of Numa Ame at the 2025 Showcase Recital, presented jointly by the Faculty of Applied Science & Engineering and the Faculty of Music at Hart House, University of Toronto. A formal release—including mixed audio and video of the full program—is currently in progress."
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projects Category",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Mechanical & Hardware ↗️"
+      },
+      {
+        "type": "paragraph",
+        "text": "Hardware - Analog ↗️"
+      },
+      {
+        "type": "paragraph",
+        "text": "Hardware - Digital ↗️"
+      },
+      {
+        "type": "paragraph",
+        "text": "Acoustics ↗️"
+      },
+      {
+        "type": "paragraph",
+        "text": "Deep Learning ↗️"
+      }
+    ]
+  },
+  "acoustics": {
+    "title": "Acoustics",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/acoustics",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Acoustics Analysis of Instrument Pairings ↗️"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/acoustics/01.png",
+        "alt": "Acoustics — Acoustics, source figure 1",
+        "width": 1280,
+        "height": 662
+      },
+      {
+        "type": "paragraph",
+        "text": "Sep, 2024 - Present"
+      },
+      {
+        "type": "paragraph",
+        "text": "My final project for the sensory communication course where I onducted acoustic analysis of 5 instruments from Europe, Africa, and the US in solo and chamber performances."
+      }
+    ]
+  },
+  "acoustic-analysis-of-music-pairings": {
+    "title": "Musical Acoustics Analysis of Instrument Pairings",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/acoustics/acoustic-analysis-of-music-pairings",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Futher Explaination and code could be view from google drive & Github links above"
+      },
+      {
+        "type": "heading",
+        "text": "Abstract"
+      },
+      {
+        "type": "paragraph",
+        "text": "This study investigates how the acoustic properties of instruments from different cultures contribute to their unique sounds and compatibility when paired. By analyzing the waveforms and spectral characteristics of various instruments (namely, the kazoo, tongue drum, flute, timpani, and kalimba), we assess their frequency distributions/harmonics, flatness, and spectral entropy. Results indicate that instrument pairings from the same cultural region exhibit lower spectral entropy, concentrated harmonics, and higher spectral magnitudes, creating more harmonious interactions. In contrast, cross-cultural pairings display greater randomness and reduced harmonic compatibility. These findings suggest a strong link between the cultural origin of instruments, their acoustic properties, and their perceived musical compatibility, offering insights for sound design and innovative cross-cultural music production."
+      },
+      {
+        "type": "heading",
+        "text": "Introduction"
+      },
+      {
+        "type": "paragraph",
+        "text": "Music is central to cultures worldwide, with the acoustic properties of instruments defining their unique sounds. This project examines how the materials and sound waves of various instruments influence their sonic qualities, focusing on cross-cultural pairings, such as combining Chinese and European or Brazilian instruments. By exploring these interactions, we aim to uncover new possibilities for sound design, music production, and cross-cultural collaboration."
+      },
+      {
+        "type": "heading",
+        "text": "Background"
+      },
+      {
+        "type": "paragraph",
+        "text": "Cultural differences in music are often easily recognizable, primarily due to variations in music theory—such as scales, harmonies, rhythms, and meters. For instance, a Scottish jig played on a trumpet is still recognizable but may feel out of place, while the same jig on bagpipes fits perfectly within its cultural context. This illustrates how instrumentation influences timbre, which is shaped by the sound’s frequency spectrum and envelope. Our goal is to explore instrument pairings not only between Chinese and Western instruments, as discussed in this research (\\cite{liu2022comparison}), but also across other cultures. We aim to examine the physical characteristics of these instruments and how they interact both within and across different cultural contexts, offering scientific insights into the reasons behind diverse cultural instrumentations."
+      }
+    ]
+  },
+  "deep-learning": {
+    "title": "Deep Learning",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/deep-learning",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Music Genius ↗️"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/deep-learning/01.png",
+        "alt": "Deep Learning — Deep Learning, source figure 1",
+        "width": 1280,
+        "height": 711
+      },
+      {
+        "type": "paragraph",
+        "text": "June, 2023 - September, 2023"
+      },
+      {
+        "type": "paragraph",
+        "text": "A deep learning project to  inspiring composers, fostering creativity, and exploring different music genres. It composed with a dual function model to classify the genre of input music segements and generate a more complex melody according to the input music."
+      }
+    ]
+  },
+  "music-genius": {
+    "title": "Music Genius",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/deep-learning/music-genius",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Music Genius aims to provide an immersive musical experience, catering to both professional musicians seeking creative exploration and amateurs looking to compose music effortlessly. To achieve this, a deep-learning model have been developped with dual functions: music genre classification and melody generation. This architecture consists of two interconnected components. The first, the classifier, takes in a pure piano melody input and predicts the music’s genre. The second, the music generator, utilizes the user’s piano melody (from the classifier) and the identified genre (predicted by the classifier) to generate new music."
+      },
+      {
+        "type": "youtube",
+        "videoId": "1s_I8mM2o6o",
+        "title": "Music Genius Demo"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-genius/01.png",
+        "alt": "Music Genius — Music Genius, source figure 1",
+        "width": 1110,
+        "height": 271
+      },
+      {
+        "type": "paragraph",
+        "text": "Figure 1: Overall Block Diagram for Music Genius"
+      },
+      {
+        "type": "heading",
+        "text": "Music Genre Classifier"
+      },
+      {
+        "type": "heading",
+        "text": "Data Processing  :"
+      },
+      {
+        "type": "paragraph",
+        "text": "For the classifier, the pure piano dataset \"adl-piano-midi\" has been chosen from Github with various MIDI files classified into 12 genres which are going to be learned by our model."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-genius/02.png",
+        "alt": "Music Genius — Data Processing  :, source figure 2",
+        "width": 1280,
+        "height": 480
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-genius/03.png",
+        "alt": "Music Genius — Data Processing  :, source figure 3",
+        "width": 1280,
+        "height": 576
+      },
+      {
+        "type": "paragraph",
+        "text": "For genre classification, the audio feature extraction method of Mel-Frequency Cepstrum Coefficients (MFCC) have been applied which has 39 features and requires the input to be WAV format audios. The conversion from MIDI format to WAV files was performed with FluidSynth, an API that reads SoundFont and MIDI events and files and sends the digital audio output to a sound card. During conversion, we randomly sliced the pieces into segments of 5 to 20 seconds since the users’ inputs are mostly prompt and therefore incomplete."
+      },
+      {
+        "type": "paragraph",
+        "text": "The extraction of MFCC was performed with LibRosa, resulting Ndarrays of shape [t, n mfcc], where t is the number of frames calculated based on duration, and n mfcc is the number of mfcc features. By default, we set n mfcc to 13 and zero-padded all the arrays to fixed shape of 20 seconds (corresponding to t = 1722) for consistency. Then we detected the proportion of silence in each music piece and removed files with more than 30% silent part to ensure meaningful representation of the musical pattern."
+      },
+      {
+        "type": "paragraph",
+        "text": "Finally, the prelabeled genres have been converted to one-hot embeddings and split the processed dataset into 70% training and 30% validation."
+      },
+      {
+        "type": "heading",
+        "text": "Music Genre Classifier Architecture"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-genius/04.png",
+        "alt": "Music Genius — Music Genre Classifier Architecture, source figure 4",
+        "width": 1050,
+        "height": 454
+      },
+      {
+        "type": "heading",
+        "text": "Melody Generator:"
+      },
+      {
+        "type": "heading",
+        "text": "Data Processing:"
+      },
+      {
+        "type": "paragraph",
+        "text": "The same adl-piano-midi dataset and chose the same 12 genres as the classifier part shows. What’s more, the Music21 library was used that includes many functions on music to handle data processing."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-genius/05.png",
+        "alt": "Music Genius — Data Processing:, source figure 5",
+        "width": 1218,
+        "height": 618
+      },
+      {
+        "type": "paragraph",
+        "text": "Based on the current knowledge, AI cannot learn music directly by hearing, so the contents of music need to be converted into the tokens that they can understand and let them learn from it. Hence, we first loaded songs of each genre separately and tokenized them by representing each pitch by its MIDI value and rests by -1 with the help of Music21 library.  For example, an excerpt of melody can be expressed in: (43, 43, -1, -1, 56, 61, 57, -1, 43). This gave us a sequence of tokens that accurately represents the progression of the music."
+      },
+      {
+        "type": "paragraph",
+        "text": "However, the dataset has limited samples which may lead to bad performance of our model. So, to increase the number of data, we applied slide sampling that splits each song into smaller sequences with various length within a range and sequence with some overlaps with each other. Using the examples from earlier, the excerpt would be split into (43, -1, -1, 56), (-1, -1, 56, 61,57),( 61, 57, -1, 43). And to improve the quality of data, we discarded data with too many rest tokens (more than 30%). Next, we one-hot encoded all the files, transforming its content into indices using the mapping. Finally, we split the processed dataset into training and validation by 7:3 and passed the data to our model."
+      },
+      {
+        "type": "heading",
+        "text": "Melody Generator Architecture"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-genius/06.png",
+        "alt": "Music Genius — Melody Generator Architecture, source figure 6",
+        "width": 924,
+        "height": 270
+      },
+      {
+        "type": "heading",
+        "text": "Integration"
+      },
+      {
+        "type": "paragraph",
+        "text": "To combine the classifier and generator, the output from the classifier is fed to the generator. A pre-trained dictionary has been used to map genres to appropriate input and output sizes, creating a new RNN model to generate melodies. Pre-trained parameters for generation were saved in pth files for each genre and loaded to the model based on the classifier’s prediction."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/music-genius/07.png",
+        "alt": "Music Genius — Integration, source figure 7",
+        "width": 783,
+        "height": 344
+      }
+    ]
+  },
+  "hardware-analog": {
+    "title": "Hardware - Analog",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "PA-FLRTRX ↗️"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-analog/01.png",
+        "alt": "Hardware - Analog — Hardware - Analog, source figure 1",
+        "width": 1280,
+        "height": 976
+      },
+      {
+        "type": "paragraph",
+        "text": "Jan, 2024 - May, 2024"
+      },
+      {
+        "type": "paragraph",
+        "text": "A hardware design including a class E power amplifier and a 3rd order bandpass filter to amplifiy the signal (1-10 W) of a flexible radio transceiver to ensure that it can be detected by the long-distance antenna with  distortion below 10% at frequency range between 8Mhz and 16Mhz."
+      },
+      {
+        "type": "paragraph",
+        "text": "Soul Manager ↗️"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-analog/02.jpg",
+        "alt": "Hardware - Analog — Hardware - Analog, source figure 2",
+        "width": 1276,
+        "height": 1103
+      },
+      {
+        "type": "paragraph",
+        "text": "Feb, 2024"
+      },
+      {
+        "type": "paragraph",
+        "text": "A hardware hackthon project (2024 MakeUoft) which was inspired by experiences of poor sleeping schedules as engineering student."
+      },
+      {
+        "type": "paragraph",
+        "text": "A sleeping tent has been designed in 24 hours with function including music alarm, LED waking strip, Coffee aromatherapy machine, motion & moisture sensors, and computer interface."
+      },
+      {
+        "type": "paragraph",
+        "text": "Harmony Hacker ↗️"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-analog/03.png",
+        "alt": "Hardware - Analog — Hardware - Analog, source figure 3",
+        "width": 1280,
+        "height": 994
+      },
+      {
+        "type": "paragraph",
+        "text": "Feb, 2023"
+      },
+      {
+        "type": "paragraph",
+        "text": "A hardware hackthon project (2023 MakeUoft) which was designed, such that users can fake being a professional piano player with confidence. It was build based on a MIDI keyboard and Raspberry Pi microcontroller along with distance sensor and LCD touch screen."
+      }
+    ]
+  },
+  "harmony-hacker": {
+    "title": "Harmony Hacker",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/harmony-hacker",
+    "blocks": [
+      {
+        "type": "youtube",
+        "videoId": "sAV83_j-34o",
+        "title": "Harmony Hacker Demo"
+      },
+      {
+        "type": "paragraph",
+        "text": "Harmony Hacker is a project which was made in 24 hours during the 2023 MakeUOFT (Canada largest Hardware Hackthon."
+      },
+      {
+        "type": "paragraph",
+        "text": "The project was inpried by the HackerTyper where users can fake being a hacker.  Instead, Harmony Hacker was designed, such that users can fake being a professional piano player with confidence."
+      },
+      {
+        "type": "paragraph",
+        "text": "The piano keyboard in the project plays the notes of the MIDI song the users select through its speaker, but the twist is that no matter which key the user press; the pressed key will only trigger the correct note from the song. A touchscreen HDMI LCD that includes a switch function which changes from \"hacker\" mode to \"normal piano\" mode; a \"song list\" with a list of triggers that we input in; a reset function that replays the song; a \"quit\" function to stop the code; and a \"slowness\" bar to change to song speed. An ultrasonic sensor has been integrated with the song-playing system which changes the song volume depending on the distance of the player's body to the keyboard."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/harmony-hacker/01.png",
+        "alt": "Harmony Hacker — Harmony Hacker, source figure 1",
+        "width": 1280,
+        "height": 994
+      },
+      {
+        "type": "paragraph",
+        "text": "The  project consisted of:"
+      },
+      {
+        "type": "paragraph",
+        "text": "MIDI keyboard"
+      },
+      {
+        "type": "paragraph",
+        "text": "Raspberry Pi 4"
+      },
+      {
+        "type": "paragraph",
+        "text": "7\" touchscreen HDMI LCD by SunFounder"
+      },
+      {
+        "type": "paragraph",
+        "text": "Breadboard"
+      },
+      {
+        "type": "paragraph",
+        "text": "Jumper wires"
+      },
+      {
+        "type": "paragraph",
+        "text": "Resistors"
+      },
+      {
+        "type": "paragraph",
+        "text": "Ultrasonic sensor"
+      },
+      {
+        "type": "paragraph",
+        "text": "5V 3A Power Supply"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/harmony-hacker/02.png",
+        "alt": "Harmony Hacker — Harmony Hacker, source figure 2",
+        "width": 1197,
+        "height": 758
+      },
+      {
+        "type": "paragraph",
+        "text": "Initially, the local input was blocked from the keyboard by changing the local MIDI signal to off. Next, the midi signals were detected through the raspberry pi. By reading a MIDI song, the user input and play the actual song (if hacker mode is turned on) are interjected by passing the output on the MIDI input of the piano. The ultrasonic sensor is used to change the volume of the piano: the closer the users are, the louder it becomes."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/harmony-hacker/03.png",
+        "alt": "Harmony Hacker — Harmony Hacker, source figure 3",
+        "width": 1280,
+        "height": 705
+      }
+    ]
+  },
+  "pa-flrtrx": {
+    "title": "PA-FLRTRX",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/pa-flrtrx",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "PA-FLRTRX is a term-long project for my second year Hardware Design & Communication course which is still in progress."
+      },
+      {
+        "type": "paragraph",
+        "text": "The design of a transmitter frequency (TX) power amplifier and bandpass filter, which is an important subsystem in the flexible radio transceiver (FLRTRX) (Figure 1). The FLRTRX is the hardware portion of a software-defined radio system (SDR) and is designed to transmit and receive high-frequency band signals. The subsystem’s main purpose is to amplify the power of mixed output TX signals to drive the transmission of the antenna while keeping the signals’s clarity."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/pa-flrtrx/01.png",
+        "alt": "PA-FLRTRX — PA-FLRTRX, source figure 1",
+        "width": 1280,
+        "height": 692
+      },
+      {
+        "type": "paragraph",
+        "text": "Figure 1.  Flexible radio transceiver block diagram"
+      },
+      {
+        "type": "paragraph",
+        "text": "The TX Power Amplifier (PA) and Filter are fundamental to the SDR system's ability to ensure the signal is strong enough for transmission while maintaining its integrity. It is designed to receive two primary inputs: a modulated RF signal from Subsystem D (TX Quadrature Mixer) and an active-low transmit-enable signal (LVTLL). (Fig.2)  Upon receiving the modulated signal, the power amplifier boosts this signal to a specified output power range between 1W and 10W and is tailored to a 50-Ohm resistive load. This amplification should be meticulously controlled to ensure the Total Harmonic Distortion (THD) remains below 10%, a parameter crucial for preserving the signal's integrity and ensuring compliance with communication standards. Thus, incorporating a filter after the Power Amplifier is vital for eliminating harmonic frequencies, ensuring that the amplified signal remains clean and within regulatory bounds [1]. At last, the signal is permitted to be sent to the antenna when LVTLL is below the threshold voltage."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/pa-flrtrx/02.jpg",
+        "alt": "PA-FLRTRX — PA-FLRTRX, source figure 2",
+        "width": 1280,
+        "height": 346
+      },
+      {
+        "type": "paragraph",
+        "text": "Figure 2. Subsystem E Block Diagram"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/pa-flrtrx/03.png",
+        "alt": "PA-FLRTRX — PA-FLRTRX, source figure 3",
+        "width": 1280,
+        "height": 556
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/pa-flrtrx/04.png",
+        "alt": "PA-FLRTRX — PA-FLRTRX, source figure 4",
+        "width": 1280,
+        "height": 593
+      }
+    ]
+  },
+  "design-overview": {
+    "title": "Design Overview",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/pa-flrtrx/design-overview",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/portfolio/design-overview/01.png",
+        "alt": "Design Overview — Design Overview, source figure 1",
+        "width": 1096,
+        "height": 762
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/design-overview/02.png",
+        "alt": "Design Overview — Design Overview, source figure 2",
+        "width": 1264,
+        "height": 740
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/design-overview/03.png",
+        "alt": "Design Overview — Design Overview, source figure 3",
+        "width": 1280,
+        "height": 592
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/design-overview/04.png",
+        "alt": "Design Overview — Design Overview, source figure 4",
+        "width": 1280,
+        "height": 372
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/design-overview/05.png",
+        "alt": "Design Overview — Design Overview, source figure 5",
+        "width": 1280,
+        "height": 571
+      }
+    ]
+  },
+  "hardware-design": {
+    "title": "Hardware Design",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/pa-flrtrx/hardware-design",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-design/01.png",
+        "alt": "Hardware Design — Hardware Design, source figure 1",
+        "width": 1181,
+        "height": 576
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-design/02.png",
+        "alt": "Hardware Design — Hardware Design, source figure 2",
+        "width": 1176,
+        "height": 574
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-design/03.png",
+        "alt": "Hardware Design — Hardware Design, source figure 3",
+        "width": 1280,
+        "height": 541
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-design/04.png",
+        "alt": "Hardware Design — Hardware Design, source figure 4",
+        "width": 1150,
+        "height": 576
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-design/05.png",
+        "alt": "Hardware Design — Hardware Design, source figure 5",
+        "width": 1280,
+        "height": 641
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/hardware-design/06.png",
+        "alt": "Hardware Design — Hardware Design, source figure 6",
+        "width": 1280,
+        "height": 663
+      }
+    ]
+  },
+  "next-step": {
+    "title": "Next Step",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/pa-flrtrx/next-step",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/portfolio/next-step/01.png",
+        "alt": "Next Step — Next Step, source figure 1",
+        "width": 1280,
+        "height": 598
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/next-step/02.png",
+        "alt": "Next Step — Next Step, source figure 2",
+        "width": 1280,
+        "height": 585
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/next-step/03.png",
+        "alt": "Next Step — Next Step, source figure 3",
+        "width": 1280,
+        "height": 664
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/next-step/04.png",
+        "alt": "Next Step — Next Step, source figure 4",
+        "width": 1280,
+        "height": 615
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/next-step/05.png",
+        "alt": "Next Step — Next Step, source figure 5",
+        "width": 1280,
+        "height": 662
+      }
+    ]
+  },
+  "schematic-simulation": {
+    "title": "Schematic & Simulation",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/pa-flrtrx/schematic-simulation",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/01.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 1",
+        "width": 1112,
+        "height": 723
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/02.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 2",
+        "width": 1280,
+        "height": 570
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/03.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 3",
+        "width": 1096,
+        "height": 559
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/04.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 4",
+        "width": 1056,
+        "height": 471
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/05.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 5",
+        "width": 1144,
+        "height": 526
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/06.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 6",
+        "width": 1280,
+        "height": 653
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/07.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 7",
+        "width": 1280,
+        "height": 591
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/schematic-simulation/08.png",
+        "alt": "Schematic & Simulation — Schematic & Simulation, source figure 8",
+        "width": 1156,
+        "height": 534
+      }
+    ]
+  },
+  "testing": {
+    "title": "Testing",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/pa-flrtrx/testing",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/portfolio/testing/01.png",
+        "alt": "Testing — Testing, source figure 1",
+        "width": 1280,
+        "height": 796
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/testing/02.png",
+        "alt": "Testing — Testing, source figure 2",
+        "width": 1280,
+        "height": 616
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/testing/03.jpg",
+        "alt": "Testing — Testing, source figure 3",
+        "width": 1280,
+        "height": 960
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/testing/04.png",
+        "alt": "Testing — Testing, source figure 4",
+        "width": 1280,
+        "height": 595
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/testing/05.png",
+        "alt": "Testing — Testing, source figure 5",
+        "width": 1280,
+        "height": 669
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/testing/06.png",
+        "alt": "Testing — Testing, source figure 6",
+        "width": 1280,
+        "height": 630
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/testing/07.jpg",
+        "alt": "Testing — Testing, source figure 7",
+        "width": 768,
+        "height": 1024
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/testing/08.png",
+        "alt": "Testing — Testing, source figure 8",
+        "width": 1270,
+        "height": 644
+      }
+    ]
+  },
+  "soul-manager": {
+    "title": "Soul Manager",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-analog/soul-manager",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Soul Manager is a hacthon project which has been made in 24 hours during 2024 MakeUoft."
+      },
+      {
+        "type": "paragraph",
+        "text": "The inspiration comes from experiences of poor sleeping schedules as engineering student. As engineers, we are victims of many nights of tossing and turning, unable to fall asleep, many mornings startled by alarms, and incapable of focusing during lectures. This is the motivation behind the name of the project, SoulMassager, in which the team hope that anyone using this design can have a restful sleep."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/soul-manager/01.jpg",
+        "alt": "Soul Manager — Soul Manager, source figure 1",
+        "width": 1276,
+        "height": 1103
+      },
+      {
+        "type": "paragraph",
+        "text": "The design is a tent over users’ heads. As the user falls asleep, the tent provides a light and noise-isolated environment through noise and light-cancellation material. During the sleeping cycle, noise and motion sensors keep moniter user’s sleeping quality through breathing rate and motion. The sleeping quality report will be summarised and sent to the user interface the following morning. When it’s time for alarm, the design will start diffusing the coffee scent, simulate sunrise by overhead LED lights, and play music from the attached speaker."
+      },
+      {
+        "type": "paragraph",
+        "text": "The project has been connected to the laptop using HTML which the users can set the timer for the alarm."
+      },
+      {
+        "type": "heading",
+        "text": "Demo:"
+      },
+      {
+        "type": "youtube",
+        "videoId": "za6d34YPOVc",
+        "title": "MakeUofTVideo"
+      }
+    ]
+  },
+  "hardware-digital": {
+    "title": "Hardware - Digital",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-digital",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Ghostless Halloween: Arcade Shooter Game ↗️"
+      },
+      {
+        "type": "paragraph",
+        "text": "March, 2024 - April, 2024"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is a 2D arcade shooter game programmed in C. The whole game could be run both on CPUlator (cpulator.01xz.net/ ) and DE1-SoC board. The player controls the character in the red hood using W (up), A (left), S (down), D (right), and space to shoot. The player can move in a total of 8 directions which includes diagonals, and bullets are shot in the last direction the player was moving in. The enemies (bats) randomly spawn at each edge of the map and move at different speeds in a straight line towards the player’s current location. If any of the bullets hits a bat, 1 point is added to the score. If any of the bats touches the player, the game ends."
+      },
+      {
+        "type": "paragraph",
+        "text": "Dance After Work ↗️"
+      },
+      {
+        "type": "paragraph",
+        "text": "Nov, 2023 - Dec, 2023"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is an audio-visiual integrated project based on DE1-SoC FPGA board in Verilog (Assembly language). Our idea for our project is a musical rhythm game inspired by Osu!, where animated hit circles are generated by the beat of a pre-selected song and the player must click on the hit circles in time with the beat."
+      }
+    ]
+  },
+  "dance-after-work": {
+    "title": "Dance After Work",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-digital/dance-after-work",
+    "blocks": []
+  },
+  "ghostless-halloween-arcade-shooter-game": {
+    "title": "Ghostless Halloween",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/hardware-digital/ghostless-halloween-arcade-shooter-game",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "This is a 2D arcade shooter game programmed in C. The whole game could be run both on CPUlator (cpulator.01xz.net/ ) and DE1-SoC board. The player controls the character in the red hood using W (up), A (left), S (down), D (right), and space to shoot. The player can move in a total of 8 directions which includes diagonals, and bullets are shot in the last direction the player was moving in. The enemies (bats) randomly spawn at each edge of the map and move at different speeds in a straight line towards the player’s current location. If any of the bullets hits a bat, 1 point is added to the score. If any of the bats touches the player, the game ends."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/ghostless-halloween-arcade-shooter-game/01.png",
+        "alt": "Ghostless Halloween — Ghostless Halloween, source figure 1",
+        "width": 1280,
+        "height": 536
+      }
+    ]
+  },
+  "mechanical-hardware": {
+    "title": "Mechanical & Hardware",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/mechanical-hardware",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Mechanical & Hardware"
+      },
+      {
+        "type": "paragraph",
+        "text": "5GW TSticks ↗️"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/mechanical-hardware/01.png",
+        "alt": "Mechanical & Hardware — Mechanical & Hardware, source figure 1",
+        "width": 1280,
+        "height": 519
+      },
+      {
+        "type": "paragraph",
+        "text": "May, 2024 - August 2024"
+      },
+      {
+        "type": "paragraph",
+        "text": "The main project during my summer internship at Input Devices and Music Interaction Laboratory (IDMIL) lab at Mcgill University.  TSticks is a 12-year-old digital musical instrument which include a enchanti self-designed microcontroller based on ESP32 , FSR, and capsense."
+      },
+      {
+        "type": "paragraph",
+        "text": "Helispin ↗️"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/mechanical-hardware/02.jpg",
+        "alt": "Mechanical & Hardware — Mechanical & Hardware, source figure 2",
+        "width": 1000,
+        "height": 652
+      },
+      {
+        "type": "paragraph",
+        "text": "Oct, 2020 - May, 2021"
+      },
+      {
+        "type": "paragraph",
+        "text": "A science fair project (Silver award 2021 Canada Wide Science Fair) focuses on improving the rotor blade design of windmills so as to boost power generation.  The aerodynamic performance of falling helicopter seed patterns was analyzed through CFD numerical analysis and visualizations. This was further developed into an innovative, small-scale, and eco-friendly wind turbine that is capable of generating energy not only from wind sources, but also from the momentum of vehicles on the highway."
+      }
+    ]
+  },
+  "5gw-tsticks": {
+    "title": "5GW T-Sticks",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/mechanical-hardware/5gw-tsticks",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Background & Introduction"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/01.png",
+        "alt": "5GW T-Sticks — Background & Introduction, source figure 1",
+        "width": 892,
+        "height": 1202
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/02.png",
+        "alt": "5GW T-Sticks — Background & Introduction, source figure 2",
+        "width": 876,
+        "height": 1136
+      },
+      {
+        "type": "heading",
+        "text": "Responsibilities"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/03.png",
+        "alt": "5GW T-Sticks — Responsibilities, source figure 3",
+        "width": 1256,
+        "height": 642
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/04.png",
+        "alt": "5GW T-Sticks — Responsibilities, source figure 4",
+        "width": 1280,
+        "height": 815
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/05.png",
+        "alt": "5GW T-Sticks — Responsibilities, source figure 5",
+        "width": 1068,
+        "height": 990
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/06.png",
+        "alt": "5GW T-Sticks — Responsibilities, source figure 6",
+        "width": 1082,
+        "height": 593
+      },
+      {
+        "type": "heading",
+        "text": "Work Process"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/07.png",
+        "alt": "5GW T-Sticks — Work Process, source figure 7",
+        "width": 1076,
+        "height": 585
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/08.png",
+        "alt": "5GW T-Sticks — Work Process, source figure 8",
+        "width": 933,
+        "height": 618
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/09.png",
+        "alt": "5GW T-Sticks — Work Process, source figure 9",
+        "width": 1158,
+        "height": 676
+      },
+      {
+        "type": "heading",
+        "text": "Testing Standard"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/10.png",
+        "alt": "5GW T-Sticks — Testing Standard, source figure 10",
+        "width": 1044,
+        "height": 604
+      },
+      {
+        "type": "paragraph",
+        "text": "System to be considered: Communication & Control System, Power System,  Sensor System Requirement, Reliability & Maintainbility, Manufacturing Requirements"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/11.png",
+        "alt": "5GW T-Sticks — Testing Standard, source figure 11",
+        "width": 1280,
+        "height": 654
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/12.png",
+        "alt": "5GW T-Sticks — Testing Standard, source figure 12",
+        "width": 1123,
+        "height": 504
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/13.png",
+        "alt": "5GW T-Sticks — Testing Standard, source figure 13",
+        "width": 1280,
+        "height": 706
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/14.png",
+        "alt": "5GW T-Sticks — Testing Standard, source figure 14",
+        "width": 1280,
+        "height": 857
+      },
+      {
+        "type": "heading",
+        "text": "TSticks Workshop"
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/15.png",
+        "alt": "5GW T-Sticks — TSticks Workshop, source figure 15",
+        "width": 960,
+        "height": 506
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/5gw-tsticks/16.png",
+        "alt": "5GW T-Sticks — TSticks Workshop, source figure 16",
+        "width": 1168,
+        "height": 578
+      },
+      {
+        "type": "heading",
+        "text": "Feature Steps"
+      },
+      {
+        "type": "paragraph",
+        "text": "monitoring & maintaining the functionality of  newly built 11 T-Sticks"
+      },
+      {
+        "type": "paragraph",
+        "text": "ensuring the reliability of battery endcaps by changing printing materials with higher intensity"
+      },
+      {
+        "type": "paragraph",
+        "text": "updating firmware code by reverse the order of capsense while regularizing the range of FSRs’ OSC signals for new T-Sticks"
+      }
+    ]
+  },
+  "helispin": {
+    "title": "Helispin",
+    "sourceUrl": "https://sites.google.com/view/helloecho/projects/mechanical-hardware/helispin",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "Helispin (Aerodynamic Performance and Structural Engineering of Helicopter Seeds for Wind Turbines) is a silver-awared science fair (Canada Wide Science Fair) project which has been made since October 2020."
+      },
+      {
+        "type": "image",
+        "src": "/portfolio/helispin/01.jpg",
+        "alt": "Helispin — Helispin, source figure 1",
+        "width": 1000,
+        "height": 651
+      },
+      {
+        "type": "heading",
+        "text": "Inspiration"
+      },
+      {
+        "type": "paragraph",
+        "text": "As many countries move towards the commitment of net-zero carbon emissions by 2050, researchers have rekindled interest toward revolutionizing electricity through greener means. Currently, only 22% of the global energy sources come from renewable energy. Wind energy, being one of the most stable forms of renewable energy, exhibits adverse impacts on the environment. The traditional windmill's massive-scale structure hinders its ability to effectively collect energy from fluctuating wind patterns, produces noise pollution, and is incompatible with urban usage. In addition to its aerodynamic malfunctions, turbine rotor blades are fabricated from Carbon Fiber Reinforced Composites (CFRP) that are challenging to recycle."
+      },
+      {
+        "type": "heading",
+        "text": "Purpose"
+      },
+      {
+        "type": "paragraph",
+        "text": "The study focuses on improving the rotor blade design of windmills so as to boost power generation. The aerodynamic performance of falling helicopter seed patterns was analyzed through CFD numerical analysis and visualizations. This was further developed into an innovative, small-scale, and eco-friendly wind turbine that is capable of generating energy not only from wind sources, but also from the momentum of vehicles on the highway. The project also proved the hypothesis -- If the lift coefficients were greater with a slight loss of thermal energy under laminar fluid flow conditions, then the turbine’s power efficiency will be boosted compared to a non-patterned simulation because of an increasing frequency of rotations."
+      }
+    ]
+  }
+}

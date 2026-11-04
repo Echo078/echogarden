@@ -44,11 +44,16 @@ export function EchoWall() {
   // Load messages on mount
   useEffect(() => {
     async function loadMessages() {
-      const result = await getVisitorMessages();
-      if (result.data) {
-        setMessages(result.data);
+      try {
+        if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+          const result = await getVisitorMessages();
+          if (result.data) setMessages(result.data);
+        }
+      } catch {
+        // A disconnected local preview still shows the public portfolio.
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     loadMessages();
   }, []);
@@ -151,6 +156,10 @@ export function EchoWall() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setError(lang === "zh" ? "留言暂不可用，请稍后再试。" : "Messages are temporarily unavailable. Please try again later.");
+      return;
+    }
 
     setSubmitting(true);
     setError(null);
